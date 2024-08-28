@@ -313,23 +313,23 @@ const CategoryMaster = () => {
     },
   ];
 
-  document.title = "Products Category | Project Name";
+  document.title = "Category Master| Naidip Foundation";
 
   return (
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
           <BreadCrumb
-            maintitle="Category"
-            title="Products Category"
-            pageTitle="Category"
+            maintitle="Parameters"
+            title="Category Master"
+            pageTitle="Parameters"
           />
           <Row>
             <Col lg={12}>
               <Card>
                 <CardHeader>
                   <FormsHeader
-                    formName="Products Category"
+                    formName="Category Master"
                     filter={filter}
                     handleFilter={handleFilter}
                     tog_list={tog_list}

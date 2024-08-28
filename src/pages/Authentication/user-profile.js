@@ -23,7 +23,7 @@ import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 
 import avatar from "../../assets/images/users/avatar-1.jpg";
-import logo from "../../assets/images/logo/RC-logo-png.png";
+import logo from "../../assets/images/logo/naidip-logo.png";
 
 // actions
 import { editProfile, resetProfileFlag } from "../../store/actions";
@@ -34,7 +34,7 @@ const UserProfile = () => {
   const [email, setemail] = useState("admin@rccoffee.in");
   const [idx, setidx] = useState("1");
 
-  const [userName, setUserName] = useState("Project Name");
+  const [userName, setUserName] = useState("Naidip Foundation");
 
   const { user, success, error } = useSelector(state => ({
     user: state.Profile.user,
@@ -80,7 +80,7 @@ const UserProfile = () => {
     }
   });
 
-  document.title = "Profile | Project Name";
+  document.title = "Profile | Naidip Foundation";
   return (
     <React.Fragment>
       <div className="page-content">

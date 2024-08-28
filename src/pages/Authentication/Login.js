@@ -14,7 +14,7 @@ import {
 } from "reactstrap";
 import { Alert } from "react-bootstrap";
 
-import logo from "../../assets/images/logo/RC-logo-png.png";
+import logo from "../../assets/images/logo/naidip-logo.png";
 
 import { ToastContainer, toast } from "react-toastify";
 //redux
@@ -105,7 +105,7 @@ const Login = (props) => {
   const validClassPassword =
     errPassword && isSubmit ? "form-control is-invalid" : "form-control pe-5";
 
-  document.title = " SignIn | Project Name ";
+  document.title = " SignIn | Naidip Foundation ";
   return (
     <React.Fragment>
       {/* <ParticlesAuth> */}
@@ -137,7 +137,7 @@ const Login = (props) => {
                             src={logo}
                             height={"70px"}
                             width={"80px"}
-                            alt="Project Name"
+                            alt="Naidip Foundation"
                           />
                         </Link>
                       </div>

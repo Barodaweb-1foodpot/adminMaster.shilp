@@ -336,7 +336,7 @@ const Country = () => {
     },
   ];
 
-  document.title = "Country | Project Name";
+  document.title = "Country | Naidip Foundation";
 
   return (
     <React.Fragment>

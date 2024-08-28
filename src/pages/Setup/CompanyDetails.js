@@ -428,7 +428,7 @@ const CompanyDetails = () => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     //const phone = /^\d{10}$/;
     const phone =
-      /^(?!.*(\d)(-?\1){4})(?!0123456789|1234567890|2345678901|3456789012|4567890123|5678901234|6789012345|7890123456|8901234567|9012345678)\d{10}$/;
+      /^(?!.*(\d)(-?\1){4})(?!0123456789|1234567890|2345678901|3456789012|4567890123|5678901234|6789012345|7890123456|8901234567|9012345678)\d{11}$/;
     if (!values.CompanyName) {
       errors.CompanyName = "Company name is required!";
       setErrCN(true);
@@ -460,7 +460,7 @@ const CompanyDetails = () => {
       setErrCity(false);
     }
     if (!values.Pincode) {
-      errors.Pincode = "Pincode is required!";
+      errors.Pincode = "Zip Code is required!";
       setErrPincode(true);
     } else {
       setErrPincode(false);
@@ -501,33 +501,13 @@ const CompanyDetails = () => {
     if (!values.ContactNo_Office) {
       errors.ContactNo_Office = "Contact No. is required";
       setErrCNOffice(true);
-    } else if (!phone.test(values.ContactNo_Office)) {
-      errors.ContactNo_Office = "This is not a valid Contact Number";
-      setErrCNOffice(true);
-    } else {
+    } 
+    // else if (!phone.test(values.ContactNo_Office)) {
+    //   errors.ContactNo_Office = "This is not a valid Contact Number";
+    //   setErrCNOffice(true);
+    // } 
+    else {
       setErrCNOffice(false);
-    }
-    if (values.ContactNo_Sales) {
-      // errors.ContactNo_Sales = "Contact No. is required";
-      // setErrCNSales(true);
-      if (!phone.test(values.ContactNo_Sales)) {
-        errors.ContactNo_Sales = "This is not a valid Contact Number";
-        setErrCNSales(true);
-      } else {
-        setErrCNSales(false);
-      }
-    }
-
-    if (values.ContactNo_Support) {
-      // errors.ContactNo_Support = "Contact No. is required";
-      // setErrCNSupport(true);
-
-      if (!phone.test(values.ContactNo_Support)) {
-        errors.ContactNo_Support = "This is not a valid Contact Number";
-        setErrCNSupport(true);
-      } else {
-        setErrCNSupport(false);
-      }
     }
 
     // if (!values.GSTNo) {
@@ -648,7 +628,7 @@ const CompanyDetails = () => {
       minWidth: "180px",
     },
   ];
-  document.title = "Company Details | Project Name";
+  document.title = "Company Details | Naidip Foundation";
 
   return (
     <React.Fragment>
@@ -719,10 +699,10 @@ const CompanyDetails = () => {
                               type="file"
                               name="Favicon"
                               className="form-control"
-                              accept="images/*"
+                              accept=".jpg, .jpeg, .png"
                               onChange={FaviconUploadAndResize}
                             />
-                            <label>Favicon</label>
+                            <label>Favicon(.jpg, .jpeg, .png)</label>
                           </div>
                           {values.Favicon && (
                             <div className="card col-3">
@@ -749,10 +729,10 @@ const CompanyDetails = () => {
                               type="file"
                               name="Icon"
                               className="form-control"
-                              accept="images/*"
+                              accept=".jpg, .jpeg, .png"
                               onChange={IconUploadAndResize}
                             />
-                            <label>Menu Icon</label>
+                            <label>Menu Icon(.jpg, .jpeg, .png)</label>
                             {isSubmit && (
                               <p className="text-danger">{formErrors.Icon}</p>
                             )}
@@ -780,10 +760,10 @@ const CompanyDetails = () => {
                               type="file"
                               name="Logo"
                               className="form-control"
-                              accept="images/*"
+                              accept=".jpg, .jpeg, .png"
                               onChange={LogoUploadAndResize}
                             />
-                            <label>Logo</label>
+                            <label>Logo(.jpg, .jpeg, .png)</label>
                           </div>
                           {values.Logo && (
                             <div className="card col-3">
@@ -808,10 +788,10 @@ const CompanyDetails = () => {
                               type="file"
                               name="DigitalSignature"
                               className="form-control"
-                              accept="images/*"
+                              accept=".jpg, .jpeg, .png"
                               onChange={DSUploadAndResize}
                             />
-                            <label>Digital Signature</label>
+                            <label>Digital Signature(.jpg, .jpeg, .png)</label>
                           </div>
                           {values.DigitalSignature && (
                             <div className="card col-3">
@@ -990,7 +970,7 @@ const CompanyDetails = () => {
                                       onChange={handleChange}
                                     />
                                     <Label>
-                                      Pincode
+                                      Zip Code
                                       <span className="text-danger">*</span>
                                     </Label>
                                     {isSubmit && (

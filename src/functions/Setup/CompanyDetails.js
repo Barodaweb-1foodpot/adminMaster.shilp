@@ -19,3 +19,7 @@ export const updateDetails = async (_id, values) => {
 export const getDetail = async (_id) => {
   return await axios.get(`${process.env.REACT_APP_API_URL_COFFEE}/api/auth/get/companyDetails/${_id}`);
 };
+
+export const updateCompanyLocationsToggle = async (showAllLocations) => {
+  return await axios.post(`${process.env.REACT_APP_API_URL_COFFEE}/api/auth/update/location-toggle/companyDetails`, {showAllLocations});
+};

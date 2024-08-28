@@ -474,7 +474,7 @@ const ProductDetails = () => {
   const handleFilter = (e) => {
     setFilter(e.target.checked);
   };
-  document.title = "Product Details | Project Name";
+  document.title = "Product Details | Naidip Foundation";
 
   return (
     <React.Fragment>

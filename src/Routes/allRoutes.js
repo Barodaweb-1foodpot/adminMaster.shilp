@@ -14,6 +14,9 @@ import UserProfile from "../pages/Authentication/user-profile";
 import Banner from "../pages/CMS/Banner";
 import CompanyDetails from "../pages/Setup/CompanyDetails";
 import AdminUser from "../pages/Auth/AdminUser";
+import CMSContentForm from "../pages/CMS/CmsMaster";
+import NewsletterSubs from "../pages/Inquiry/NewsLetterSubs";
+import NotificationSetup from "../pages/Notifications/NotificationSetup";
 const authProtectedRoutes = [
   // { path: "/dashboard", component: <DashboardCrm /> },
   { path: "/profile", component: <UserProfile /> },
@@ -26,8 +29,12 @@ const authProtectedRoutes = [
 
   { path: "/category", component: <CategoryMaster /> },
 
-  { path: "/blogs", component: <Blogs /> },
-  { path: "/banner", component: <Banner /> },
+  // { path: "/blogs", component: <Blogs /> },
+  // { path: "/banner", component: <Banner /> },
+  { path: "/cms-master", component: <CMSContentForm /> },
+  { path: "/newsletter-master", component: <NewsletterSubs /> },
+  { path: "/notification-setup", component: <NotificationSetup /> },
+
   { path: "/promocode-master", component: <PromocodeMaster /> },
 
   { path: "/product-details", component: <ProductDetails /> },

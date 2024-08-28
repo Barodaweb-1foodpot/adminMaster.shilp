@@ -497,7 +497,7 @@ const Blogs = () => {
     },
   ];
 
-  document.title = "Blogs | Project Name";
+  document.title = "Blogs | Naidip Foundation";
 
   return (
     <React.Fragment>

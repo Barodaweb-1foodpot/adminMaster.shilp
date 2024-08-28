@@ -361,7 +361,7 @@ const AdminUser = () => {
     },
   ];
 
-  document.title = "Admin Users | Project Name";
+  document.title = "Admin Users | Naidip Foundation";
 
   return (
     <React.Fragment>
@@ -373,7 +373,7 @@ const AdminUser = () => {
               <Card>
                 <CardHeader>
                   <FormsHeader
-                    formName="Products Category"
+                    formName="Admin Users"
                     filter={filter}
                     handleFilter={handleFilter}
                     tog_list={tog_list}
