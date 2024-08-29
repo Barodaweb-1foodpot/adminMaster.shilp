@@ -332,7 +332,9 @@ const CMSContentForm = ({ placeholder }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    values.ContentUpload=content
     console.log(values);
+    console.log(content)
     const errors = validate(values);
     setFormErrors(errors);
     setIsSubmit(true);
