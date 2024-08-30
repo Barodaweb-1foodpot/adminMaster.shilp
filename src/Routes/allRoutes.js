@@ -17,6 +17,8 @@ import AdminUser from "../pages/Auth/AdminUser";
 import CMSContentForm from "../pages/CMS/CmsMaster";
 import NewsletterSubs from "../pages/Inquiry/NewsLetterSubs";
 import NotificationSetup from "../pages/Notifications/NotificationSetup";
+import Applications from "../pages/Applications/Applictions";
+import Approved from "../pages/Applications/Approved";
 const authProtectedRoutes = [
   // { path: "/dashboard", component: <DashboardCrm /> },
   { path: "/profile", component: <UserProfile /> },
@@ -26,6 +28,9 @@ const authProtectedRoutes = [
   { path: "/location", component: <CompanyLocation /> },
   { path: "/admin-user", component: <AdminUser /> },
   { path: "/company-details", component: <CompanyDetails /> },
+
+  { path: "/applicants", component: <Applications /> },
+  { path: "/approved", component: <Approved /> },
 
   { path: "/category", component: <CategoryMaster /> },
 

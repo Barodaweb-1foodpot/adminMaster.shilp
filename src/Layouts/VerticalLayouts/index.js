@@ -14,13 +14,7 @@ const VerticalLayout = (props) => {
   const [setup, setSetup] = useState(false);
   const [params, setParams] = useState(false);
 
-  const [product, setproduct] = useState(false);
-  const [order, setOrder] = useState(false);
-  const [category, setCategory] = useState(false);
-  const [subs, setSubs] = useState(false);
-  const [inquiry, setInquiry] = useState(false);
-  const [policy, setPolicy] = useState(false);
-  const [cms, setCMS] = useState(false);
+  const [enroll, setEnroll] = useState(false);
 
   const navData = navdata().props.children;
   const path = props.router.location.pathname;
@@ -118,10 +112,10 @@ const VerticalLayout = (props) => {
       </li>
 
       <li className="nav-item">
-              <Link to="#" className="nav-link">
-                Dashboard
-              </Link>
-            </li>
+        <Link to="#" className="nav-link">
+          Dashboard
+        </Link>
+      </li>
 
       <li className="nav-item">
         <Link
@@ -221,13 +215,13 @@ const VerticalLayout = (props) => {
         </Link>
 
         <Collapse className="menu-dropdown" isOpen={params}>
-        <ul className="nav nav-sm flex-column test">
-                  <li className="nav-item">
-                    <Link className="nav-link menu-link" to="/category">
-                      <span data-key="t-apps"> Category Master </span>
-                    </Link>
-                  </li>
-                </ul>
+          <ul className="nav nav-sm flex-column test">
+            <li className="nav-item">
+              <Link className="nav-link menu-link" to="/category">
+                <span data-key="t-apps"> Category Master </span>
+              </Link>
+            </li>
+          </ul>
           {/* <ul className="nav nav-sm flex-column test">
             <li className="nav-item">
               <Link
@@ -255,10 +249,39 @@ const VerticalLayout = (props) => {
       </li>
 
       <li className="nav-item">
-              <Link to="/newsletter-master" className="nav-link">
-                NewsLetter Subscription
+        <Link
+          className="nav-link menu-link"
+          to="#"
+          data-bs-toggle="collapse"
+          onClick={() => {
+            setEnroll(!enroll);
+          }}
+        >
+          <span data-key="t-apps"> Enrollment </span>
+        </Link>
+
+        <Collapse className="menu-dropdown" isOpen={enroll}>
+          <ul className="nav nav-sm flex-column test">
+            <li className="nav-item">
+              <Link className="nav-link menu-link" to="/applicants">
+                <span data-key="t-apps"> Applicants </span>
               </Link>
             </li>
+
+            <li className="nav-item">
+              <Link className="nav-link menu-link" to="/approved">
+                <span data-key="t-apps"> Approved </span>
+              </Link>
+            </li>
+          </ul>
+        </Collapse>
+      </li>
+
+      <li className="nav-item">
+        <Link to="/newsletter-master" className="nav-link">
+          NewsLetter Subscription
+        </Link>
+      </li>
 
       {/* <li className="nav-item">
         <Link
