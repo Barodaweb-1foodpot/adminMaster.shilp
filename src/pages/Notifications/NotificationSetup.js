@@ -49,6 +49,28 @@ const NotificationSetup = ({ placeholder }) => {
   );
   const [content, setContent] = useState("");
 
+  const [joditImage, setJoditImage] = useState("");
+
+  const UploadImage = (e) => {
+    if (e.target.files.length > 0) {
+      const image = new Image();
+
+      let imageurl = e.target.files[0];
+      const formdata = new FormData();
+
+      formdata.append("myFile", imageurl);
+
+      axios
+        .post(
+          `${process.env.REACT_APP_API_URL_COFFEE}/api/auth/create/createimageurl`,
+          formdata
+        )
+        .then((res) => {
+          setJoditImage(`${process.env.REACT_APP_API_URL_COFFEE}/${res.url}`);
+        });
+    }
+  };
+
   const tog_delete = (_id) => {
     setmodal_delete(!modal_delete);
     setRemove_id(_id);
@@ -867,6 +889,28 @@ const NotificationSetup = ({ placeholder }) => {
                                   </div>
                                 </Col>
                               </Row>
+
+                              <Row className="mt-3" >
+                              <Col lg={6}>
+                                    <label>
+                                      Upload Image(.jpg, .jpeg, .png)
+                                    </label>
+
+                                    <Input
+                                      key={"blogImage_" + _id}
+                                      type="file"
+                                      name="blogImage"
+                                      className="form-control"
+                                      // accept="images/*"
+                                      accept=".jpg, .jpeg, .png"
+                                      onChange={UploadImage}
+                                    />
+                                  </Col>
+                                  <Col lg={6}>
+                                    <label>Get Image URL</label>
+                                    <p>{joditImage}</p>
+                                  </Col>
+                               </Row> 
                               <Row className="mt-2">
                                 <Col lg={12}>
                                   <Card>
