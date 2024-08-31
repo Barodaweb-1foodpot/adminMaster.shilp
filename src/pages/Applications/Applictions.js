@@ -442,7 +442,7 @@ const Applications = () => {
                 <CardHeader>
                   <Row className="g-4 mb-1">
                     <Col className="col-sm">
-                      <h2 className="card-title mb-0 fs-4 mt-2">Enrollment</h2>
+                      <h2 className="card-title mb-0 fs-4 mt-2">Applicants</h2>
                     </Col>
 
                     <Col lg={4} md={6} sm={6}>

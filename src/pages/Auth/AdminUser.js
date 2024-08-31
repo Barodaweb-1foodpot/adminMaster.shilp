@@ -45,7 +45,6 @@ const AdminUser = () => {
     lastName,
     email,
     password,
-
     IsActive,
   } = values;
   const [formErrors, setFormErrors] = useState({});
@@ -117,9 +116,12 @@ const AdminUser = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    setFormErrors({});
-
     setIsSubmit(true);
+
+    let errors = validate(values);
+    setFormErrors(errors);
+
+    if (Object.keys(errors).length === 0) {
     createAdminUser(values)
       .then((res) => {
         console.log("res", res);
@@ -137,6 +139,7 @@ const AdminUser = () => {
       .catch((err) => {
         console.log(err);
       });
+    }
   };
 
   const handleDelete = (e) => {
