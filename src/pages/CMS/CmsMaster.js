@@ -99,7 +99,7 @@ const CMSContentForm = ({ placeholder }) => {
 
     await axios
       .post(
-        `${process.env.REACT_APP_API_URL_COFFEE}/api/auth/cms/list-content-by-params`,
+        `${process.env.REACT_APP_API_URL}/api/auth/cms/list-content-by-params`,
         {
           skip: skip,
           per_page: perPage,
@@ -147,11 +147,11 @@ const CMSContentForm = ({ placeholder }) => {
 
       axios
         .post(
-          `${process.env.REACT_APP_API_URL_COFFEE}/api/auth/create/createimageurl`,
+          `${process.env.REACT_APP_API_URL}/api/auth/create/createimageurl`,
           formdata
         )
         .then((res) => {
-          setJoditImage(`${process.env.REACT_APP_API_URL_COFFEE}/${res.url}`);
+          setJoditImage(`${process.env.REACT_APP_API_URL}/${res.url}`);
         });
     }
   };
@@ -169,11 +169,11 @@ const CMSContentForm = ({ placeholder }) => {
   //               .then((res) => {
   //                 console.log(res.url);
   //                 resolve({
-  //                   default: `${process.env.REACT_APP_API_URL_COFFEE}/uploads/cmscontentImages/${res.url}`,
+  //                   default: `${process.env.REACT_APP_API_URL}/uploads/cmscontentImages/${res.url}`,
   //                 });
   //                 console.log(
   //                   "ddd",
-  //                   `${process.env.REACT_APP_API_URL_COFFEE}/uploads/cmscontentImages/${res.url}`
+  //                   `${process.env.REACT_APP_API_URL}/uploads/cmscontentImages/${res.url}`
   //                 );
   //               })
   //               .catch((err) => console.log(err));
@@ -201,7 +201,7 @@ const CMSContentForm = ({ placeholder }) => {
                 .then((res) => {
                   console.log("res", res.url);
                   resolve({
-                    default: `${process.env.REACT_APP_API_URL_COFFEE}/uploads/cmscontentImages/${res.url}`,
+                    default: `${process.env.REACT_APP_API_URL}/uploads/cmscontentImages/${res.url}`,
                   });
                 })
                 .catch((err) => console.log(err));

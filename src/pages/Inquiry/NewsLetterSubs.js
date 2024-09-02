@@ -94,7 +94,7 @@ const NewsletterSubs = () => {
 
     await axios
       .post(
-        `${process.env.REACT_APP_API_URL_COFFEE}/api/auth/list-by-params/NewsLetter`,
+        `${process.env.REACT_APP_API_URL}/api/auth/list-by-params/NewsLetter`,
         {
           skip: skip,
           per_page: perPage,

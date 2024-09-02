@@ -261,7 +261,7 @@ const AdminUser = () => {
 
     await axios
       .post(
-        `${process.env.REACT_APP_API_URL_COFFEE}/api/auth/listByparams/adminUser`,
+        `${process.env.REACT_APP_API_URL}/api/auth/listByparams/adminUser`,
         {
           skip: skip,
           per_page: perPage,

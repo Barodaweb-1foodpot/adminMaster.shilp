@@ -27,14 +27,22 @@ import logo from "../../assets/images/logo/naidip-logo.png";
 
 // actions
 import { editProfile, resetProfileFlag } from "../../store/actions";
+import { getAdminUser } from "../../functions/Auth/AdminUser";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
 
-  const [email, setemail] = useState("admin@rccoffee.in");
+  const [email, setemail] = useState("admin@gmail.com");
   const [idx, setidx] = useState("1");
 
   const [userName, setUserName] = useState("Naidip Foundation");
+
+  useEffect(() => {
+    getAdminUser(localStorage.getItem('AdminUser')).then((res) => {
+      setUserName(`${res.firstName} ${res.lastName}`);
+      setemail(res.email);
+    })
+  }, [])
 
   const { user, success, error } = useSelector(state => ({
     user: state.Profile.user,

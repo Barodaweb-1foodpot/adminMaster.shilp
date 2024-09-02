@@ -2,13 +2,13 @@ import axios from "axios";
 
 export const listContent = async () => {
   return await axios.get(
-    `${process.env.REACT_APP_API_URL_COFFEE}/api/auth/cms/list-content`
+    `${process.env.REACT_APP_API_URL}/api/auth/cms/list-content`
   );
 };
 
 export const createContent = async (values) => {
   return await axios.post(
-    `${process.env.REACT_APP_API_URL_COFFEE}/api/auth/cms/create-content`,
+    `${process.env.REACT_APP_API_URL}/api/auth/cms/create-content`,
     values,
     {
       headers: {
@@ -20,26 +20,26 @@ export const createContent = async (values) => {
 
 export const getContent = async (_id) => {
   return await axios.get(
-    `${process.env.REACT_APP_API_URL_COFFEE}/api/auth/cms/get-content/${_id}`
+    `${process.env.REACT_APP_API_URL}/api/auth/cms/get-content/${_id}`
   );
 };
 
 export const removeContent = async (_id) => {
   return await axios.delete(
-    `${process.env.REACT_APP_API_URL_COFFEE}/api/auth/cms/remove-content/${_id}`
+    `${process.env.REACT_APP_API_URL}/api/auth/cms/remove-content/${_id}`
   );
 };
 
 export const updateContent = async (_id, values) => {
   return await axios.put(
-    `${process.env.REACT_APP_API_URL_COFFEE}/api/auth/cms/content-update/${_id}`,
+    `${process.env.REACT_APP_API_URL}/api/auth/cms/content-update/${_id}`,
     values
   );
 };
 
 export const uploadImage = async (body) => {
   return await axios.post(
-    `${process.env.REACT_APP_API_URL_COFFEE}/api/auth/cms/image-upload`,
+    `${process.env.REACT_APP_API_URL}/api/auth/cms/image-upload`,
     body
   );
 };

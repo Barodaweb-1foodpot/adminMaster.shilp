@@ -320,7 +320,7 @@ const Approved = () => {
 
     await axios
       .post(
-        `${process.env.REACT_APP_API_URL_COFFEE}/api/auth/list-by-params/approved`,
+        `${process.env.REACT_APP_API_URL}/api/auth/list-by-params/approved`,
         {
           skip: skip,
           per_page: perPage,
@@ -726,7 +726,7 @@ const Approved = () => {
                                           alt="fav-icon"
                                           src={
                                             process.env
-                                              .REACT_APP_API_URL_COFFEE +
+                                              .REACT_APP_API_URL +
                                             "/" +
                                             values.photo
                                           }
@@ -767,7 +767,7 @@ const Approved = () => {
                                           alt="menu-icon"
                                           src={
                                             process.env
-                                              .REACT_APP_API_URL_COFFEE +
+                                              .REACT_APP_API_URL +
                                             "/" +
                                             values.incomeCertificate
                                           }
@@ -810,7 +810,7 @@ const Approved = () => {
                                           alt="logo-img"
                                           src={
                                             process.env
-                                              .REACT_APP_API_URL_COFFEE +
+                                              .REACT_APP_API_URL +
                                             "/" +
                                             values.studentAadharCard
                                           }
@@ -850,7 +850,7 @@ const Approved = () => {
                                           key={values.parentAadharCard}
                                           src={
                                             process.env
-                                              .REACT_APP_API_URL_COFFEE +
+                                              .REACT_APP_API_URL +
                                             "/" +
                                             values.parentAadharCard
                                           }
@@ -889,7 +889,7 @@ const Approved = () => {
                                           key={values.panCard}
                                           src={
                                             process.env
-                                              .REACT_APP_API_URL_COFFEE +
+                                              .REACT_APP_API_URL +
                                             "/" +
                                             values.panCard
                                           }
@@ -925,7 +925,7 @@ const Approved = () => {
                                           key={values.ssc}
                                           src={
                                             process.env
-                                              .REACT_APP_API_URL_COFFEE +
+                                              .REACT_APP_API_URL +
                                             "/" +
                                             values.ssc
                                           }
@@ -971,7 +971,7 @@ const Approved = () => {
                                           key={values.schoolLeavingCertificate}
                                           src={
                                             process.env
-                                              .REACT_APP_API_URL_COFFEE +
+                                              .REACT_APP_API_URL +
                                             "/" +
                                             values.schoolLeavingCertificate
                                           }
@@ -1012,7 +1012,7 @@ const Approved = () => {
                                           key={values.itReturn}
                                           src={
                                             process.env
-                                              .REACT_APP_API_URL_COFFEE +
+                                              .REACT_APP_API_URL +
                                             "/" +
                                             values.itReturn
                                           }
@@ -1054,7 +1054,7 @@ const Approved = () => {
                                           key={values.deathCertificate}
                                           src={
                                             process.env
-                                              .REACT_APP_API_URL_COFFEE +
+                                              .REACT_APP_API_URL +
                                             "/" +
                                             values.deathCertificate
                                           }
@@ -1095,7 +1095,7 @@ const Approved = () => {
                                           key={values.recommendationLetter}
                                           src={
                                             process.env
-                                              .REACT_APP_API_URL_COFFEE +
+                                              .REACT_APP_API_URL +
                                             "/" +
                                             values.recommendationLetter
                                           }

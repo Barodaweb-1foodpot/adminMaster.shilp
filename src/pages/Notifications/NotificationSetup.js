@@ -62,11 +62,11 @@ const NotificationSetup = ({ placeholder }) => {
 
       axios
         .post(
-          `${process.env.REACT_APP_API_URL_COFFEE}/api/auth/create/createimageurl`,
+          `${process.env.REACT_APP_API_URL}/api/auth/create/createimageurl`,
           formdata
         )
         .then((res) => {
-          setJoditImage(`${process.env.REACT_APP_API_URL_COFFEE}/${res.url}`);
+          setJoditImage(`${process.env.REACT_APP_API_URL}/${res.url}`);
         });
     }
   };
@@ -355,7 +355,7 @@ const NotificationSetup = ({ placeholder }) => {
                 .then((res) => {
                   console.log(res.url);
                   resolve({
-                    default: `${process.env.REACT_APP_API_URL_COFFEE}/uploads/NotificationSetup/${res.url}`,
+                    default: `${process.env.REACT_APP_API_URL}/uploads/NotificationSetup/${res.url}`,
                   });
                 })
                 .catch((err) => console.log(err));
@@ -527,7 +527,7 @@ const NotificationSetup = ({ placeholder }) => {
 
     await axios
       .post(
-        `${process.env.REACT_APP_API_URL_COFFEE}/api/auth/list-by-params/notificationSetup`,
+        `${process.env.REACT_APP_API_URL}/api/auth/list-by-params/notificationSetup`,
         {
           skip: skip,
           per_page: perPage,

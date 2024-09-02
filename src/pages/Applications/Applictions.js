@@ -320,7 +320,7 @@ const Applications = () => {
 
     await axios
       .post(
-        `${process.env.REACT_APP_API_URL_COFFEE}/api/auth/list-by-params/applications`,
+        `${process.env.REACT_APP_API_URL}/api/auth/list-by-params/applications`,
         {
           skip: skip,
           per_page: perPage,
@@ -729,7 +729,7 @@ const Applications = () => {
                                           alt="fav-icon"
                                           src={
                                             process.env
-                                              .REACT_APP_API_URL_COFFEE +
+                                              .REACT_APP_API_URL +
                                             "/" +
                                             values.photo
                                           }
@@ -770,7 +770,7 @@ const Applications = () => {
                                           alt="menu-icon"
                                           src={
                                             process.env
-                                              .REACT_APP_API_URL_COFFEE +
+                                              .REACT_APP_API_URL +
                                             "/" +
                                             values.incomeCertificate
                                           }
@@ -813,7 +813,7 @@ const Applications = () => {
                                           alt="logo-img"
                                           src={
                                             process.env
-                                              .REACT_APP_API_URL_COFFEE +
+                                              .REACT_APP_API_URL +
                                             "/" +
                                             values.studentAadharCard
                                           }
@@ -853,7 +853,7 @@ const Applications = () => {
                                           key={values.parentAadharCard}
                                           src={
                                             process.env
-                                              .REACT_APP_API_URL_COFFEE +
+                                              .REACT_APP_API_URL +
                                             "/" +
                                             values.parentAadharCard
                                           }
@@ -892,7 +892,7 @@ const Applications = () => {
                                           key={values.panCard}
                                           src={
                                             process.env
-                                              .REACT_APP_API_URL_COFFEE +
+                                              .REACT_APP_API_URL +
                                             "/" +
                                             values.panCard
                                           }
@@ -928,7 +928,7 @@ const Applications = () => {
                                           key={values.ssc}
                                           src={
                                             process.env
-                                              .REACT_APP_API_URL_COFFEE +
+                                              .REACT_APP_API_URL +
                                             "/" +
                                             values.ssc
                                           }
@@ -974,7 +974,7 @@ const Applications = () => {
                                           key={values.schoolLeavingCertificate}
                                           src={
                                             process.env
-                                              .REACT_APP_API_URL_COFFEE +
+                                              .REACT_APP_API_URL +
                                             "/" +
                                             values.schoolLeavingCertificate
                                           }
@@ -1015,7 +1015,7 @@ const Applications = () => {
                                           key={values.itReturn}
                                           src={
                                             process.env
-                                              .REACT_APP_API_URL_COFFEE +
+                                              .REACT_APP_API_URL +
                                             "/" +
                                             values.itReturn
                                           }
@@ -1057,7 +1057,7 @@ const Applications = () => {
                                           key={values.deathCertificate}
                                           src={
                                             process.env
-                                              .REACT_APP_API_URL_COFFEE +
+                                              .REACT_APP_API_URL +
                                             "/" +
                                             values.deathCertificate
                                           }
@@ -1098,7 +1098,7 @@ const Applications = () => {
                                           key={values.recommendationLetter}
                                           src={
                                             process.env
-                                              .REACT_APP_API_URL_COFFEE +
+                                              .REACT_APP_API_URL +
                                             "/" +
                                             values.recommendationLetter
                                           }

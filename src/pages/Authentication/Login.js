@@ -58,7 +58,7 @@ const Login = (props) => {
     setFormErrors(validate(values));
 
     axios
-      .post(`${process.env.REACT_APP_API_URL_COFFEE}/api/adminLogin`, values)
+      .post(`${process.env.REACT_APP_API_URL}/api/adminLogin`, values)
       .then((res) => {
         if (res.isOk) {
           console.log(" login", res);
