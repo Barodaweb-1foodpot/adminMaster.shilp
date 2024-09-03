@@ -671,6 +671,7 @@ const City = () => {
         handleDelete={handleDelete}
         toggle={handleDeleteClose}
         setmodal_delete={setmodal_delete}
+        name = "City"
       />
     </React.Fragment>
   );

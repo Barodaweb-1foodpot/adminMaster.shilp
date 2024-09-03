@@ -814,6 +814,7 @@ const Banner = () => {
         handleDelete={handleDelete}
         toggle={handleDeleteClose}
         setmodal_delete={setmodal_delete}
+        name = "Banner"
       />
     </React.Fragment>
   );

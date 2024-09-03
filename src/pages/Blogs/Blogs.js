@@ -1041,6 +1041,7 @@ const Blogs = () => {
         handleDelete={handleDelete}
         toggle={handleDeleteClose}
         setmodal_delete={setmodal_delete}
+        name = "Blog"
       />
     </React.Fragment>
   );

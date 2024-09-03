@@ -541,6 +541,7 @@ const CategoryMaster = () => {
         handleDelete={handleDelete}
         toggle={handleDeleteClose}
         setmodal_delete={setmodal_delete}
+        name= "Category"
       />
     </React.Fragment>
   );

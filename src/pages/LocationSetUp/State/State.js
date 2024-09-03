@@ -402,7 +402,7 @@ const State = () => {
               <Card>
                 <CardHeader>
                   <FormsHeader
-                    formName="Country"
+                    formName="State"
                     filter={filter}
                     handleFilter={handleFilter}
                     tog_list={tog_list}
@@ -608,6 +608,7 @@ const State = () => {
         handleDelete={handleDelete}
         toggle={handleDeleteClose}
         setmodal_delete={setmodal_delete}
+        name = "State"
       />
     </React.Fragment>
   );

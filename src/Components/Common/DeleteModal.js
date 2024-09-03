@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
-const DeleteModal = ({ show, handleDelete, handleDeleteClose, setmodal_delete }) => {
+const DeleteModal = ({ show, handleDelete, handleDeleteClose, setmodal_delete, name }) => {
   return (
     <Modal fade={true} isOpen={show} toggle={handleDeleteClose} centered={true}>
        <ModalHeader
@@ -11,7 +11,7 @@ const DeleteModal = ({ show, handleDelete, handleDeleteClose, setmodal_delete })
             setmodal_delete(false);
           }}
         >
-          Remove Category
+          Remove {name}
         </ModalHeader>
       <ModalBody className="py-3 px-5">
         <div className="mt-2 text-center">

@@ -640,6 +640,7 @@ const AdminUser = () => {
         handleDelete={handleDelete}
         toggle={handleDeleteClose}
         setmodal_delete={setmodal_delete}
+        name = "User"
       />
     </React.Fragment>
   );

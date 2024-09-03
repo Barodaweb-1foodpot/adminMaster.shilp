@@ -1052,6 +1052,7 @@ const CompanyLocation = () => {
         handleDelete={handleDelete}
         toggle={handleDeleteClose}
         setmodal_delete={setmodal_delete}
+        name = "Location"
       />
     </React.Fragment>
   );

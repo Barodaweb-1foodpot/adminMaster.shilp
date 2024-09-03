@@ -508,6 +508,7 @@ const Country = () => {
         handleDelete={handleDelete}
         toggle={handleDeleteClose}
         setmodal_delete={setmodal_delete}
+        name="Country"
       />
     </React.Fragment>
   );

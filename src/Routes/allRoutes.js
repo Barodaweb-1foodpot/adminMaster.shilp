@@ -8,8 +8,6 @@ import CompanyLocation from "../pages/LocationSetUp/CompanyLocation";
 import Login from "../pages/Authentication/Login";
 import CategoryMaster from "../pages/Category/CategoryMaster";
 import Blogs from "../pages/Blogs/Blogs";
-import PromocodeMaster from "../pages/Subscription/PromocodeMaster";
-import ProductDetails from "../pages/Products/ProductsDetails";
 import UserProfile from "../pages/Authentication/user-profile";
 import Banner from "../pages/CMS/Banner";
 import CompanyDetails from "../pages/Setup/CompanyDetails";
@@ -39,10 +37,6 @@ const authProtectedRoutes = [
   { path: "/cms-master", component: <CMSContentForm /> },
   { path: "/newsletter-master", component: <NewsletterSubs /> },
   { path: "/notification-setup", component: <NotificationSetup /> },
-
-  { path: "/promocode-master", component: <PromocodeMaster /> },
-
-  { path: "/product-details", component: <ProductDetails /> },
 
 
   {

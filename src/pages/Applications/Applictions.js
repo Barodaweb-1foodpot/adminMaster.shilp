@@ -405,7 +405,7 @@ const Applications = () => {
                 </button>
               </div>
 
-              <div className="remove">
+              {/* <div className="remove">
                 <button
                   className="btn btn-sm btn-danger remove-item-btn"
                   data-bs-toggle="modal"
@@ -414,7 +414,7 @@ const Applications = () => {
                 >
                   Remove
                 </button>
-              </div>
+              </div> */}
             </div>
           </React.Fragment>
         );
