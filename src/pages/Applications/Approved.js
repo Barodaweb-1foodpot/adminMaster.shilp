@@ -423,7 +423,7 @@ const Approved = () => {
       minWidth: "180px",
     },
   ];
-  document.title = "Applicants | Naidip Foundation";
+  document.title = "Applicants | Startup Fest Gujarat";
 
   return (
     <React.Fragment>

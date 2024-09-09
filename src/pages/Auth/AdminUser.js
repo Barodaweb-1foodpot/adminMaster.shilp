@@ -364,7 +364,7 @@ const AdminUser = () => {
     },
   ];
 
-  document.title = "Admin Users | Naidip Foundation";
+  document.title = "Admin Users | Startup Fest Gujarat";
 
   return (
     <React.Fragment>

@@ -492,7 +492,7 @@ const Banner = () => {
     },
   ];
 
-  document.title = "Bannner | Naidip Foundation";
+  document.title = "Bannner | Startup Fest Gujarat";
 
   return (
     <React.Fragment>

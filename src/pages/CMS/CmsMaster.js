@@ -434,7 +434,7 @@ const CMSContentForm = ({ placeholder }) => {
   };
 
   const errors = {};
-  document.title = "CMS | Naidip Foundation";
+  document.title = "CMS | Startup Fest Gujarat";
 
   return (
     <React.Fragment>

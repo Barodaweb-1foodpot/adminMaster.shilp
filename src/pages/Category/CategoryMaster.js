@@ -313,7 +313,7 @@ const CategoryMaster = () => {
     },
   ];
 
-  document.title = "Category Master| Naidip Foundation";
+  document.title = "Category Master| Startup Fest Gujarat";
 
   return (
     <React.Fragment>

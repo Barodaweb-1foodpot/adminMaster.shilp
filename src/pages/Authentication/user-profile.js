@@ -23,7 +23,7 @@ import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 
 import avatar from "../../assets/images/users/avatar-1.jpg";
-import logo from "../../assets/images/logo/naidip-logo.png";
+import logo from "../../assets/images/logo/ShilpLogo.png";
 
 // actions
 import { editProfile, resetProfileFlag } from "../../store/actions";
@@ -35,7 +35,7 @@ const UserProfile = () => {
   const [email, setemail] = useState("admin@gmail.com");
   const [idx, setidx] = useState("1");
 
-  const [userName, setUserName] = useState("Naidip Foundation");
+  const [userName, setUserName] = useState("Startup Fest Gujarat");
 
   useEffect(() => {
     getAdminUser(localStorage.getItem('AdminUser')).then((res) => {
@@ -88,7 +88,7 @@ const UserProfile = () => {
     }
   });
 
-  document.title = "Profile | Naidip Foundation";
+  document.title = "Profile | Startup Fest Gujarat";
   return (
     <React.Fragment>
       <div className="page-content">

@@ -180,7 +180,7 @@ const NewsletterSubs = () => {
     },
   ];
 
-  document.title = "Newsletter Subscription | Naidip Foundation";
+  document.title = "Newsletter Subscription | Startup Fest Gujarat";
   return (
     <React.Fragment>
       <UiContent />

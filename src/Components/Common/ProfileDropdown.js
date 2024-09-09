@@ -9,7 +9,7 @@ import {
 
 //import images
 import avatar1 from "../../assets/images/users/avatar-1.jpg";
-import logo from "../../assets/images/logo/naidip-logo.png";
+import logo from "../../assets/images/logo/ShilpLogo.png";
 import { getAdminUser } from "../../functions/Auth/AdminUser";
 
 const ProfileDropdown = () => {

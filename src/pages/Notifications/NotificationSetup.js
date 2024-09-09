@@ -632,7 +632,7 @@ const NotificationSetup = ({ placeholder }) => {
     setPerPage(newPerPage);
   };
 
-  document.title = "Notification Setup | Naidip Foundation";
+  document.title = "Notification Setup | Startup Fest Gujarat";
   return (
     <React.Fragment>
       <div className="page-content">

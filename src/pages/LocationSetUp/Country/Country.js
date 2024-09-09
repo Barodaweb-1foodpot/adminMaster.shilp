@@ -336,7 +336,7 @@ const Country = () => {
     },
   ];
 
-  document.title = "Country | Naidip Foundation";
+  document.title = "Country | Startup Fest Gujarat";
 
   return (
     <React.Fragment>

@@ -490,7 +490,7 @@ const CompanyLocation = () => {
     },
   ];
 
-  document.title = "Company Location | Naidip Foundation";
+  document.title = "Company Location | Startup Fest Gujarat";
   return (
     <React.Fragment>
       <UiContent />

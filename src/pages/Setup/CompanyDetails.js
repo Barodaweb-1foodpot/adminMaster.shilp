@@ -628,7 +628,7 @@ const CompanyDetails = () => {
       minWidth: "180px",
     },
   ];
-  document.title = "Company Details | Naidip Foundation";
+  document.title = "Company Details | Startup Fest Gujarat";
 
   return (
     <React.Fragment>

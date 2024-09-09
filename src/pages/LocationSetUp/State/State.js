@@ -386,7 +386,7 @@ const State = () => {
     },
   ];
 
-  document.title = "State | Naidip Foundation";
+  document.title = "State | Startup Fest Gujarat";
   return (
     <React.Fragment>
       <UiContent />

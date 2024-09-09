@@ -28,7 +28,7 @@ const ParticlesAuth = ({ children }) => {
               <div className="col-lg-12">
                 <div className="text-center">
                   <p className="mb-0 text-muted">
-                    &copy; {new Date().getFullYear()} Naidip Foundation.
+                    &copy; {new Date().getFullYear()} Startup Fest Gujarat.
                     {/* Crafted with{" "}
                     <i className="mdi mdi-heart text-danger"></i> by Themesbrand */}
                   </p>
