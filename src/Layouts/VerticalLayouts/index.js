@@ -221,6 +221,11 @@ const VerticalLayout = (props) => {
                 <span data-key="t-apps"> Category Master </span>
               </Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link menu-link" to="/participant-category">
+                <span data-key="t-apps">Participant Category Master </span>
+              </Link>
+            </li>
           </ul>
           {/* <ul className="nav nav-sm flex-column test">
             <li className="nav-item">
@@ -248,7 +253,7 @@ const VerticalLayout = (props) => {
         </Collapse>
       </li>
 
-      <li className="nav-item">
+      {/* <li className="nav-item">
         <Link
           className="nav-link menu-link"
           to="#"
@@ -275,7 +280,7 @@ const VerticalLayout = (props) => {
             </li>
           </ul>
         </Collapse>
-      </li>
+      </li> */}
 
       <li className="nav-item">
         <Link to="/newsletter-master" className="nav-link">

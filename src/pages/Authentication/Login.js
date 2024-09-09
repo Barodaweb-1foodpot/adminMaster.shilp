@@ -58,7 +58,7 @@ const Login = (props) => {
     setFormErrors(validate(values));
 
     axios
-      .post(`${process.env.REACT_APP_API_URL}/api/adminLogin`, values)
+      .post(`${process.env.REACT_APP_API_URL}/api/adminMasterLogin`, values)
       .then((res) => {
         if (res.isOk) {
           console.log(" login", res);
@@ -135,8 +135,8 @@ const Login = (props) => {
                           <img
                             style={{ display: "flex", alignItems: "center" }}
                             src={logo}
-                            height={"100px"}
-                            width={"400px"}
+                            height="120px"
+                            width="200px"
                             alt="Startup Fest Gujarat"
                           />
                         </Link>

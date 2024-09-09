@@ -21,49 +21,37 @@ import axios from "axios";
 import DataTable from "react-data-table-component";
 
 import {
-  createAdminUser,
-  getAdminUser,
-  removeAdminUser,
-  updateAdminUser,
-} from "../../functions/Auth/AdminUser";
+  createParticipantCategory,
+  updateParticipantCategory,
+  removeParticipantCategory,
+  getParticipantCategory,
+} from "../../functions/Category/ParticipantCategory";
 import DeleteModal from "../../Components/Common/DeleteModal";
 import FormsHeader from "../../Components/Common/FormsModalHeader";
 import FormsFooter from "../../Components/Common/FormAddFooter";
+import FormUpdateFooter from "../../Components/Common/FormUpdateFooter";
 
 const initialState = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
+  categoryName: "",
+  description: "",
   IsActive: false,
 };
 
-const AdminUser = () => {
+const ParticipantCategoryMaster = () => {
   const [values, setValues] = useState(initialState);
-  const {
-    firstName,
-    lastName,
-    email,
-    password,
-    IsActive,
-  } = values;
+  const { categoryName, description, IsActive } = values;
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [filter, setFilter] = useState(true);
+
+  const [errCN, setErrCN] = useState(false);
 
   const [query, setQuery] = useState("");
 
   const [_id, set_Id] = useState("");
   const [remove_id, setRemove_id] = useState("");
 
-  const [Adminuser, setAdminuser] = useState([]);
-
-  useEffect(() => {
-    console.log(formErrors);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log("no errors");
-    }
-  }, [formErrors, isSubmit]);
+  const [categories, setCategories] = useState([]);
 
   const [modal_list, setmodal_list] = useState(false);
   const tog_list = () => {
@@ -83,15 +71,12 @@ const AdminUser = () => {
     setmodal_edit(!modal_edit);
     setIsSubmit(false);
     set_Id(_id);
-    getAdminUser(_id)
+    getParticipantCategory(_id)
       .then((res) => {
         setValues({
           ...values,
-          firstName: res.firstName,
-          lastName: res.lastName,
-          email: res.email,
-          password: res.password,
-
+          categoryName: res.categoryName,
+          description: res.description,
           IsActive: res.IsActive,
         });
       })
@@ -116,38 +101,42 @@ const AdminUser = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    setIsSubmit(true);
-
+    setFormErrors({});
     let errors = validate(values);
     setFormErrors(errors);
+    setIsSubmit(true);
 
     if (Object.keys(errors).length === 0) {
-    createAdminUser(values)
+    createParticipantCategory(values)
       .then((res) => {
-        console.log("res", res);
-        if (res.isOk) {
-          setmodal_list(!modal_list);
-          setValues(initialState);
-          setIsSubmit(false);
-          setFormErrors({});
-          fetchUsers();
-        } else {
-          setErrEM(true);
-          setFormErrors({ email: "Email already exists!" });
-        }
+        setmodal_list(!modal_list);
+        setValues(initialState);
+        fetchCategories();
+        // if (res.isOk) {
+        //   setmodal_list(!modal_list);
+        //   setValues(initialState);
+        //   fetchCategories();
+        // } else {
+        //   if (res.field === 1) {
+        //     setErrCN(true);
+        //     setFormErrors({
+        //       categoryName: "This Category name is already exists!",
+        //     });
+        //   }
+        // }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
       });
     }
   };
 
   const handleDelete = (e) => {
     e.preventDefault();
-    removeAdminUser(remove_id)
+    removeParticipantCategory(remove_id)
       .then((res) => {
         setmodal_delete(!modal_delete);
-        fetchUsers();
+        fetchCategories();
       })
       .catch((err) => {
         console.log(err);
@@ -159,6 +148,12 @@ const AdminUser = () => {
     setmodal_delete(false);
   };
 
+  const handleUpdateCancel = (e) => {
+    setmodal_edit(false);
+    setIsSubmit(false);
+    setFormErrors({});
+  };
+
   const handleUpdate = (e) => {
     e.preventDefault();
     let erros = validate(values);
@@ -166,10 +161,10 @@ const AdminUser = () => {
     setIsSubmit(true);
 
     if (Object.keys(erros).length === 0) {
-      updateAdminUser(_id, values)
+      updateParticipantCategory(_id, values)
         .then((res) => {
           setmodal_edit(!modal_edit);
-          fetchUsers();
+          fetchCategories();
         })
         .catch((err) => {
           console.log(err);
@@ -177,60 +172,22 @@ const AdminUser = () => {
     }
   };
 
-  const [errFN, setErrFN] = useState(false);
-  const [errLN, setErrLN] = useState(false);
-  const [errEM, setErrEM] = useState(false);
-  const [errPA, setErrPA] = useState(false);
-
   const validate = (values) => {
     const errors = {};
 
-    if (values.firstName === "") {
-      errors.firstName = "First Name is required!";
-      setErrFN(true);
+    if (values.categoryName == "") {
+      errors.categoryName = "Category Name is required!";
+      setErrCN(true);
     }
-    if (values.firstName !== "") {
-      setErrFN(false);
-    }
-
-    if (values.lastName === "") {
-      errors.lastName = "Last Name is required!";
-      setErrLN(true);
-    }
-    if (values.lastName !== "") {
-      setErrLN(false);
-    }
-
-    if (values.email === "") {
-      errors.email = "email is required!";
-      setErrEM(true);
-    }
-    if (values.email !== "") {
-      setErrEM(false);
-    }
-
-    if (values.password === "") {
-      errors.password = "password is required!";
-      setErrPA(true);
-    }
-    if (values.password !== "") {
-      setErrPA(false);
+    if (values.categoryName !== "") {
+      setErrCN(false);
     }
 
     return errors;
   };
 
-  const validClassFN =
-    errFN && isSubmit ? "form-control is-invalid" : "form-control";
-
-  const validClassLN =
-    errLN && isSubmit ? "form-control is-invalid" : "form-control";
-
-  const validClassEM =
-    errEM && isSubmit ? "form-control is-invalid" : "form-control";
-
-  const validClassPA =
-    errPA && isSubmit ? "form-control is-invalid" : "form-control";
+  const validClassCategoryName =
+    errCN && isSubmit ? "form-control is-invalid" : "form-control";
 
   const [loading, setLoading] = useState(false);
   const [totalRows, setTotalRows] = useState(0);
@@ -249,10 +206,10 @@ const AdminUser = () => {
   }, []);
 
   useEffect(() => {
-    fetchUsers();
+    fetchCategories();
   }, [pageNo, perPage, column, sortDirection, query, filter]);
 
-  const fetchUsers = async () => {
+  const fetchCategories = async () => {
     setLoading(true);
     let skip = (pageNo - 1) * perPage;
     if (skip < 0) {
@@ -261,7 +218,7 @@ const AdminUser = () => {
 
     await axios
       .post(
-        `${process.env.REACT_APP_API_URL}/api/auth/listByparams/adminUserMaster`,
+        `${process.env.REACT_APP_API_URL}/api/auth/list-by-params/participantCategoryMaster`,
         {
           skip: skip,
           per_page: perPage,
@@ -275,10 +232,10 @@ const AdminUser = () => {
         if (response.length > 0) {
           let res = response[0];
           setLoading(false);
-          setAdminuser(res.data);
+          setCategories(res.data);
           setTotalRows(res.count);
         } else if (response.length === 0) {
-          setAdminuser([]);
+          setCategories([]);
         }
         // console.log(res);
       });
@@ -299,35 +256,21 @@ const AdminUser = () => {
   };
   const col = [
     {
-      name: "First Name",
-      selector: (row) => row.firstName,
+      name: "Category Name",
+      selector: (row) => row.categoryName,
       sortable: true,
-      sortField: "firstName",
-      minWidth: "150px",
-    },
-    {
-      name: "Last Name",
-      selector: (row) => row.lastName,
-      sortable: true,
-      sortField: "lastName",
-      minWidth: "150px",
-    },
-    {
-      name: "Email",
-      selector: (row) => row.email,
-      sortable: true,
-      sortField: "email",
+      sortField: "categoryName",
       minWidth: "150px",
     },
 
     {
-      name: "Password",
-      selector: (row) => row.password,
-      sortable: true,
-      sortField: "password",
-      minWidth: "150px",
+      name: "Status",
+      selector: (row) => {
+        return <p>{row.IsActive ? "Active" : "InActive"}</p>;
+      },
+      sortable: false,
+      sortField: "Status",
     },
-
     {
       name: "Action",
       selector: (row) => {
@@ -364,19 +307,23 @@ const AdminUser = () => {
     },
   ];
 
-  document.title = "Admin Users | Startup Fest Gujarat";
+  document.title = "Participant Category Master| Startup Fest Gujarat";
 
   return (
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
-          <BreadCrumb maintitle="Setup" title="Admin Users" pageTitle="Setup" />
+          <BreadCrumb
+            maintitle="Parameters"
+            title="Participant Category Master"
+            pageTitle="Parameters"
+          />
           <Row>
             <Col lg={12}>
               <Card>
                 <CardHeader>
                   <FormsHeader
-                    formName="Admin Users"
+                    formName="Participant Category Master"
                     filter={filter}
                     handleFilter={handleFilter}
                     tog_list={tog_list}
@@ -389,7 +336,7 @@ const AdminUser = () => {
                     <div className="table-responsive table-card mt-1 mb-1 text-right">
                       <DataTable
                         columns={col}
-                        data={Adminuser}
+                        data={categories}
                         progressPending={loading}
                         sortServer
                         onSort={(column, sortDirection, sortedRows) => {
@@ -426,71 +373,42 @@ const AdminUser = () => {
             setIsSubmit(false);
           }}
         >
-          Add Admin
+          Add Participant Category
         </ModalHeader>
         <form>
           <ModalBody>
             <div className="form-floating mb-3">
               <Input
                 type="text"
-                className={validClassFN}
-                placeholder="Enter first Name"
+                className={validClassCategoryName}
+                placeholder="Enter Category Name"
                 required
-                name="firstName"
-                value={firstName}
+                name="categoryName"
+                value={categoryName}
                 onChange={handleChange}
               />
               <Label>
-                First Name <span className="text-danger">*</span>
+                Category Name <span className="text-danger">*</span>
               </Label>
               {isSubmit && (
-                <p className="text-danger">{formErrors.firstName}</p>
+                <p className="text-danger">{formErrors.categoryName}</p>
               )}
             </div>
+
             <div className="form-floating mb-3">
               <Input
-                type="text"
-                className={validClassLN}
-                placeholder="Enter last Name"
+                type="textarea"
+                className="form-control"
+                placeholder="Enter Category Description"
                 required
-                name="lastName"
-                value={lastName}
+                name="description"
+                style={{height: "100px"}}
+                value={description}
                 onChange={handleChange}
               />
               <Label>
-                Last Name <span className="text-danger">*</span>
+                Description 
               </Label>
-              {isSubmit && <p className="text-danger">{formErrors.lastName}</p>}
-            </div>
-            <div className="form-floating mb-3">
-              <Input
-                type="text"
-                className={validClassEM}
-                placeholder="Enter email "
-                required
-                name="email"
-                value={email}
-                onChange={handleChange}
-              />
-              <Label>
-                Email <span className="text-danger">*</span>
-              </Label>
-              {isSubmit && <p className="text-danger">{formErrors.email}</p>}
-            </div>
-            <div className="form-floating mb-3">
-              <Input
-                type="text"
-                className={validClassPA}
-                placeholder="Enter password"
-                required
-                name="password"
-                value={password}
-                onChange={handleChange}
-              />
-              <Label>
-                Password <span className="text-danger">*</span>
-              </Label>
-              {isSubmit && <p className="text-danger">{formErrors.password}</p>}
             </div>
 
             <div className="form-check mb-2">
@@ -528,71 +446,42 @@ const AdminUser = () => {
             setIsSubmit(false);
           }}
         >
-          Edit Admin Users
+          Edit Participant Category
         </ModalHeader>
         <form>
           <ModalBody>
             <div className="form-floating mb-3">
               <Input
                 type="text"
-                className={validClassFN}
-                placeholder="Enter first Name"
+                className={validClassCategoryName}
+                placeholder="Enter Category Name"
                 required
-                name="firstName"
-                value={firstName}
+                name="categoryName"
+                value={categoryName}
                 onChange={handleChange}
               />
               <Label>
-                First Name<span className="text-danger">*</span>{" "}
+                Category Name <span className="text-danger">*</span>
               </Label>
               {isSubmit && (
-                <p className="text-danger">{formErrors.firstName}</p>
+                <p className="text-danger">{formErrors.categoryName}</p>
               )}
             </div>
+
             <div className="form-floating mb-3">
               <Input
-                type="text"
-                className={validClassLN}
-                placeholder="Enter last Name"
+                type="textarea"
+                className="form-control"
+                placeholder="Enter Category Description"
                 required
-                name="lastName"
-                value={lastName}
+                name="description"
+                style={{height: "100px"}}
+                value={description}
                 onChange={handleChange}
               />
               <Label>
-                Last Name<span className="text-danger">*</span>{" "}
+                Description 
               </Label>
-              {isSubmit && <p className="text-danger">{formErrors.lastName}</p>}
-            </div>
-            <div className="form-floating mb-3">
-              <Input
-                type="text"
-                className={validClassEM}
-                placeholder="Enter email "
-                required
-                name="email"
-                value={email}
-                onChange={handleChange}
-              />
-              <Label>
-                Email <span className="text-danger">*</span>
-              </Label>
-              {isSubmit && <p className="text-danger">{formErrors.email}</p>}
-            </div>
-            <div className="form-floating mb-3">
-              <Input
-                type="text"
-                className={validClassPA}
-                placeholder="Enter password"
-                required
-                name="password"
-                value={password}
-                onChange={handleChange}
-              />
-              <Label>
-                Password <span className="text-danger">*</span>
-              </Label>
-              {isSubmit && <p className="text-danger">{formErrors.password}</p>}
             </div>
 
             <div className="form-check mb-2">
@@ -609,41 +498,24 @@ const AdminUser = () => {
           </ModalBody>
 
           <ModalFooter>
-            <div className="hstack gap-2 justify-content-end">
-              <button
-                type="submit"
-                className="btn btn-success"
-                id="add-btn"
-                onClick={handleUpdate}
-              >
-                Update
-              </button>
-
-              <button
-                type="button"
-                className="btn btn-outline-danger"
-                onClick={() => {
-                  setmodal_edit(false);
-                  setIsSubmit(false);
-                  setFormErrors({});
-                }}
-              >
-                Cancel
-              </button>
-            </div>
+          <FormUpdateFooter
+              handleUpdate={handleUpdate}
+              handleUpdateCancel={handleUpdateCancel}
+            />
           </ModalFooter>
         </form>
       </Modal>
 
+     
       <DeleteModal
         show={modal_delete}
         handleDelete={handleDelete}
         toggle={handleDeleteClose}
         setmodal_delete={setmodal_delete}
-        name = "User"
+        name= "Participant Category"
       />
     </React.Fragment>
   );
 };
 
-export default AdminUser;
+export default ParticipantCategoryMaster;

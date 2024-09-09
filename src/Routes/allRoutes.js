@@ -17,6 +17,7 @@ import NewsletterSubs from "../pages/Inquiry/NewsLetterSubs";
 import NotificationSetup from "../pages/Notifications/NotificationSetup";
 import Applications from "../pages/Applications/Applictions";
 import Approved from "../pages/Applications/Approved";
+import ParticipantCategoryMaster from "../pages/Category/ParticipantCategoryMaster";
 const authProtectedRoutes = [
   // { path: "/dashboard", component: <DashboardCrm /> },
   { path: "/profile", component: <UserProfile /> },
@@ -31,6 +32,8 @@ const authProtectedRoutes = [
   { path: "/approved", component: <Approved /> },
 
   { path: "/category", component: <CategoryMaster /> },
+  { path: "/participant-category", component: <ParticipantCategoryMaster /> },
+
 
   // { path: "/blogs", component: <Blogs /> },
   // { path: "/banner", component: <Banner /> },
