@@ -32,21 +32,17 @@ import { listState, listCountry } from "../../functions/Location/Location";
 const initialState = {
   CompanyName: "",
   ContactPersonName: "",
-  GSTNo: "",
   Website2: "",
   Website1: "",
   ContactNo_Office: "",
-  ContactNo_Sales: "",
   ContactNo_Support: "",
   EmailID_Office: "",
-  EmailID_Sales: "",
   EmailID_Support: "",
   CountryID: "",
   StateID: "",
   City: "",
   Address: "",
   Pincode: "",
-  Favicon: "",
   Icon: "",
   Logo: "",
   DigitalSignature: "",
@@ -83,21 +79,17 @@ const CompanyDetails = () => {
   const {
     CompanyName,
     ContactPersonName,
-    GSTNo,
     Website2,
     Website1,
     ContactNo_Office,
-    ContactNo_Sales,
     ContactNo_Support,
     EmailID_Office,
-    EmailID_Sales,
     EmailID_Support,
     CountryID,
     StateID,
     Address,
     Pincode,
     City,
-    Favicon,
     Icon,
     Logo,
     DigitalSignature,
@@ -143,18 +135,14 @@ const CompanyDetails = () => {
           Address: res.Address,
           Pincode: res.Pincode,
           ContactNo_Office: res.ContactNo_Office,
-          ContactNo_Sales: res.ContactNo_Sales,
           ContactNo_Support: res.ContactNo_Support,
           EmailID_Office: res.EmailID_Office,
-          EmailID_Sales: res.EmailID_Sales,
           EmailID_Support: res.EmailID_Support,
           Website1: res.Website1,
           Website2: res.Website2,
           Logo: res.Logo,
           Icon: res.Icon,
-          Favicon: res.Favicon,
           DigitalSignature: res.DigitalSignature,
-          GSTNo: res.GSTNo,
           IsActive: res.IsActive,
         });
       })
@@ -168,12 +156,6 @@ const CompanyDetails = () => {
     loadCountries();
     loadStates();
   }, []);
-
-  useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log("no errors");
-    }
-  }, [formErrors, isSubmit]);
 
   const loadDetails = () => {
     listCompanynDetails().then((res) => {
@@ -243,50 +225,7 @@ const CompanyDetails = () => {
     setValues({ ...values, IsActive: e.target.checked });
   };
 
-  const FaviconUploadAndResize = (e) => {
-    let files = e.target.files;
-    if (files) {
-      for (let i = 0; i < files.length; i++) {
-        const formdata = new FormData();
-        formdata.append("file", files[i]);
-        formdata.append("filefor", "Favicon");
-        formdata.append("_id", _id);
-        CompanyFileUpload(formdata).then(
-          (res) => {
-            setValues({ ...values, Favicon: res.url });
-          },
-          (err) => {
-            // debugger;
-          }
-        );
-        // Resizer.imageFileResizer(
-        //   files[i],
-        //   300,
-        //   300,
-        //   "JPEG",
-        //   100,
-        //   0,
-        //   (uri) => {
-        //     // console.log(uri);
-        //     setLoading(true);
-        //     axios
-        //       .post(process.env.REACT_APP_API_URL + "/api/uploadimages", {
-        //         image: uri,
-        //       })
-        //       .then((res) => {
-        //         console.log("favicon upload", res);
-        //         setValues({ ...values, Favicon: res.url });
-        //         setLoading(false);
-        //       })
-        //       .catch((err) => {
-        //         console.log("cloudinary upload err", err);
-        //       });
-        //   },
-        //   "base64"
-        // );
-      }
-    }
-  };
+  
 
   const LogoUploadAndResize = (e) => {
     let files = e.target.files;
@@ -501,7 +440,7 @@ const CompanyDetails = () => {
     if (!values.ContactNo_Office) {
       errors.ContactNo_Office = "Contact No. is required";
       setErrCNOffice(true);
-    } 
+    }
     // else if (!phone.test(values.ContactNo_Office)) {
     //   errors.ContactNo_Office = "This is not a valid Contact Number";
     //   setErrCNOffice(true);
@@ -510,28 +449,11 @@ const CompanyDetails = () => {
       setErrCNOffice(false);
     }
 
-    // if (!values.GSTNo) {
-    //   errors.GSTNo = "GST No is required!";
-    //   setErrGST(true);
-    // } else {
-    //   setErrGST(false);
-    // }
     if (!values.Website1) {
       errors.Website1 = "website is required!";
       setErrWeb1(true);
     }
-    // if (!values.Favicon) {
-    //   errors.Favicon = "Favicon is required!";
-    // }
-    // if (!values.Icon) {
-    //   errors.Icon = "Icon is required!";
-    // }
-    // if (!values.Logo) {
-    //   errors.Logo = "Logo is required!";
-    // }
-    // if (!values.DigitalSignature) {
-    //   errors.DigitalSignature = "Digital Signature is required!";
-    // }
+
 
     return errors;
   };
@@ -558,14 +480,8 @@ const CompanyDetails = () => {
     errCNSupport && isSubmit ? "form-control is-invalid" : "form-control";
   const validClassEmailOffice =
     errEmailOffice && isSubmit ? "form-control is-invalid" : "form-control";
-  // const validClassEmailSales =
-  //   errEmailSales && isSubmit ? "form-control is-invalid" : "form-control";
-  // const validClassEmailSupport =
-  //   errEmailSupport && isSubmit ? "form-control is-invalid" : "form-control";
   const validClassWeb1 =
     errWeb1 && isSubmit ? "form-control is-invalid" : "form-control";
-  // const validClassGST =
-  //   errGST && isSubmit ? "form-control is-invalid" : "form-control";
 
   const columns = [
     {
@@ -694,35 +610,7 @@ const CompanyDetails = () => {
                     <Col lg={3}>
                       <Card>
                         <CardBody>
-                          <div className="form-floating mb-3">
-                            <input
-                              type="file"
-                              name="Favicon"
-                              className="form-control"
-                              accept=".jpg, .jpeg, .png"
-                              onChange={FaviconUploadAndResize}
-                            />
-                            <label>Favicon(.jpg, .jpeg, .png)</label>
-                          </div>
-                          {values.Favicon && (
-                            <div className="card col-3">
-                              <img
-                                key={values.Favicon}
-                                alt="fav-icon"
-                                src={
-                                  process.env.REACT_APP_API_URL +
-                                  "/" +
-                                  values.Favicon
-                                }
-                                onError={(e) => {
-                                  e.target.onerror = null;
-                                  e.target.src = myImage;
-                                }}
-                              />
-                            </div>
-                          )}
-
-                          {Favicon == "" && <h6>No Image</h6>}
+                          
 
                           <div className=" form-floating mb-3">
                             <input
@@ -755,6 +643,7 @@ const CompanyDetails = () => {
                             </div>
                           )}
                           {Icon == "" && <h6>No Image</h6>}
+
                           <div className="form-floating mb-3">
                             <input
                               type="file"
@@ -1028,24 +917,6 @@ const CompanyDetails = () => {
                                   <div className="form-floating mb-3">
                                     <Input
                                       type="tel"
-                                      className={validClassCNSales}
-                                      placeholder="Enter contact no. of sales"
-                                      name="ContactNo_Sales"
-                                      value={ContactNo_Sales}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>Sales ContactNo</Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.ContactNo_Sales}
-                                      </p>
-                                    )}
-                                  </div>
-                                </Col>
-                                <Col md={4}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="tel"
                                       className={validClassCNSupport}
                                       placeholder="Enter contact no. of support"
                                       name="ContactNo_Support"
@@ -1082,25 +953,7 @@ const CompanyDetails = () => {
                                     )}
                                   </div>
                                 </Col>
-                                <Col md={4}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="email"
-                                      className="form-control"
-                                      placeholder="example@gmail.com"
-                                      id="emailidInput"
-                                      name="EmailID_Sales"
-                                      value={EmailID_Sales}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>Sales EmailID</Label>
-                                    {/* {isSubmit && (
-                                <p className="text-danger">
-                                  {formErrors.EmailID_Sales}
-                                </p>
-                              )} */}
-                                  </div>
-                                </Col>
+
                                 <Col md={4}>
                                   <div className="form-floating mb-3">
                                     <Input
@@ -1113,11 +966,7 @@ const CompanyDetails = () => {
                                       onChange={handleChange}
                                     />
                                     <Label>Support EmailID</Label>
-                                    {/* {isSubmit && (
-                                <p className="text-danger">
-                                  {formErrors.EmailID_Support}
-                                </p>
-                              )} */}
+
                                   </div>
                                 </Col>
 
@@ -1153,26 +1002,9 @@ const CompanyDetails = () => {
                                       onChange={handleChange}
                                     />
                                     <Label>Website2</Label>
-                                    {/* {isSubmit && (
-                                <p className="text-danger">
-                                  {formErrors.Website2}
-                                </p>
-                              )} */}
                                   </div>
                                 </Col>
-                                <Col md={4}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder="Enter GST No."
-                                      name="GSTNo"
-                                      value={GSTNo}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>GST No.</Label>
-                                  </div>
-                                </Col>
+
 
                                 <Row>
                                   <Col lg={6}>
@@ -1225,7 +1057,6 @@ const CompanyDetails = () => {
                   <CardBody>
                     <div>
                       <div className="table-responsive table-card mt-1 mb-1 text-right">
-                        {/* <Table columns={col} dataSource={details}></Table> */}
                         <DataTable columns={columns} data={details} />
                       </div>
                     </div>
