@@ -19,9 +19,11 @@ import Applications from "../pages/Applications/Applictions";
 import Approved from "../pages/Applications/Approved";
 import ParticipantCategoryMaster from "../pages/Category/ParticipantCategoryMaster";
 import Investor from "../pages/Master/Investor";
+import StartUp from "../pages/Master/Startup";
 const authProtectedRoutes = [
   // { path: "/dashboard", component: <DashboardCrm /> },
   { path: "/profile", component: <UserProfile /> },
+  {path: "/startup", component: <StartUp />},
   {path: "/investor", component: <Investor />},
   { path: "/country", component: <Country /> },
   { path: "/city", component: <City /> },
