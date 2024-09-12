@@ -49,6 +49,7 @@ const Investor = () => {
   const [address, setAddress] = useState("");
   const [pincode, setPincode] = useState("");
   const [IsActive, setIsActive] = useState(false);
+  const [IsPaid , setIsPaid] = useState(false);
   const [country, setCountry] = useState([]);
   const [state, setState] = useState([]);
 
@@ -89,7 +90,7 @@ const Investor = () => {
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/api/auth/location/statesByCountry/${CountryIDD}`,
         {
-          method: "POST",
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
@@ -168,6 +169,7 @@ const Investor = () => {
         setAddress(res.address);
         setPincode(res.pincode);
         setIsActive(res.IsActive);
+        setIsPaid(res.IsPaid);
       })
       .catch((err) => {
         console.log(err);
@@ -211,6 +213,7 @@ const Investor = () => {
         address,
         pincode,
         IsActive,
+        IsPaid
       };
 
       console.log("append", data);
@@ -221,6 +224,7 @@ const Investor = () => {
           setShowForm(false);
           // setValues(initialState);
           setIsActive(false);
+          setIsPaid(false);
           setParticipantCategoryId("");
           setFormErrors({});
           setName("");
@@ -309,6 +313,7 @@ const Investor = () => {
         address,
         pincode,
         IsActive,
+        IsPaid
       };
 
       updateInvestor(_id, data)
@@ -321,6 +326,7 @@ const Investor = () => {
           setCheckImagePhoto(false);
           // setValues(initialState);
           setIsActive(false);
+          setIsPaid(false);
           setParticipantCategoryId("");
           setFormErrors({});
           setName("");
@@ -561,6 +567,7 @@ const Investor = () => {
     setAddress("");
     setPincode("");
     setIsActive(false);
+    setIsPaid(false);
     setErrparticipantCategoryId(false);
     setErrName(false);
     setErrContactNo(false);
@@ -611,6 +618,7 @@ const Investor = () => {
     setErrAddress(false);
     setErrPincode(false);
     setIsActive(false);
+    setIsPaid(false);
   };
 
   const col = [
@@ -777,6 +785,7 @@ const Investor = () => {
                               setErrAddress(false);
                               setErrPincode(false);
                               setIsActive(false);
+                              setIsPaid(false);
                               setFormErrors({});
                             }}
                           >
@@ -815,6 +824,7 @@ const Investor = () => {
                               setErrAddress(false);
                               setErrPincode(false);
                               setIsActive(false);
+                              setIsPaid(false);
                             }}
                             id="create-btn"
                           >
@@ -1235,6 +1245,26 @@ const Investor = () => {
                                           htmlFor="activeCheckBox"
                                         >
                                           Is Active
+                                        </Label>
+                                      </div>
+
+                                      <div className="form-check mb-2">
+                                        <Input
+                                          key={"IsPaid" + _id}
+                                          type="checkbox"
+                                          name="IsPaid"
+                                          value={IsPaid}
+                                          // onChange={handleCheck}
+                                          onChange={(e) => {
+                                            setIsPaid(e.target.checked);
+                                          }}
+                                          checked={IsPaid}
+                                        />
+                                        <Label
+                                          className="form-check-label"
+                                          htmlFor="activeCheckBox"
+                                        >
+                                          Is Paid
                                         </Label>
                                       </div>
                                     </Col>
@@ -1663,6 +1693,27 @@ const Investor = () => {
                                         </Label>
                                       </div>
                                     </Col>
+                                    <Col lg={6}>
+                                      <div className="form-check mb-2">
+                                        <Input
+                                          key={"IsPaid_" + _id}
+                                          type="checkbox"
+                                          name="IsPaid"
+                                          value={IsPaid}
+                                          // onChange={handleCheck}
+                                          onChange={(e) => {
+                                            setIsPaid(e.target.checked);
+                                          }}
+                                          checked={IsPaid}
+                                        />
+                                        <Label
+                                          className="form-check-label"
+                                          htmlFor="activeCheckBox"
+                                        >
+                                          Is Paid
+                                        </Label>
+                                      </div>
+                                    </Col>
                                   </div>
 
                                   <Col lg={12}>
@@ -1765,6 +1816,7 @@ const Investor = () => {
           setErrAddress(false);
           setErrPincode(false);
           setIsActive(false);
+          setIsPaid(false);
         }}
         centered
       >
