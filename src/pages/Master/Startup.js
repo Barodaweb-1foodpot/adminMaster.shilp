@@ -33,6 +33,7 @@ import {
   removeStartUpDetailsMaster,
   updateStartUpDetailsMaster,
 } from "../../functions/Master/startup";
+import StageOfStartup from "./StageOfStartup";
 
 const initialState = {
   participantCategoryId: "",
@@ -58,6 +59,7 @@ const initialState = {
   brochure: "",
   productImages: "",
   teamSize: "",
+  IsPaid: false,
 
   IsActive: false,
 };
@@ -315,6 +317,7 @@ const StartUpDetailsMaster = () => {
     brochure,
     productImages,
     IsActive,
+    IsPaid
   } = values;
 
   const [country, setCountry] = useState([]);
@@ -339,6 +342,8 @@ const StartUpDetailsMaster = () => {
   const [options, setOptions] = useState([]);
 
   const [error, setError] = useState(null);
+
+  const [stage , setStage] = useState([]);
 
   useEffect(() => {
     console.log(formErrors);
@@ -433,6 +438,26 @@ const StartUpDetailsMaster = () => {
       setError(error);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API_URL}/api/auth/get/list/StageOfStartup`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const result = await response.json();
+        console.log(result);
+        setStage(result);
+      } catch (error) {
+        setError(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleUpdateCancel = (e) => {
     e.preventDefault();
@@ -540,6 +565,7 @@ const StartUpDetailsMaster = () => {
           yearFounded: res.yearFounded,
           teamSize: res.teamSize,
           IsActive: res.IsActive,
+          IsPaid: res.IsPaid,
           logo: res.logo,
           brochure: res.brochure,
           productImages: res.productImages,
@@ -561,6 +587,10 @@ const StartUpDetailsMaster = () => {
 
   const handleCheck = (e) => {
     setValues({ ...values, IsActive: e.target.checked });
+  };
+
+  const handleCheckPaid = (e) => {
+    setValues({ ...values, IsPaid: e.target.checked });
   };
 
   const handleSubmitCancel = (e) => {
@@ -612,6 +642,7 @@ const StartUpDetailsMaster = () => {
       formData.append("yearFounded", values.yearFounded);
       formData.append("teamSize", values.teamSize);
       formData.append("IsActive", values.IsActive);
+      formData.append("IsPaid", values.IsPaid);
 
       createStartUpDetailsMaster(formData)
         .then((res) => {
@@ -713,6 +744,7 @@ const StartUpDetailsMaster = () => {
       formData.append("yearFounded", values.yearFounded);
       formData.append("teamSize", values.teamSize);
       formData.append("IsActive", values.IsActive);
+      formData.append("IsPaid", values.IsPaid);
       
       updateStartUpDetailsMaster(_id, formData)
         .then((res) => {
@@ -757,6 +789,9 @@ const StartUpDetailsMaster = () => {
   const [errstageOfStartup, setErrstageOfStartup] = useState(false);
   const [erryearFounded, setErryearFounded] = useState(false);
   const [errteamSize, setErrteamSize] = useState(false);
+  const [errbrochure, setErrbrochure] = useState(false);
+  const [errproductImages, setErrproductImages] = useState(false);
+
 
   const validate = (values) => {
     const errors = {};
@@ -841,6 +876,18 @@ const StartUpDetailsMaster = () => {
       errors.teamSize = "Team Size is required";
       setErrteamSize(true);
     }
+    if (values.brochure === "") {
+      errors.brochure = "Brochure is required";
+      setErrbrochure(true);
+    }
+    if (values.productImages === "") {
+      errors.productImages = "Product Images is required";
+      setErrproductImages(true);
+    }
+    if (values.logo === "") {
+      errors.logo = "Logo is required";
+      setErrlogo(true);
+    }
 
     return errors;
   };
@@ -891,6 +938,11 @@ const StartUpDetailsMaster = () => {
     erryearFounded && isSubmit ? "form-control is-invalid" : "form-control";
   const validClassTeamSize =
     errteamSize && isSubmit ? "form-control is-invalid" : "form-control";
+  const validClassBrochure =
+    errbrochure && isSubmit ? "form-control is-invalid" : "form-control";
+  const validClassProductImages =
+    errproductImages && isSubmit ? "form-control is-invalid" : "form-control";
+  
 
   const [loading, setLoading] = useState(false);
   const [totalRows, setTotalRows] = useState(0);
@@ -1548,27 +1600,35 @@ const StartUpDetailsMaster = () => {
                                     </Col>
 
                                     <Col lg={4}>
-                                      <div className="form-floating mb-3">
-                                        <Input
-                                          type="text"
-                                          className={validClassStageOfStartup}
-                                          placeholder="Enter Stage of StartUp"
-                                          required
-                                          name="stageOfStartup"
-                                          value={stageOfStartup}
-                                          // style={{height: "100px"}}
-                                          onChange={handleChange}
-                                        />
-                                        <Label>
-                                          Stage Of Startup{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.stageOfStartup}
-                                          </p>
-                                        )}
-                                      </div>
+                                    <div className="form-floating mb-3">
+                                      <select
+                                        className={
+                                          validClassStageOfStartup
+                                        }
+                                        required
+                                        name="stageOfStartup"
+                                        value={stageOfStartup}
+                                        onChange={handleChange}
+                                      >
+                                        <option value="" disabled>
+                                          Stage Of Start Up
+                                        </option>
+                                        {stage.map((cat) => (
+                                          <option key={cat._id} value={cat._id}>
+                                            {cat.StageOfStartup}
+                                          </option>
+                                        ))}
+                                      </select>
+                                      <Label>
+                                        Stage Of Start Up{" "}
+                                        <span className="text-danger">*</span>
+                                      </Label>
+                                      {isSubmit && (
+                                        <p className="text-danger">
+                                          {formErrors.stageOfStartup}
+                                        </p>
+                                      )}
+                                    </div>
                                     </Col>
                                   </Row>
                                   <Col lg={6}>
@@ -1628,7 +1688,7 @@ const StartUpDetailsMaster = () => {
                                       <input
                                         type="file"
                                         name="logo"
-                                        className={validClassAdd}
+                                        className={validClassLogo}
                                         accept=".jpg, .jpeg, .png"
                                         onChange={PhotoUpload}
                                       />
@@ -1658,13 +1718,13 @@ const StartUpDetailsMaster = () => {
                                       <input
                                         type="file"
                                         name="brochure"
-                                        className={validClassAdd}
+                                        className={validClassBrochure}
                                         accept=".jpg, .jpeg, .png"
                                         onChange={PhotoUpload1}
                                       />
                                       {isSubmit && (
                                         <p className="text-danger">
-                                          {formErrors.logo}
+                                          {formErrors.brochure}
                                         </p>
                                       )}
                                       {checkImagePhoto1 ? (
@@ -1688,13 +1748,13 @@ const StartUpDetailsMaster = () => {
                                       <input
                                         type="file"
                                         name="productImages"
-                                        className={validClassAdd}
+                                        className={validClassProductImages}
                                         accept=".jpg, .jpeg, .png"
                                         onChange={PhotoUpload2}
                                       />
                                       {isSubmit && (
                                         <p className="text-danger">
-                                          {formErrors.logo}
+                                          {formErrors.productImages}
                                         </p>
                                       )}
                                       {checkImagePhoto2 ? (
@@ -1720,6 +1780,19 @@ const StartUpDetailsMaster = () => {
                                     />
                                     <Label className="form-check-label">
                                       Is Active
+                                    </Label>
+                                  </div>
+
+                                  <div className="form-check mb-2">
+                                    <Input
+                                      type="checkbox"
+                                      className="form-check-input"
+                                      name="IsPaid"
+                                      value={IsPaid}
+                                      onChange={handleCheckPaid}
+                                    />
+                                    <Label className="form-check-label">
+                                      Is Paid
                                     </Label>
                                   </div>
                                   </Row>
@@ -2354,9 +2427,24 @@ const StartUpDetailsMaster = () => {
                                       name="IsActive"
                                       value={IsActive}
                                       onChange={handleCheck}
+                                      checked={IsActive}
                                     />
                                     <Label className="form-check-label">
                                       Is Active
+                                    </Label>
+                                  </div>
+
+                                  <div className="form-check mb-2">
+                                    <Input
+                                      type="checkbox"
+                                      className="form-check-input"
+                                      name="IsPaid"
+                                      value={IsPaid}
+                                      checked={IsPaid}
+                                      onChange={handleCheckPaid}
+                                    />
+                                    <Label className="form-check-label">
+                                      Is Paid
                                     </Label>
                                   </div>
 

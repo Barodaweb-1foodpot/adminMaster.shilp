@@ -227,6 +227,11 @@ const VerticalLayout = (props) => {
                 <span data-key="t-apps">Participant Category Master </span>
               </Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link menu-link" to="/stage-of-startup">
+                <span data-key="t-apps">Stage Of Startup </span>
+              </Link>
+            </li>
           </ul>
           {/* <ul className="nav nav-sm flex-column test">
             <li className="nav-item">
