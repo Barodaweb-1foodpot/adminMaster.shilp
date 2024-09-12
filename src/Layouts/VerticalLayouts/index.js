@@ -173,7 +173,7 @@ const VerticalLayout = (props) => {
               <Collapse
                 className="menu-dropdown"
                 isOpen={locationSetup}
-                //   id="sidebarApps"
+              //   id="sidebarApps"
               >
                 <ul className="nav nav-sm flex-column test">
                   <li className="nav-item">
@@ -225,6 +225,11 @@ const VerticalLayout = (props) => {
             <li className="nav-item">
               <Link className="nav-link menu-link" to="/participant-category">
                 <span data-key="t-apps">Participant Category Master </span>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link menu-link" to="/ticket-master">
+                <span data-key="t-apps"> Ticket Master </span>
               </Link>
             </li>
           </ul>
@@ -292,14 +297,14 @@ const VerticalLayout = (props) => {
       <li className="nav-item">
         <Link to="/investor" className="nav-link">
           Investor
-          
+
         </Link>
       </li>
 
       <li className="nav-item">
         <Link to="/startup" className="nav-link">
           Start Up
-          
+
         </Link>
       </li>
 

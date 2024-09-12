@@ -20,6 +20,7 @@ import Approved from "../pages/Applications/Approved";
 import ParticipantCategoryMaster from "../pages/Category/ParticipantCategoryMaster";
 import Investor from "../pages/Master/Investor";
 import StartUp from "../pages/Master/Startup";
+import TicketMaster from "../pages/Master/TicketMaster";
 const authProtectedRoutes = [
   // { path: "/dashboard", component: <DashboardCrm /> },
   { path: "/profile", component: <UserProfile /> },
@@ -37,6 +38,7 @@ const authProtectedRoutes = [
 
   { path: "/category", component: <CategoryMaster /> },
   { path: "/participant-category", component: <ParticipantCategoryMaster /> },
+  { path: "/ticket-master", component: <TicketMaster /> },
 
 
   // { path: "/blogs", component: <Blogs /> },
