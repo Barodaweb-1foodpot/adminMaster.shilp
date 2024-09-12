@@ -21,9 +21,11 @@ import ParticipantCategoryMaster from "../pages/Category/ParticipantCategoryMast
 import Investor from "../pages/Master/Investor";
 import StartUp from "../pages/Master/Startup";
 import TicketMaster from "../pages/Master/TicketMaster";
+import StageOfStartup from "../pages/Master/StageOfStartup";
 const authProtectedRoutes = [
   // { path: "/dashboard", component: <DashboardCrm /> },
   { path: "/profile", component: <UserProfile /> },
+  {path: "/stage-of-startup", component: <StageOfStartup />},
   {path: "/startup", component: <StartUp />},
   {path: "/investor", component: <Investor />},
   { path: "/country", component: <Country /> },
