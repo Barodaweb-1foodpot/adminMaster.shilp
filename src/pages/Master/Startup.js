@@ -55,6 +55,8 @@ const initialState = {
   founderName: "",
   stageOfStartup: "",
   yearFounded: "",
+  brochure: "",
+  productImages: "",
   teamSize: "",
 
   IsActive: false,
@@ -286,7 +288,7 @@ const StartUpDetailsMaster = () => {
     { country: "Yemen", code: "+967" },
     { country: "Zambia", code: "+260" },
     { country: "Zimbabwe", code: "+263" },
-];
+  ];
   const [values, setValues] = useState(initialState);
   const {
     participantCategoryId,
@@ -310,7 +312,9 @@ const StartUpDetailsMaster = () => {
     stageOfStartup,
     yearFounded,
     teamSize,
-    IsActive
+    brochure,
+    productImages,
+    IsActive,
   } = values;
 
   const [country, setCountry] = useState([]);
@@ -342,8 +346,6 @@ const StartUpDetailsMaster = () => {
       console.log("no errors");
     }
   }, [formErrors, isSubmit]);
-
- 
 
   useEffect(() => {
     console.log(formErrors);
@@ -432,6 +434,21 @@ const StartUpDetailsMaster = () => {
     }
   };
 
+  const handleUpdateCancel = (e) => {
+    e.preventDefault();
+    setIsSubmit(false);
+    setShowForm(false);
+    setUpdateForm(false);
+    setPhotoAdd("");
+    setPhotoAdd1("");
+    setPhotoAdd2("");
+    setCheckImagePhoto(false);
+    setCheckImagePhoto1(false);
+    setCheckImagePhoto2(false);
+
+    setValues(initialState);
+  };
+
   const PhotoUpload = (e) => {
     if (e.target.files.length > 0) {
       const image = new Image();
@@ -444,11 +461,42 @@ const StartUpDetailsMaster = () => {
     }
   };
 
+  const PhotoUpload1 = (e) => {
+    if (e.target.files.length > 0) {
+      const image = new Image();
+
+      let imageurl = URL.createObjectURL(e.target.files[0]);
+
+      setPhotoAdd1(imageurl);
+      setValues({ ...values, brochure: e.target.files[0] });
+      setCheckImagePhoto1(true);
+    }
+  };
+
+  const PhotoUpload2 = (e) => {
+    if (e.target.files.length > 0) {
+      const image = new Image();
+
+      let imageurl = URL.createObjectURL(e.target.files[0]);
+
+      setPhotoAdd2(imageurl);
+      setValues({ ...values, productImages: e.target.files[0] });
+      setCheckImagePhoto2(true);
+    }
+  };
+
   const [modal_list, setmodal_list] = useState(false);
   const tog_list = () => {
     setmodal_list(!modal_list);
     setValues(initialState);
     setIsSubmit(false);
+    setFormErrors({});
+    setPhotoAdd("");
+    setPhotoAdd1("");
+    setPhotoAdd2("");
+    setCheckImagePhoto(false);
+    setCheckImagePhoto1(false);
+    setCheckImagePhoto2(false);
   };
 
   const [modal_delete, setmodal_delete] = useState(false);
@@ -456,8 +504,6 @@ const StartUpDetailsMaster = () => {
     setmodal_delete(!modal_delete);
     setRemove_id(_id);
   };
-
-
 
   const [modal_edit, setmodal_edit] = useState(false);
   const handleTog_edit = (_id) => {
@@ -470,7 +516,34 @@ const StartUpDetailsMaster = () => {
     getStartUpDetailsMaster(_id)
       .then((res) => {
         console.log("res", res);
-        setValues(res);
+        setValues({
+          ...values,
+          participantCategoryId: res.participantCategoryId,
+          categoryId: res.categoryId,
+          contactPersonName: res.contactPersonName,
+          contactNo: res.contactNo,
+          email: res.email,
+          password: res.password,
+          companyName: res.companyName,
+          logo: res.logo,
+          description: res.description,
+          remarks: res.remarks,
+          StateID: res.StateID,
+          CountryID: res.CountryID,
+          City: res.City,
+          address: res.address,
+          pincode: res.pincode,
+          countryCode: res.countryCode,
+          legalName: res.legalName,
+          founderName: res.founderName,
+          stageOfStartup: res.stageOfStartup,
+          yearFounded: res.yearFounded,
+          teamSize: res.teamSize,
+          IsActive: res.IsActive,
+          logo: res.logo,
+          brochure: res.brochure,
+          productImages: res.productImages,
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -497,6 +570,13 @@ const StartUpDetailsMaster = () => {
     setShowForm(false);
     setUpdateForm(false);
     setValues(initialState);
+    setFormErrors({});
+    setPhotoAdd("");
+    setPhotoAdd1("");
+    setPhotoAdd2("");
+    setCheckImagePhoto(false);
+    setCheckImagePhoto1(false);
+    setCheckImagePhoto2(false);
   };
 
   const handleClick = (e) => {
@@ -507,14 +587,47 @@ const StartUpDetailsMaster = () => {
     setFormErrors(errors);
 
     if (Object.keys(errors).length === 0) {
-      createStartUpDetailsMaster(values)
+      const formData = new FormData();
+      formData.append("logo", values.logo);
+      formData.append("brochure", values.brochure);
+      formData.append("productImages", values.productImages);
+      formData.append("participantCategoryId", values.participantCategoryId);
+      formData.append("categoryId", values.categoryId);
+      formData.append("contactPersonName", values.contactPersonName);
+      formData.append("contactNo", values.contactNo);
+      formData.append("email", values.email);
+      formData.append("password", values.password);
+      formData.append("companyName", values.companyName);
+      formData.append("description", values.description);
+      formData.append("remarks", values.remarks);
+      formData.append("StateID", values.StateID);
+      formData.append("CountryID", values.CountryID);
+      formData.append("City", values.City);
+      formData.append("address", values.address);
+      formData.append("pincode", values.pincode);
+      formData.append("countryCode", values.countryCode);
+      formData.append("legalName", values.legalName);
+      formData.append("founderName", values.founderName);
+      formData.append("stageOfStartup", values.stageOfStartup);
+      formData.append("yearFounded", values.yearFounded);
+      formData.append("teamSize", values.teamSize);
+      formData.append("IsActive", values.IsActive);
+
+      createStartUpDetailsMaster(formData)
         .then((res) => {
           console.log("res", res);
           if (res.isOk) {
             setmodal_list(!modal_list);
             setValues(initialState);
+            setCheckImagePhoto(false);
+            setCheckImagePhoto1(false);
+            setCheckImagePhoto2(false);
             setIsSubmit(false);
             setFormErrors({});
+            setShowForm(false);
+            setPhotoAdd("");
+            setPhotoAdd1("");
+            setPhotoAdd2("");
             fetchUsers();
             toast.success("StartUp Details Added Successfully!");
           } else {
@@ -575,10 +688,43 @@ const StartUpDetailsMaster = () => {
     setIsSubmit(true);
 
     if (Object.keys(erros).length === 0) {
-      updateStartUpDetailsMaster(_id, values)
+      const formData = new FormData();
+      formData.append("logo", values.logo);
+      formData.append("brochure", values.brochure);
+      formData.append("productImages", values.productImages);
+      formData.append("participantCategoryId", values.participantCategoryId);
+      formData.append("categoryId", values.categoryId);
+      formData.append("contactPersonName", values.contactPersonName);
+      formData.append("contactNo", values.contactNo);
+      formData.append("email", values.email);
+      formData.append("password", values.password);
+      formData.append("companyName", values.companyName);
+      formData.append("description", values.description);
+      formData.append("remarks", values.remarks);
+      formData.append("StateID", values.StateID);
+      formData.append("CountryID", values.CountryID);
+      formData.append("City", values.City);
+      formData.append("address", values.address);
+      formData.append("pincode", values.pincode);
+      formData.append("countryCode", values.countryCode);
+      formData.append("legalName", values.legalName);
+      formData.append("founderName", values.founderName);
+      formData.append("stageOfStartup", values.stageOfStartup);
+      formData.append("yearFounded", values.yearFounded);
+      formData.append("teamSize", values.teamSize);
+      formData.append("IsActive", values.IsActive);
+      
+      updateStartUpDetailsMaster(_id, formData)
         .then((res) => {
           setUpdateForm(false);
           setShowForm(false);
+          setValues(initialState);
+          setCheckImagePhoto(false);
+          setCheckImagePhoto1(false);
+          setCheckImagePhoto2(false);
+          setPhotoAdd("");
+          setPhotoAdd1("");
+          setPhotoAdd2("");
           fetchUsers();
           toast.success("StartUp Details Updated Successfully!");
         })
@@ -671,10 +817,10 @@ const StartUpDetailsMaster = () => {
       errors.pincode = "Pincode is required";
       setErrpincode(true);
     }
-    if (values.countryCode === "") {
-      errors.countryCode = "Country Code is required";
-      setErrcountryCode(true);
-    }
+    // if (values.countryCode === "") {
+    //   errors.countryCode = "Country Code is required";
+    //   setErrcountryCode(true);
+    // }
     if (values.legalName === "") {
       errors.legalName = "Legal Name is required";
       setErrlegalName(true);
@@ -695,7 +841,6 @@ const StartUpDetailsMaster = () => {
       errors.teamSize = "Team Size is required";
       setErrteamSize(true);
     }
-
 
     return errors;
   };
@@ -746,7 +891,6 @@ const StartUpDetailsMaster = () => {
     erryearFounded && isSubmit ? "form-control is-invalid" : "form-control";
   const validClassTeamSize =
     errteamSize && isSubmit ? "form-control is-invalid" : "form-control";
-  
 
   const [loading, setLoading] = useState(false);
   const [totalRows, setTotalRows] = useState(0);
@@ -809,6 +953,10 @@ const StartUpDetailsMaster = () => {
 
   const [photoAdd, setPhotoAdd] = useState();
   const [checkImagePhoto, setCheckImagePhoto] = useState(false);
+  const [photoAdd1, setPhotoAdd1] = useState();
+  const [checkImagePhoto1, setCheckImagePhoto1] = useState(false);
+  const [photoAdd2, setPhotoAdd2] = useState();
+  const [checkImagePhoto2, setCheckImagePhoto2] = useState(false);
 
   const handlePerRowsChange = async (newPerPage, page) => {
     // setPageNo(page);
@@ -947,6 +1095,12 @@ const StartUpDetailsMaster = () => {
                               setUpdateForm(false);
                               setFormErrors({});
                               setValues(initialState);
+                              setPhotoAdd("");
+                              setPhotoAdd1("");
+                              setPhotoAdd2("");
+                              setCheckImagePhoto(false);
+                              setCheckImagePhoto1(false);
+                              setCheckImagePhoto2(false);
                             }}
                             id="create-btn"
                           >
@@ -985,489 +1139,577 @@ const StartUpDetailsMaster = () => {
                             <div className="live-preview">
                               <Form>
                                 <Row>
-                                <Col lg={6}>
-                                  <div className="form-floating mb-3">
-                                    <select
-                                      className={
-                                        validClassparticipantCategoryId
-                                      }
-                                      required
-                                      name="participantCategoryId"
-                                      value={participantCategoryId}
-                                      onChange={handleChange}
-                                    >
-                                      <option value="" disabled>
-                                        Select Participant Category
-                                      </option>
-                                      {participantCategory.map((cat) => (
-                                        <option key={cat._id} value={cat._id}>
-                                          {cat.categoryName}
+                                  <Col lg={6}>
+                                    <div className="form-floating mb-3">
+                                      <select
+                                        className={
+                                          validClassparticipantCategoryId
+                                        }
+                                        required
+                                        name="participantCategoryId"
+                                        value={participantCategoryId}
+                                        onChange={handleChange}
+                                      >
+                                        <option value="" disabled>
+                                          Select Participant Category
                                         </option>
-                                      ))}
-                                    </select>
-                                    <Label>
-                                      Participant Category{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.participantCategoryId}
-                                      </p>
-                                    )}
-                                  </div>
+                                        {participantCategory.map((cat) => (
+                                          <option key={cat._id} value={cat._id}>
+                                            {cat.categoryName}
+                                          </option>
+                                        ))}
+                                      </select>
+                                      <Label>
+                                        Participant Category{" "}
+                                        <span className="text-danger">*</span>
+                                      </Label>
+                                      {isSubmit && (
+                                        <p className="text-danger">
+                                          {formErrors.participantCategoryId}
+                                        </p>
+                                      )}
+                                    </div>
                                   </Col>
                                   <Col lg={6}>
-
-                                  <div className="form-floating mb-3">
-                                    <select
-                                      className={validClasscategoryId}
-                                      required
-                                      name="categoryId"
-                                      value={categoryId}
-                                      onChange={handleChange}
-                                    >
-                                      <option value="" disabled>
-                                        Select Category
-                                      </option>
-                                      {category.map((cat) => (
-                                        <option key={cat._id} value={cat._id}>
-                                          {cat.categoryName}
+                                    <div className="form-floating mb-3">
+                                      <select
+                                        className={validClasscategoryId}
+                                        required
+                                        name="categoryId"
+                                        value={categoryId}
+                                        onChange={handleChange}
+                                      >
+                                        <option value="" disabled>
+                                          Select Category
                                         </option>
-                                      ))}
-                                    </select>
-                                    <Label>
-                                      Category name{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.categoryId}
-                                      </p>
-                                    )}
-                                  </div>
+                                        {category.map((cat) => (
+                                          <option key={cat._id} value={cat._id}>
+                                            {cat.categoryName}
+                                          </option>
+                                        ))}
+                                      </select>
+                                      <Label>
+                                        Category name{" "}
+                                        <span className="text-danger">*</span>
+                                      </Label>
+                                      {isSubmit && (
+                                        <p className="text-danger">
+                                          {formErrors.categoryId}
+                                        </p>
+                                      )}
+                                    </div>
                                   </Col>
                                   <Row>
-                                  <Col lg={4}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClasscontactPersonName}
-                                      placeholder="Enter password"
-                                      required
-                                      name="contactPersonName"
-                                      value={contactPersonName}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Contact Person Name{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.contactPersonName}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  <Col lg={4}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClasscontactNo}
-                                      placeholder="Enter contactNo"
-                                      required
-                                      name="contactNo"
-                                      value={contactNo}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Contact Number{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.contactNo}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  <Col lg={4}>
-
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassEM}
-                                      placeholder="Enter email "
-                                      required
-                                      name="email"
-                                      value={email}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Email{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.email}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
+                                    <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={
+                                            validClasscontactPersonName
+                                          }
+                                          placeholder="Enter password"
+                                          required
+                                          name="contactPersonName"
+                                          value={contactPersonName}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Contact Person Name{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.contactPersonName}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                    <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validClasscontactNo}
+                                          placeholder="Enter contactNo"
+                                          required
+                                          name="contactNo"
+                                          value={contactNo}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Contact Number{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.contactNo}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                    <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validClassEM}
+                                          placeholder="Enter email "
+                                          required
+                                          name="email"
+                                          value={email}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Email{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.email}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
                                   </Row>
                                   <Row>
+                                    <Col lg={6}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validClassPA}
+                                          placeholder="Enter password"
+                                          required
+                                          name="password"
+                                          value={password}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Password{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.password}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                    <Col lg={6}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validClassCN}
+                                          placeholder="Enter Company Name"
+                                          required
+                                          name="companyName"
+                                          value={companyName}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Company Name{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.companyName}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                  </Row>
+                                  <Row>
+                                    <Col lg={6}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="textarea"
+                                          className={validClassDes}
+                                          placeholder="Enter Description"
+                                          required
+                                          name="description"
+                                          value={description}
+                                          style={{ height: "100px" }}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Description{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.description}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                    <Col lg={6}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validClassRem}
+                                          placeholder="Enter Remarks"
+                                          required
+                                          name="remarks"
+                                          value={remarks}
+                                          style={{ height: "100px" }}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Remarks{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.remarks}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                  </Row>
+
+                                  <Row>
+                                    <Col lg={3}>
+                                      <div className="form-floating mb-3">
+                                        <select
+                                          className={validClassCountryID}
+                                          required
+                                          name="CountryID"
+                                          value={CountryID}
+                                          onChange={handleChange}
+                                        >
+                                          <option value="" disabled>
+                                            Select Country
+                                          </option>
+                                          {country.map((cat) => (
+                                            <option
+                                              key={cat._id}
+                                              value={cat._id}
+                                            >
+                                              {cat.CountryName}
+                                            </option>
+                                          ))}
+                                        </select>
+                                        <Label>
+                                          Country{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.CountryID}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                    <Col lg={3}>
+                                      <div className="form-floating mb-3">
+                                        <select
+                                          className={validClassStateID}
+                                          required
+                                          name="StateID"
+                                          value={StateID}
+                                          onChange={handleChange}
+                                        >
+                                          <option value="" disabled>
+                                            Select State
+                                          </option>
+                                          {state.map((cat) => (
+                                            <option
+                                              key={cat._id}
+                                              value={cat._id}
+                                            >
+                                              {cat.StateName}
+                                            </option>
+                                          ))}
+                                        </select>
+                                        <Label>
+                                          State{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.StateID}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                    <Col lg={3}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validClassCity}
+                                          placeholder="Enter City"
+                                          required
+                                          name="City"
+                                          value={City}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          City{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.City}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                    <Col lg={3}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validClassPin}
+                                          placeholder="Enter Address"
+                                          required
+                                          name="pincode"
+                                          value={pincode}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          PinCode{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.pincode}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                  </Row>
+                                  <Row>
+                                    <div className="form-floating mb-3">
+                                      <Input
+                                        type="text"
+                                        className={validClassAdd}
+                                        placeholder="Enter Address"
+                                        required
+                                        name="address"
+                                        value={address}
+                                        style={{ height: "100px" }}
+                                        onChange={handleChange}
+                                      />
+                                      <Label>
+                                        Address{" "}
+                                        <span className="text-danger">*</span>
+                                      </Label>
+                                      {isSubmit && (
+                                        <p className="text-danger">
+                                          {formErrors.address}
+                                        </p>
+                                      )}
+                                    </div>
+                                  </Row>
+
+                                  <Row>
+                                    <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validClassLegalName}
+                                          placeholder="Enter Legal name"
+                                          required
+                                          name="legalName"
+                                          value={legalName}
+                                          // style={{height: "100px"}}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Legal Name{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.legalName}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+
+                                    <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validClassFounderName}
+                                          placeholder="Enter Founder name"
+                                          required
+                                          name="founderName"
+                                          value={founderName}
+                                          // style={{height: "100px"}}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Founder Name{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.founderName}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+
+                                    <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validClassStageOfStartup}
+                                          placeholder="Enter Stage of StartUp"
+                                          required
+                                          name="stageOfStartup"
+                                          value={stageOfStartup}
+                                          // style={{height: "100px"}}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Stage Of Startup{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.stageOfStartup}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                  </Row>
                                   <Col lg={6}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassPA}
-                                      placeholder="Enter password"
-                                      required
-                                      name="password"
-                                      value={password}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Password{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.password}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  <Col lg={6}>
-
-                                  
-
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassCN}
-                                      placeholder="Enter Company Name"
-                                      required
-                                      name="companyName"
-                                      value={companyName}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Company Name{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.companyName}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  </Row>
-                                  <Row>
-                                  <Col lg={6}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="textarea"
-                                      className={validClassDes}
-                                      placeholder="Enter Description"
-                                      required
-                                      name="description"
-                                      value={description}
-                                      style={{height: "100px"}}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Description{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.description}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  <Col lg={6}>
-
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassRem}
-                                      placeholder="Enter Remarks"
-                                      required
-                                      name="remarks"
-                                      value={remarks}
-                                      style={{height: "100px"}}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Remarks{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.remarks}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  </Row>
-
-                                  <Row>
-                                  <Col lg={3}>
-                                  <div className="form-floating mb-3">
-                                    <select
-                                      className={validClassCountryID}
-                                      required
-                                      name="CountryID"
-                                      value={CountryID}
-                                      onChange={handleChange}
-                                    >
-                                      <option value="" disabled>
-                                        Select Country
-                                      </option>
-                                      {country.map((cat) => (
-                                        <option key={cat._id} value={cat._id}>
-                                          {cat.CountryName}
-                                        </option>
-                                      ))}
-                                    </select>
-                                    <Label>
-                                      Country{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.CountryID}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  <Col lg={3}>
-                                  <div className="form-floating mb-3">
-                                    <select
-                                      className={validClassStateID}
-                                      required
-                                      name="StateID"
-                                      value={StateID}
-                                      onChange={handleChange}
-                                    >
-                                      <option value="" disabled>
-                                        Select State
-                                      </option>
-                                      {state.map((cat) => (
-                                        <option key={cat._id} value={cat._id}>
-                                          {cat.StateName}
-                                        </option>
-                                      ))}
-                                    </select>
-                                    <Label>
-                                      State{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.StateID}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  <Col lg={3}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassCity}
-                                      placeholder="Enter City"
-                                      required
-                                      name="City"
-                                      value={City}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      City{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.City}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  <Col lg={3}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassPin}
-                                      placeholder="Enter Address"
-                                      required
-                                      name="pincode"
-                                      value={pincode}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      PinCode{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.pincode}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  </Row>
-                                  <Row>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassAdd}
-                                      placeholder="Enter Address"
-                                      required
-                                      name="address"
-                                      value={address}
-                                      style={{height: "100px"}}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Address{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.address}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Row>
-
-                                  <Row>
-                                  <Col lg={4}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassLegalName}
-                                      placeholder="Enter Legal name"
-                                      required
-                                      name="legalName"
-                                      value={legalName}
-                                      // style={{height: "100px"}}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Legal Name{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.legalName}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-
-                                  <Col lg={4}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassFounderName}
-                                      placeholder="Enter Founder name"
-                                      required
-                                      name="founderName"
-                                      value={founderName}
-                                      // style={{height: "100px"}}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Founder Name{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.founderName}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>  
-
-                                  <Col lg={4}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassStageOfStartup}
-                                      placeholder="Enter Stage of StartUp"
-                                      required
-                                      name="stageOfStartup"
-                                      value={stageOfStartup}
-                                      // style={{height: "100px"}}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Stage Of Startup{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.stageOfStartup}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  </Row>
-                                  <Col lg={6}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassYearFounded}
-                                      placeholder="Enter year Founded"
-                                      required
-                                      name="yearFounded"
-                                      value={yearFounded}
-                                      // style={{height: "100px"}}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Year Founded{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.yearFounded}
-                                      </p>
-                                    )}
-                                  </div>
+                                    <div className="form-floating mb-3">
+                                      <Input
+                                        type="date"
+                                        className={validClassYearFounded}
+                                        placeholder="Enter year Founded"
+                                        required
+                                        name="yearFounded"
+                                        value={yearFounded}
+                                        // style={{height: "100px"}}
+                                        onChange={handleChange}
+                                      />
+                                      <Label>
+                                        Year Founded{" "}
+                                        <span className="text-danger">*</span>
+                                      </Label>
+                                      {isSubmit && (
+                                        <p className="text-danger">
+                                          {formErrors.yearFounded}
+                                        </p>
+                                      )}
+                                    </div>
                                   </Col>
 
                                   <Col lg={6}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassTeamSize}
-                                      placeholder="Enter team Size"
-                                      required
-                                      name="teamSize"
-                                      value={teamSize}
-                                      // style={{height: "100px"}}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Team Size{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.teamSize}
-                                      </p>
-                                    )}
-                                  </div>
+                                    <div className="form-floating mb-3">
+                                      <Input
+                                        type="text"
+                                        className={validClassTeamSize}
+                                        placeholder="Enter team Size"
+                                        required
+                                        name="teamSize"
+                                        value={teamSize}
+                                        // style={{height: "100px"}}
+                                        onChange={handleChange}
+                                      />
+                                      <Label>
+                                        Team Size{" "}
+                                        <span className="text-danger">*</span>
+                                      </Label>
+                                      {isSubmit && (
+                                        <p className="text-danger">
+                                          {formErrors.teamSize}
+                                        </p>
+                                      )}
+                                    </div>
                                   </Col>
                                   <Row>
+                                    <Col lg={4}>
+                                      <label>
+                                        Add Logo{" "}
+                                        <span className="text-danger">*</span>
+                                      </label>
 
+                                      <input
+                                        type="file"
+                                        name="logo"
+                                        className={validClassAdd}
+                                        accept=".jpg, .jpeg, .png"
+                                        onChange={PhotoUpload}
+                                      />
+                                      {isSubmit && (
+                                        <p className="text-danger">
+                                          {formErrors.logo}
+                                        </p>
+                                      )}
+                                      {checkImagePhoto ? (
+                                        <img
+                                          //   src={image ?? myImage}
+                                          className="m-2"
+                                          src={photoAdd}
+                                          alt="Profile"
+                                          width="300"
+                                          height="200"
+                                        />
+                                      ) : null}
+                                    </Col>
+
+                                    <Col lg={4}>
+                                      <label>
+                                        Add Brochure{" "}
+                                        <span className="text-danger">*</span>
+                                      </label>
+
+                                      <input
+                                        type="file"
+                                        name="brochure"
+                                        className={validClassAdd}
+                                        accept=".jpg, .jpeg, .png"
+                                        onChange={PhotoUpload1}
+                                      />
+                                      {isSubmit && (
+                                        <p className="text-danger">
+                                          {formErrors.logo}
+                                        </p>
+                                      )}
+                                      {checkImagePhoto1 ? (
+                                        <img
+                                          //   src={image ?? myImage}
+                                          className="m-2"
+                                          src={photoAdd1}
+                                          alt="Profile"
+                                          width="300"
+                                          height="200"
+                                        />
+                                      ) : null}
+                                    </Col>
+
+                                    <Col lg={4}>
+                                      <label>
+                                        Add Product Image{" "}
+                                        <span className="text-danger">*</span>
+                                      </label>
+
+                                      <input
+                                        type="file"
+                                        name="productImages"
+                                        className={validClassAdd}
+                                        accept=".jpg, .jpeg, .png"
+                                        onChange={PhotoUpload2}
+                                      />
+                                      {isSubmit && (
+                                        <p className="text-danger">
+                                          {formErrors.logo}
+                                        </p>
+                                      )}
+                                      {checkImagePhoto2 ? (
+                                        <img
+                                          //   src={image ?? myImage}
+                                          className="m-2"
+                                          src={photoAdd2}
+                                          alt="Profile"
+                                          width="300"
+                                          height="200"
+                                        />
+                                      ) : null}
+                                    </Col>
                                   </Row>
-
-                                  
-
+                                  <Row>
                                   <div className="form-check mb-2">
                                     <Input
                                       type="checkbox"
@@ -1480,6 +1722,7 @@ const StartUpDetailsMaster = () => {
                                       Is Active
                                     </Label>
                                   </div>
+                                  </Row>
 
                                   <Col lg={12}>
                                     <div className="hstack gap-2 justify-content-end">
@@ -1523,488 +1766,586 @@ const StartUpDetailsMaster = () => {
                           <CardBody>
                             <div className="live-preview">
                               <Form>
-                              <Row>
-                                <Col lg={6}>
-                                  <div className="form-floating mb-3">
-                                    <select
-                                      className={
-                                        validClassparticipantCategoryId
-                                      }
-                                      required
-                                      name="participantCategoryId"
-                                      value={participantCategoryId}
-                                      onChange={handleChange}
-                                    >
-                                      <option value="" disabled>
-                                        Select Participant Category
-                                      </option>
-                                      {participantCategory.map((cat) => (
-                                        <option key={cat._id} value={cat._id}>
-                                          {cat.categoryName}
+                                <Row>
+                                  <Col lg={6}>
+                                    <div className="form-floating mb-3">
+                                      <select
+                                        className={
+                                          validClassparticipantCategoryId
+                                        }
+                                        required
+                                        name="participantCategoryId"
+                                        value={participantCategoryId}
+                                        onChange={handleChange}
+                                      >
+                                        <option value="" disabled>
+                                          Select Participant Category
                                         </option>
-                                      ))}
-                                    </select>
-                                    <Label>
-                                      Participant Category{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.participantCategoryId}
-                                      </p>
-                                    )}
-                                  </div>
+                                        {participantCategory.map((cat) => (
+                                          <option key={cat._id} value={cat._id}>
+                                            {cat.categoryName}
+                                          </option>
+                                        ))}
+                                      </select>
+                                      <Label>
+                                        Participant Category{" "}
+                                        <span className="text-danger">*</span>
+                                      </Label>
+                                      {isSubmit && (
+                                        <p className="text-danger">
+                                          {formErrors.participantCategoryId}
+                                        </p>
+                                      )}
+                                    </div>
                                   </Col>
                                   <Col lg={6}>
-
-                                  <div className="form-floating mb-3">
-                                    <select
-                                      className={validClasscategoryId}
-                                      required
-                                      name="categoryId"
-                                      value={categoryId}
-                                      onChange={handleChange}
-                                    >
-                                      <option value="" disabled>
-                                        Select Category
-                                      </option>
-                                      {category.map((cat) => (
-                                        <option key={cat._id} value={cat._id}>
-                                          {cat.categoryName}
+                                    <div className="form-floating mb-3">
+                                      <select
+                                        className={validClasscategoryId}
+                                        required
+                                        name="categoryId"
+                                        value={categoryId}
+                                        onChange={handleChange}
+                                      >
+                                        <option value="" disabled>
+                                          Select Category
                                         </option>
-                                      ))}
-                                    </select>
-                                    <Label>
-                                      Category name{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.categoryId}
-                                      </p>
-                                    )}
-                                  </div>
+                                        {category.map((cat) => (
+                                          <option key={cat._id} value={cat._id}>
+                                            {cat.categoryName}
+                                          </option>
+                                        ))}
+                                      </select>
+                                      <Label>
+                                        Category name{" "}
+                                        <span className="text-danger">*</span>
+                                      </Label>
+                                      {isSubmit && (
+                                        <p className="text-danger">
+                                          {formErrors.categoryId}
+                                        </p>
+                                      )}
+                                    </div>
                                   </Col>
                                   <Row>
-                                  <Col lg={4}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClasscontactPersonName}
-                                      placeholder="Enter password"
-                                      required
-                                      name="contactPersonName"
-                                      value={contactPersonName}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Contact Person Name{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.contactPersonName}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  <Col lg={4}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClasscontactNo}
-                                      placeholder="Enter contactNo"
-                                      required
-                                      name="contactNo"
-                                      value={contactNo}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Contact Number{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.contactNo}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  <Col lg={4}>
-
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassEM}
-                                      placeholder="Enter email "
-                                      required
-                                      name="email"
-                                      value={email}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Email{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.email}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
+                                    <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={
+                                            validClasscontactPersonName
+                                          }
+                                          placeholder="Enter password"
+                                          required
+                                          name="contactPersonName"
+                                          value={contactPersonName}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Contact Person Name{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.contactPersonName}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                    <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validClasscontactNo}
+                                          placeholder="Enter contactNo"
+                                          required
+                                          name="contactNo"
+                                          value={contactNo}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Contact Number{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.contactNo}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                    <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validClassEM}
+                                          placeholder="Enter email "
+                                          required
+                                          name="email"
+                                          value={email}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Email{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.email}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
                                   </Row>
                                   <Row>
+                                    <Col lg={6}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validClassPA}
+                                          placeholder="Enter password"
+                                          required
+                                          name="password"
+                                          value={password}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Password{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.password}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                    <Col lg={6}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validClassCN}
+                                          placeholder="Enter Company Name"
+                                          required
+                                          name="companyName"
+                                          value={companyName}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Company Name{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.companyName}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                  </Row>
+                                  <Row>
+                                    <Col lg={6}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="textarea"
+                                          className={validClassDes}
+                                          placeholder="Enter Description"
+                                          required
+                                          name="description"
+                                          value={description}
+                                          style={{ height: "100px" }}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Description{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.description}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                    <Col lg={6}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validClassRem}
+                                          placeholder="Enter Remarks"
+                                          required
+                                          name="remarks"
+                                          value={remarks}
+                                          style={{ height: "100px" }}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Remarks{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.remarks}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                  </Row>
+
+                                  <Row>
+                                    <Col lg={3}>
+                                      <div className="form-floating mb-3">
+                                        <select
+                                          className={validClassCountryID}
+                                          required
+                                          name="CountryID"
+                                          value={CountryID}
+                                          onChange={handleChange}
+                                        >
+                                          <option value="" disabled>
+                                            Select Country
+                                          </option>
+                                          {country.map((cat) => (
+                                            <option
+                                              key={cat._id}
+                                              value={cat._id}
+                                            >
+                                              {cat.CountryName}
+                                            </option>
+                                          ))}
+                                        </select>
+                                        <Label>
+                                          Country{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.CountryID}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                    <Col lg={3}>
+                                      <div className="form-floating mb-3">
+                                        <select
+                                          className={validClassStateID}
+                                          required
+                                          name="StateID"
+                                          value={StateID}
+                                          onChange={handleChange}
+                                        >
+                                          <option value="" disabled>
+                                            Select State
+                                          </option>
+                                          {state.map((cat) => (
+                                            <option
+                                              key={cat._id}
+                                              value={cat._id}
+                                            >
+                                              {cat.StateName}
+                                            </option>
+                                          ))}
+                                        </select>
+                                        <Label>
+                                          State{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.StateID}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                    <Col lg={3}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validClassCity}
+                                          placeholder="Enter City"
+                                          required
+                                          name="City"
+                                          value={City}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          City{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.City}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                    <Col lg={3}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validClassPin}
+                                          placeholder="Enter Address"
+                                          required
+                                          name="pincode"
+                                          value={pincode}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          PinCode{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.pincode}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                  </Row>
+                                  <Row>
+                                    <div className="form-floating mb-3">
+                                      <Input
+                                        type="text"
+                                        className={validClassAdd}
+                                        placeholder="Enter Address"
+                                        required
+                                        name="address"
+                                        value={address}
+                                        style={{ height: "100px" }}
+                                        onChange={handleChange}
+                                      />
+                                      <Label>
+                                        Address{" "}
+                                        <span className="text-danger">*</span>
+                                      </Label>
+                                      {isSubmit && (
+                                        <p className="text-danger">
+                                          {formErrors.address}
+                                        </p>
+                                      )}
+                                    </div>
+                                  </Row>
+
+                                  <Row>
+                                    <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validClassLegalName}
+                                          placeholder="Enter Legal name"
+                                          required
+                                          name="legalName"
+                                          value={legalName}
+                                          // style={{height: "100px"}}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Legal Name{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.legalName}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+
+                                    <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validClassFounderName}
+                                          placeholder="Enter Founder name"
+                                          required
+                                          name="founderName"
+                                          value={founderName}
+                                          // style={{height: "100px"}}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Founder Name{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.founderName}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+
+                                    <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validClassStageOfStartup}
+                                          placeholder="Enter Stage of StartUp"
+                                          required
+                                          name="stageOfStartup"
+                                          value={stageOfStartup}
+                                          // style={{height: "100px"}}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Stage Of Startup{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.stageOfStartup}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                  </Row>
                                   <Col lg={6}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassPA}
-                                      placeholder="Enter password"
-                                      required
-                                      name="password"
-                                      value={password}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Password{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.password}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  <Col lg={6}>
-
-                                  
-
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassCN}
-                                      placeholder="Enter Company Name"
-                                      required
-                                      name="companyName"
-                                      value={companyName}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Company Name{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.companyName}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  </Row>
-                                  <Row>
-                                  <Col lg={6}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="textarea"
-                                      className={validClassDes}
-                                      placeholder="Enter Description"
-                                      required
-                                      name="description"
-                                      value={description}
-                                      style={{height: "100px"}}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Description{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.description}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  <Col lg={6}>
-
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassRem}
-                                      placeholder="Enter Remarks"
-                                      required
-                                      name="remarks"
-                                      value={remarks}
-                                      style={{height: "100px"}}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Remarks{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.remarks}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  </Row>
-
-                                  <Row>
-                                  <Col lg={3}>
-                                  <div className="form-floating mb-3">
-                                    <select
-                                      className={validClassCountryID}
-                                      required
-                                      name="CountryID"
-                                      value={CountryID}
-                                      onChange={handleChange}
-                                    >
-                                      <option value="" disabled>
-                                        Select Country
-                                      </option>
-                                      {country.map((cat) => (
-                                        <option key={cat._id} value={cat._id}>
-                                          {cat.CountryName}
-                                        </option>
-                                      ))}
-                                    </select>
-                                    <Label>
-                                      Country{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.CountryID}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  <Col lg={3}>
-                                  <div className="form-floating mb-3">
-                                    <select
-                                      className={validClassStateID}
-                                      required
-                                      name="StateID"
-                                      value={StateID}
-                                      onChange={handleChange}
-                                    >
-                                      <option value="" disabled>
-                                        Select State
-                                      </option>
-                                      {state.map((cat) => (
-                                        <option key={cat._id} value={cat._id}>
-                                          {cat.StateName}
-                                        </option>
-                                      ))}
-                                    </select>
-                                    <Label>
-                                      State{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.StateID}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  <Col lg={3}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassCity}
-                                      placeholder="Enter City"
-                                      required
-                                      name="City"
-                                      value={City}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      City{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.City}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  <Col lg={3}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassPin}
-                                      placeholder="Enter Address"
-                                      required
-                                      name="pincode"
-                                      value={pincode}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      PinCode{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.pincode}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  </Row>
-                                  <Row>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassAdd}
-                                      placeholder="Enter Address"
-                                      required
-                                      name="address"
-                                      value={address}
-                                      style={{height: "100px"}}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Address{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.address}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Row>
-
-                                  <Row>
-                                  <Col lg={4}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassLegalName}
-                                      placeholder="Enter Legal name"
-                                      required
-                                      name="legalName"
-                                      value={legalName}
-                                      // style={{height: "100px"}}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Legal Name{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.legalName}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-
-                                  <Col lg={4}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassFounderName}
-                                      placeholder="Enter Founder name"
-                                      required
-                                      name="founderName"
-                                      value={founderName}
-                                      // style={{height: "100px"}}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Founder Name{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.founderName}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>  
-
-                                  <Col lg={4}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassStageOfStartup}
-                                      placeholder="Enter Stage of StartUp"
-                                      required
-                                      name="stageOfStartup"
-                                      value={stageOfStartup}
-                                      // style={{height: "100px"}}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Stage Of Startup{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.stageOfStartup}
-                                      </p>
-                                    )}
-                                  </div>
-                                  </Col>
-                                  </Row>
-                                  <Col lg={6}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassYearFounded}
-                                      placeholder="Enter year Founded"
-                                      required
-                                      name="yearFounded"
-                                      value={yearFounded}
-                                      // style={{height: "100px"}}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Year Founded{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.yearFounded}
-                                      </p>
-                                    )}
-                                  </div>
+                                    <div className="form-floating mb-3">
+                                      <Input
+                                        type="date"
+                                        className={validClassYearFounded}
+                                        placeholder="Enter year Founded"
+                                        required
+                                        name="yearFounded"
+                                        value={yearFounded}
+                                        // style={{height: "100px"}}
+                                        onChange={handleChange}
+                                      />
+                                      <Label>
+                                        Year Founded{" "}
+                                        <span className="text-danger">*</span>
+                                      </Label>
+                                      {isSubmit && (
+                                        <p className="text-danger">
+                                          {formErrors.yearFounded}
+                                        </p>
+                                      )}
+                                    </div>
                                   </Col>
 
                                   <Col lg={6}>
-                                  <div className="form-floating mb-3">
-                                    <Input
-                                      type="text"
-                                      className={validClassTeamSize}
-                                      placeholder="Enter team Size"
-                                      required
-                                      name="teamSize"
-                                      value={teamSize}
-                                      // style={{height: "100px"}}
-                                      onChange={handleChange}
-                                    />
-                                    <Label>
-                                      Team Size{" "}
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    {isSubmit && (
-                                      <p className="text-danger">
-                                        {formErrors.teamSize}
-                                      </p>
-                                    )}
-                                  </div>
+                                    <div className="form-floating mb-3">
+                                      <Input
+                                        type="text"
+                                        className={validClassTeamSize}
+                                        placeholder="Enter team Size"
+                                        required
+                                        name="teamSize"
+                                        value={teamSize}
+                                        // style={{height: "100px"}}
+                                        onChange={handleChange}
+                                      />
+                                      <Label>
+                                        Team Size{" "}
+                                        <span className="text-danger">*</span>
+                                      </Label>
+                                      {isSubmit && (
+                                        <p className="text-danger">
+                                          {formErrors.teamSize}
+                                        </p>
+                                      )}
+                                    </div>
                                   </Col>
                                   <Row>
+                                    <Col lg={4}>
+                                      <label>
+                                        Add Logo{" "}
+                                        <span className="text-danger">*</span>
+                                      </label>
 
+                                      <input
+                                        type="file"
+                                        name="logo"
+                                        className={validClassAdd}
+                                        accept=".jpg, .jpeg, .png"
+                                        onChange={PhotoUpload}
+                                      />
+                                      {isSubmit && (
+                                        <p className="text-danger">
+                                          {formErrors.logo}
+                                        </p>
+                                      )}
+                                      {values.logo || photoAdd ? (
+                                        <img
+                                          // key={photoAdd}
+                                          className="m-2"
+                                          src={
+                                            checkImagePhoto
+                                              ? photoAdd
+                                              : `${process.env.REACT_APP_API_URL}/${values.logo}`
+                                          }
+                                          width="300"
+                                          height="200"
+                                        />
+                                      ) : null}
+                                    </Col>
+
+                                    <Col lg={4}>
+                                      <label>
+                                        Add Brochure{" "}
+                                        <span className="text-danger">*</span>
+                                      </label>
+
+                                      <input
+                                        type="file"
+                                        name="brochure"
+                                        className={validClassAdd}
+                                        accept=".jpg, .jpeg, .png"
+                                        onChange={PhotoUpload1}
+                                      />
+                                      {isSubmit && (
+                                        <p className="text-danger">
+                                          {formErrors.logo}
+                                        </p>
+                                      )}
+                                      {values.brochure || photoAdd1 ? (
+                                        <img
+                                          // key={photoAdd}
+                                          className="m-2"
+                                          src={
+                                            checkImagePhoto1
+                                              ? photoAdd1
+                                              : `${process.env.REACT_APP_API_URL}/${values.brochure}`
+                                          }
+                                          width="300"
+                                          height="200"
+                                        />
+                                      ) : null}
+                                    </Col>
+
+                                    <Col lg={4}>
+                                      <label>
+                                        Add Product Image{" "}
+                                        <span className="text-danger">*</span>
+                                      </label>
+
+                                      <input
+                                        type="file"
+                                        name="productImages"
+                                        className={validClassAdd}
+                                        accept=".jpg, .jpeg, .png"
+                                        onChange={PhotoUpload2}
+                                      />
+                                      {isSubmit && (
+                                        <p className="text-danger">
+                                          {formErrors.logo}
+                                        </p>
+                                      )}
+                                      {values.productImages || photoAdd2 ? (
+                                        <img
+                                          // key={photoAdd}
+                                          className="m-2"
+                                          src={
+                                            checkImagePhoto2
+                                              ? photoAdd2
+                                              : `${process.env.REACT_APP_API_URL}/${values.productImages}`
+                                          }
+                                          width="300"
+                                          height="200"
+                                        />
+                                      ) : null}
+                                    </Col>
                                   </Row>
-
 
                                   <div className="form-check mb-2">
                                     <Input
@@ -2032,12 +2373,7 @@ const StartUpDetailsMaster = () => {
                                       <button
                                         type="button"
                                         className="btn btn-outline-danger m-1"
-                                        onClick={() => {
-                  setmodal_edit(false);
-                  setIsSubmit(false);
-                  setFormErrors({});
-                }}
-
+                                        onClick={handleUpdateCancel}
                                       >
                                         Cancel
                                       </button>
@@ -2098,7 +2434,7 @@ const StartUpDetailsMaster = () => {
         toggle={() => {
           tog_delete();
           // setValues([]);
-         setFormErrors({});
+          setFormErrors({});
         }}
         centered
       >
