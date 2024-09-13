@@ -28,22 +28,25 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import {
-  createStartUpDetailsMaster,
-  getStartUpDetailsMaster,
-  removeStartUpDetailsMaster,
-  updateStartUpDetailsMaster,
-} from "../../functions/Master/startup";
+    createEventMaster,
+    getEventMaster,
+    removeEventMaster,
+    updateEventMaster,
+} from "../../functions/Master/EventMaster";
+
 import StageOfStartup from "./StageOfStartup";
+import { Name } from "ajv";
+import Country from "../LocationSetUp/Country/Country";
+import City from "../LocationSetUp/City/City";
 
 const initialState = {
-  participantCategoryId: "",
-  categoryId: "",
-  contactPersonName: "",
+  Name  : "",
+  logo: "",
   contactNo: "",
   email: "",
-  password: "",
-  companyName: "",
-  logo: "",
+  startDate: "",
+  endDate: "",
+  timming: "",
   description: "",
   remarks: "",
   StateID: "",
@@ -51,16 +54,6 @@ const initialState = {
   City: "",
   address: "",
   pincode: "",
-  countryCode: "",
-  legalName: "",
-  founderName: "",
-  stageOfStartup: "",
-  yearFounded: "",
-  brochure: "",
-  productImages: "",
-  teamSize: "",
-  IsPaid: false,
-
   IsActive: false,
 };
 
@@ -293,14 +286,13 @@ const EventMaster = () => {
   ];
   const [values, setValues] = useState(initialState);
   const {
-    participantCategoryId,
-    categoryId,
-    contactPersonName,
+    Name,
+    logo,
     contactNo,
     email,
-    password,
-    companyName,
-    logo,
+    startDate,
+    endDate,
+    timming,
     description,
     remarks,
     StateID,
@@ -308,16 +300,7 @@ const EventMaster = () => {
     City,
     address,
     pincode,
-    countryCode,
-    legalName,
-    founderName,
-    stageOfStartup,
-    yearFounded,
-    teamSize,
-    brochure,
-    productImages,
     IsActive,
-    IsPaid
   } = values;
 
   const [country, setCountry] = useState([]);
@@ -538,37 +521,33 @@ const EventMaster = () => {
 
     setIsSubmit(false);
     set_Id(_id);
-    getStartUpDetailsMaster(_id)
+    getEventMaster(_id)
       .then((res) => {
         console.log("res", res);
+        const formatDate = (dateString) => {
+            const date = new Date(dateString);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+          };
         setValues({
           ...values,
-          participantCategoryId: res.participantCategoryId,
-          categoryId: res.categoryId,
-          contactPersonName: res.contactPersonName,
-          contactNo: res.contactNo,
-          email: res.email,
-          password: res.password,
-          companyName: res.companyName,
-          logo: res.logo,
-          description: res.description,
-          remarks: res.remarks,
-          StateID: res.StateID,
-          CountryID: res.CountryID,
-          City: res.City,
-          address: res.address,
-          pincode: res.pincode,
-          countryCode: res.countryCode,
-          legalName: res.legalName,
-          founderName: res.founderName,
-          stageOfStartup: res.stageOfStartup,
-          yearFounded: res.yearFounded,
-          teamSize: res.teamSize,
-          IsActive: res.IsActive,
-          IsPaid: res.IsPaid,
-          logo: res.logo,
-          brochure: res.brochure,
-          productImages: res.productImages,
+          Name: res.name,
+            logo: res.logo,
+            contactNo: res.contactNo,
+            email: res.email,
+            startDate: formatDate(res.startDate),
+          endDate: formatDate(res.endDate), 
+            timming: res.timing,
+            description: res.description,
+            remarks: res.remarks,
+            StateID: res.StateID,
+            CountryID: res.CountryID,
+            City: res.City,
+            address: res.address,
+            pincode: res.pincode,
+            IsActive: res.IsActive,
         });
       })
       .catch((err) => {
@@ -618,33 +597,23 @@ const EventMaster = () => {
 
     if (Object.keys(errors).length === 0) {
       const formData = new FormData();
-      formData.append("logo", values.logo);
-      formData.append("brochure", values.brochure);
-      formData.append("productImages", values.productImages);
-      formData.append("participantCategoryId", values.participantCategoryId);
-      formData.append("categoryId", values.categoryId);
-      formData.append("contactPersonName", values.contactPersonName);
-      formData.append("contactNo", values.contactNo);
-      formData.append("email", values.email);
-      formData.append("password", values.password);
-      formData.append("companyName", values.companyName);
-      formData.append("description", values.description);
-      formData.append("remarks", values.remarks);
-      formData.append("StateID", values.StateID);
-      formData.append("CountryID", values.CountryID);
-      formData.append("City", values.City);
-      formData.append("address", values.address);
-      formData.append("pincode", values.pincode);
-      formData.append("countryCode", values.countryCode);
-      formData.append("legalName", values.legalName);
-      formData.append("founderName", values.founderName);
-      formData.append("stageOfStartup", values.stageOfStartup);
-      formData.append("yearFounded", values.yearFounded);
-      formData.append("teamSize", values.teamSize);
-      formData.append("IsActive", values.IsActive);
-      formData.append("IsPaid", values.IsPaid);
+      formData.append("name" , values.Name);
+        formData.append("logo", values.logo);
+        formData.append("contactNo", values.contactNo);
+        formData.append("email", values.email);
+        formData.append("startDate", values.startDate);
+        formData.append("endDate", values.endDate);
+        formData.append("timing", values.timming);
+        formData.append("description", values.description);
+        formData.append("remarks", values.remarks);
+        formData.append("StateID", values.StateID);
+        formData.append("CountryID", values.CountryID);
+        formData.append("City", values.City);
+        formData.append("address", values.address);
+        formData.append("pincode", values.pincode);
+        formData.append("IsActive", values.IsActive);
 
-      createStartUpDetailsMaster(formData)
+      createEventMaster(formData)
         .then((res) => {
           console.log("res", res);
           if (res.isOk) {
@@ -675,7 +644,7 @@ const EventMaster = () => {
 
   const handleDelete = (e) => {
     e.preventDefault();
-    removeStartUpDetailsMaster(remove_id)
+    removeEventMaster(remove_id)
       .then((res) => {
         setmodal_delete(!modal_delete);
         fetchUsers();
@@ -699,7 +668,7 @@ const EventMaster = () => {
   //   setIsSubmit(true);
 
   //   if (Object.keys(erros).length === 0) {
-  //     updateStartUpDetailsMaster(_id, values)
+  //     updateEventMaster(_id, values)
   //       .then((res) => {
   //         setmodal_edit(!modal_edit);
   //         fetchUsers();
@@ -715,38 +684,30 @@ const EventMaster = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
     let erros = validate(values);
+
+    console.log("Valuesss",values);
     setFormErrors(erros);
     setIsSubmit(true);
 
     if (Object.keys(erros).length === 0) {
       const formData = new FormData();
-      formData.append("logo", values.logo);
-      formData.append("brochure", values.brochure);
-      formData.append("productImages", values.productImages);
-      formData.append("participantCategoryId", values.participantCategoryId);
-      formData.append("categoryId", values.categoryId);
-      formData.append("contactPersonName", values.contactPersonName);
-      formData.append("contactNo", values.contactNo);
-      formData.append("email", values.email);
-      formData.append("password", values.password);
-      formData.append("companyName", values.companyName);
-      formData.append("description", values.description);
-      formData.append("remarks", values.remarks);
-      formData.append("StateID", values.StateID);
-      formData.append("CountryID", values.CountryID);
-      formData.append("City", values.City);
-      formData.append("address", values.address);
-      formData.append("pincode", values.pincode);
-      formData.append("countryCode", values.countryCode);
-      formData.append("legalName", values.legalName);
-      formData.append("founderName", values.founderName);
-      formData.append("stageOfStartup", values.stageOfStartup);
-      formData.append("yearFounded", values.yearFounded);
-      formData.append("teamSize", values.teamSize);
-      formData.append("IsActive", values.IsActive);
-      formData.append("IsPaid", values.IsPaid);
+      formData.append("name" , values.Name);
+        formData.append("logo", values.logo);
+        formData.append("contactNo", values.contactNo);
+        formData.append("email", values.email);
+        formData.append("startDate", values.startDate);
+        formData.append("endDate", values.endDate);
+        formData.append("timing", values.timming);
+        formData.append("description", values.description);
+        formData.append("remarks", values.remarks);
+        formData.append("StateID", values.StateID);
+        formData.append("CountryID", values.CountryID);
+        formData.append("City", values.City);
+        formData.append("address", values.address);
+        formData.append("pincode", values.pincode);
+        formData.append("IsActive", values.IsActive);
       
-      updateStartUpDetailsMaster(_id, formData)
+      updateEventMaster(_id, formData)
         .then((res) => {
           setUpdateForm(false);
           setShowForm(false);
@@ -767,181 +728,144 @@ const EventMaster = () => {
     }
   };
 
-  const [errparticipantCategoryId, setErrparticipantCategoryId] =
-    useState(false);
-  const [errcategoryId, setErrcategoryId] = useState(false);
-  const [errcontactPersonName, setErrcontactPersonName] = useState(false);
-  const [errcontactNo, setErrcontactNo] = useState(false);
-  const [erremail, setErremail] = useState(false);
-  const [errpassword, setErrpassword] = useState(false);
-  const [errcompanyName, setErrcompanyName] = useState(false);
-  const [errlogo, setErrlogo] = useState(false);
-  const [errdescription, setErrdescription] = useState(false);
-  const [errremarks, setErrremarks] = useState(false);
-  const [errStateID, setErrStateID] = useState(false);
-  const [errCountryID, setErrCountryID] = useState(false);
-  const [errCity, setErrCity] = useState(false);
-  const [erraddress, setErraddress] = useState(false);
-  const [errpincode, setErrpincode] = useState(false);
-  const [errcountryCode, setErrcountryCode] = useState(false);
-  const [errlegalName, setErrlegalName] = useState(false);
-  const [errfounderName, setErrfounderName] = useState(false);
-  const [errstageOfStartup, setErrstageOfStartup] = useState(false);
-  const [erryearFounded, setErryearFounded] = useState(false);
-  const [errteamSize, setErrteamSize] = useState(false);
-  const [errbrochure, setErrbrochure] = useState(false);
-  const [errproductImages, setErrproductImages] = useState(false);
+  const [errName , setErrName] = useState(false);
+    const [errlogo , setErrlogo] = useState(false);
+    const [errcontactNo , setErrcontactNo] = useState(false);
+    const [erremail , setErremail] = useState(false);
+    const [errstartDate , setErrstartDate] = useState(false);
+    const [errendDate , setErrendDate] = useState(false);
+    const [errtimming , setErrtimming] = useState(false);
+    const [errdescription , setErrdescription] = useState(false);
+    const [errremarks , setErrremarks] = useState(false);
+    const [errStateID , setErrStateID] = useState(false);
+    const [errCountryID , setErrCountryID] = useState(false);
+    const [errCity , setErrCity] = useState(false);
+    const [erraddress , setErraddress] = useState(false);
+    const [errpincode , setErrpincode] = useState(false);
+    const [errIsActive , setErrIsActive] = useState(false);
+
 
 
   const validate = (values) => {
     const errors = {};
-
-    if (values.participantCategoryId === "") {
-      errors.participantCategoryId = "Participant Category is required";
-      setErrparticipantCategoryId(true);
+    if (!values.Name) {
+      errors.Name = "Name is required";
+      setErrName(true);
     }
-    if (values.categoryId === "") {
-      errors.categoryId = "Category is required";
-      setErrcategoryId(true);
-    }
-    if (values.contactPersonName === "") {
-      errors.contactPersonName = "Contact Person Name is required";
-      setErrcontactPersonName(true);
-    }
-    if (values.contactNo === "") {
-      errors.contactNo = "Contact Number is required";
-      setErrcontactNo(true);
-    }
-    if (values.email === "") {
-      errors.email = "Email is required";
-      setErremail(true);
-    }
-    if (values.password === "") {
-      errors.password = "Password is required";
-      setErrpassword(true);
-    }
-    if (values.companyName === "") {
-      errors.companyName = "Company Name is required";
-      setErrcompanyName(true);
-    }
-    if (values.description === "") {
-      errors.description = "Description is required";
-      setErrdescription(true);
-    }
-    if (values.remarks === "") {
-      errors.remarks = "Remarks is required";
-      setErrremarks(true);
-    }
-    if (values.StateID === "") {
-      errors.StateID = "State is required";
-      setErrStateID(true);
-    }
-    if (values.CountryID === "") {
-      errors.CountryID = "Country is required";
-      setErrCountryID(true);
-    }
-    if (values.City === "") {
-      errors.City = "City is required";
-      setErrCity(true);
-    }
-    if (values.address === "") {
-      errors.address = "Address is required";
-      setErraddress(true);
-    }
-    if (values.pincode === "") {
-      errors.pincode = "Pincode is required";
-      setErrpincode(true);
-    }
-    // if (values.countryCode === "") {
-    //   errors.countryCode = "Country Code is required";
-    //   setErrcountryCode(true);
-    // }
-    if (values.legalName === "") {
-      errors.legalName = "Legal Name is required";
-      setErrlegalName(true);
-    }
-    if (values.founderName === "") {
-      errors.founderName = "Founder Name is required";
-      setErrfounderName(true);
-    }
-    if (values.stageOfStartup === "") {
-      errors.stageOfStartup = "Stage Of Startup is required";
-      setErrstageOfStartup(true);
-    }
-    if (values.yearFounded === "") {
-      errors.yearFounded = "Year Founded is required";
-      setErryearFounded(true);
-    }
-    if (values.teamSize === "") {
-      errors.teamSize = "Team Size is required";
-      setErrteamSize(true);
-    }
-    if (values.brochure === "") {
-      errors.brochure = "Brochure is required";
-      setErrbrochure(true);
-    }
-    if (values.productImages === "") {
-      errors.productImages = "Product Images is required";
-      setErrproductImages(true);
-    }
-    if (values.logo === "") {
+    if (!values.logo) {
       errors.logo = "Logo is required";
       setErrlogo(true);
     }
+    if (!values.contactNo) {
+      errors.contactNo = "Contact No is required";
+      setErrcontactNo(true);
+    }
+    if (!values.email) {
+      errors.email = "Email is required";
+      setErremail(true);
+    }
+    if (!values.startDate) {
+      errors.startDate = "Start Date is required";
+      setErrstartDate(true);
+    }
+    if (!values.endDate) {
+      errors.endDate = "End Date is required";
+      setErrendDate(true);
+    }
+    if (!values.timming) {
+      errors.timming = "Timming is required";
+      setErrtimming(true);
+    }
+    if (!values.description) {
+      errors.description = "Description is required";
+      setErrdescription(true);
+    }
+    if (!values.remarks) {
+      errors.remarks = "Remarks is required";
+      setErrremarks(true);
+    }
+    if (!values.StateID) {
+      errors.StateID = "State is required";
+      setErrStateID(true);
+    }
+    if (!values.CountryID) {
+      errors.CountryID = "Country is required";
+      setErrCountryID(true);
+    }
+    if (!values.City) {
+      errors.City = "City is required";
+      setErrCity(true);
+    }
+    if (!values.address) {
+      errors.address = "Address is required";
+      setErraddress(true);
+    }
+    if (!values.pincode) {
+      errors.pincode = "Pincode is required";
+      setErrpincode(true);
+    }
+    
 
     return errors;
   };
 
-  const validClassparticipantCategoryId =
-    errparticipantCategoryId && isSubmit
+  const validClassName =
+    errName && isSubmit
       ? "form-control is-invalid"
       : "form-control";
-  const validClasscategoryId =
-    errcategoryId && isSubmit ? "form-control is-invalid" : "form-control";
-  const validClasscontactPersonName =
-    errcontactPersonName && isSubmit
-      ? "form-control is-invalid"
-      : "form-control";
-  const validClasscontactNo =
-    errcontactNo && isSubmit ? "form-control is-invalid" : "form-control";
-  const validClassEM =
-    erremail && isSubmit ? "form-control is-invalid" : "form-control";
-  const validClassPA =
-    errpassword && isSubmit ? "form-control is-invalid" : "form-control";
-  const validClassCN =
-    errcompanyName && isSubmit ? "form-control is-invalid" : "form-control";
-  const validClassLogo =
-    errlogo && isSubmit ? "form-control is-invalid" : "form-control";
-  const validClassDes =
-    errdescription && isSubmit ? "form-control is-invalid" : "form-control";
-  const validClassRem =
-    errremarks && isSubmit ? "form-control is-invalid" : "form-control";
-  const validClassStateID =
-    errStateID && isSubmit ? "form-control is-invalid" : "form-control";
-  const validClassCountryID =
-    errCountryID && isSubmit ? "form-control is-invalid" : "form-control";
-  const validClassCity =
-    errCity && isSubmit ? "form-control is-invalid" : "form-control";
-  const validClassAdd =
-    erraddress && isSubmit ? "form-control is-invalid" : "form-control";
-  const validClassPin =
-    errpincode && isSubmit ? "form-control is-invalid" : "form-control";
-  const validClassCountryCode =
-    errcountryCode && isSubmit ? "form-control is-invalid" : "form-control";
-  const validClassLegalName =
-    errlegalName && isSubmit ? "form-control is-invalid" : "form-control";
-  const validClassFounderName =
-    errfounderName && isSubmit ? "form-control is-invalid" : "form-control";
-  const validClassStageOfStartup =
-    errstageOfStartup && isSubmit ? "form-control is-invalid" : "form-control";
-  const validClassYearFounded =
-    erryearFounded && isSubmit ? "form-control is-invalid" : "form-control";
-  const validClassTeamSize =
-    errteamSize && isSubmit ? "form-control is-invalid" : "form-control";
-  const validClassBrochure =
-    errbrochure && isSubmit ? "form-control is-invalid" : "form-control";
-  const validClassProductImages =
-    errproductImages && isSubmit ? "form-control is-invalid" : "form-control";
+    const validlogo =
+    errlogo && isSubmit
+        ? "form-control is-invalid"
+        : "form-control";
+    const validcontactNo =
+    errcontactNo && isSubmit
+        ? "form-control is-invalid"
+        : "form-control";
+    const validemail =
+    erremail && isSubmit
+        ? "form-control is-invalid"
+        : "form-control";
+    const validstartDate =
+    errstartDate && isSubmit
+        ? "form-control is-invalid"
+        : "form-control";
+    const validendDate =
+    errendDate && isSubmit
+        ? "form-control is-invalid"
+        : "form-control";
+    const validtimming =
+    errtimming && isSubmit
+        ? "form-control is-invalid"
+        : "form-control";
+    const validdescription =    
+    errdescription && isSubmit
+        ? "form-control is-invalid"
+        : "form-control";
+    const validremarks =
+    errremarks && isSubmit
+        ? "form-control is-invalid"
+        : "form-control";
+    const validStateID =
+    errStateID && isSubmit
+        ? "form-control is-invalid"
+        : "form-control";
+    const validCountryID =
+    errCountryID && isSubmit
+        ? "form-control is-invalid"
+        : "form-control";
+    const validCity =
+    errCity && isSubmit 
+        ? "form-control is-invalid"
+        : "form-control";
+    const validaddress =
+    erraddress && isSubmit
+        ? "form-control is-invalid"
+        : "form-control";
+    const validpincode =
+    errpincode && isSubmit
+        ? "form-control is-invalid"
+        : "form-control";
+
   
 
   const [loading, setLoading] = useState(false);
@@ -973,7 +897,7 @@ const EventMaster = () => {
 
     await axios
       .post(
-        `${process.env.REACT_APP_API_URL}/api/auth/listByparams/StartUpDetailsMaster`,
+        `${process.env.REACT_APP_API_URL}/api/auth/list-by-params/eventMaster`,
         {
           skip: skip,
           per_page: perPage,
@@ -1020,15 +944,15 @@ const EventMaster = () => {
 
   const col = [
     {
-      name: "Company Name",
-      selector: (row) => row.companyName,
+      name: "Name",
+      selector: (row) => row.name,
       sortable: true,
       sortField: "firstName",
       minWidth: "150px",
     },
     {
-      name: "Contact Person Name",
-      selector: (row) => row.contactPersonName,
+      name: "Contact Number",
+      selector: (row) => row.contactNo,
       sortable: true,
       sortField: "lastName",
       minWidth: "150px",
@@ -1081,7 +1005,7 @@ const EventMaster = () => {
     },
   ];
 
-  document.title = "StartUp Details Master | Naidip Foundation";
+  document.title = "Event Master | Naidip Foundation";
 
   return (
     <React.Fragment>
@@ -1089,9 +1013,9 @@ const EventMaster = () => {
       <div className="page-content">
         <Container fluid>
           <BreadCrumb
-            maintitle="Start Up Master"
-            title="Start Up Master"
-            pageTitle="Start Up Master"
+            maintitle="Event Master"
+            title="Event Master"
+            pageTitle="Event Master"
           />
           <Row>
             <Col lg={12}>
@@ -1100,7 +1024,7 @@ const EventMaster = () => {
                   <Row className="g-4 mb-1">
                     <Col className="col-sm" lg={4} md={6} sm={6}>
                       <h2 className="card-title mb-0 fs-4 mt-2">
-                        Start Up Master
+                        Event Master
                       </h2>
                     </Col>
 
@@ -1191,97 +1115,39 @@ const EventMaster = () => {
                             <div className="live-preview">
                               <Form>
                                 <Row>
-                                  <Col lg={6}>
-                                    <div className="form-floating mb-3">
-                                      <select
-                                        className={
-                                          validClassparticipantCategoryId
-                                        }
-                                        required
-                                        name="participantCategoryId"
-                                        value={participantCategoryId}
-                                        onChange={handleChange}
-                                      >
-                                        <option value="" disabled>
-                                          Select Participant Category
-                                        </option>
-                                        {participantCategory.map((cat) => (
-                                          <option key={cat._id} value={cat._id}>
-                                            {cat.categoryName}
-                                          </option>
-                                        ))}
-                                      </select>
-                                      <Label>
-                                        Participant Category{" "}
-                                        <span className="text-danger">*</span>
-                                      </Label>
-                                      {isSubmit && (
-                                        <p className="text-danger">
-                                          {formErrors.participantCategoryId}
-                                        </p>
-                                      )}
-                                    </div>
-                                  </Col>
-                                  <Col lg={6}>
-                                    <div className="form-floating mb-3">
-                                      <select
-                                        className={validClasscategoryId}
-                                        required
-                                        name="categoryId"
-                                        value={categoryId}
-                                        onChange={handleChange}
-                                      >
-                                        <option value="" disabled>
-                                          Select Category
-                                        </option>
-                                        {category.map((cat) => (
-                                          <option key={cat._id} value={cat._id}>
-                                            {cat.categoryName}
-                                          </option>
-                                        ))}
-                                      </select>
-                                      <Label>
-                                        Category name{" "}
-                                        <span className="text-danger">*</span>
-                                      </Label>
-                                      {isSubmit && (
-                                        <p className="text-danger">
-                                          {formErrors.categoryId}
-                                        </p>
-                                      )}
-                                    </div>
-                                  </Col>
-                                  <Row>
+                                <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={
+                                            validClassName
+                                          }
+                                          placeholder="Enter password"
+                                          required
+                                          name="Name"
+                                          value={Name}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Name{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.Name}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+
                                     <Col lg={4}>
                                       <div className="form-floating mb-3">
                                         <Input
                                           type="text"
                                           className={
-                                            validClasscontactPersonName
+                                            validcontactNo
                                           }
                                           placeholder="Enter password"
-                                          required
-                                          name="contactPersonName"
-                                          value={contactPersonName}
-                                          onChange={handleChange}
-                                        />
-                                        <Label>
-                                          Contact Person Name{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.contactPersonName}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
-                                    <Col lg={4}>
-                                      <div className="form-floating mb-3">
-                                        <Input
-                                          type="text"
-                                          className={validClasscontactNo}
-                                          placeholder="Enter contactNo"
                                           required
                                           name="contactNo"
                                           value={contactNo}
@@ -1302,15 +1168,17 @@ const EventMaster = () => {
                                       <div className="form-floating mb-3">
                                         <Input
                                           type="text"
-                                          className={validClassEM}
-                                          placeholder="Enter email "
+                                          className={
+                                            validemail
+                                          }
+                                          placeholder="Enter password"
                                           required
                                           name="email"
                                           value={email}
                                           onChange={handleChange}
                                         />
                                         <Label>
-                                          Email{" "}
+                                          Email Address{" "}
                                           <span className="text-danger">*</span>
                                         </Label>
                                         {isSubmit && (
@@ -1320,59 +1188,85 @@ const EventMaster = () => {
                                         )}
                                       </div>
                                     </Col>
-                                  </Row>
+                                 
+                                 
                                   <Row>
-                                    <Col lg={6}>
+                                    <Col lg={4}>
                                       <div className="form-floating mb-3">
                                         <Input
-                                          type="text"
-                                          className={validClassPA}
+                                          type="date"
+                                          className={
+                                            validstartDate
+                                          }
                                           placeholder="Enter password"
                                           required
-                                          name="password"
-                                          value={password}
+                                          name="startDate"
+                                          value={startDate}
                                           onChange={handleChange}
                                         />
                                         <Label>
-                                          Password{" "}
+                                          Start Date{" "}
                                           <span className="text-danger">*</span>
                                         </Label>
                                         {isSubmit && (
                                           <p className="text-danger">
-                                            {formErrors.password}
+                                            {formErrors.startDate}
                                           </p>
                                         )}
                                       </div>
                                     </Col>
-                                    <Col lg={6}>
+                                    <Col lg={4}>
                                       <div className="form-floating mb-3">
                                         <Input
-                                          type="text"
-                                          className={validClassCN}
-                                          placeholder="Enter Company Name"
+                                          type="date"
+                                          className={validendDate}
+                                          placeholder="Enter contactNo"
                                           required
-                                          name="companyName"
-                                          value={companyName}
+                                          name="endDate"
+                                          value={endDate}
                                           onChange={handleChange}
                                         />
                                         <Label>
-                                          Company Name{" "}
+                                          End Date{" "}
                                           <span className="text-danger">*</span>
                                         </Label>
                                         {isSubmit && (
                                           <p className="text-danger">
-                                            {formErrors.companyName}
+                                            {formErrors.endDate}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                    <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validtimming}
+                                          placeholder="Enter email "
+                                          required
+                                          name="timming"
+                                          value={timming}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Timming{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.timming}
                                           </p>
                                         )}
                                       </div>
                                     </Col>
                                   </Row>
+                                  
                                   <Row>
                                     <Col lg={6}>
                                       <div className="form-floating mb-3">
                                         <Input
                                           type="textarea"
-                                          className={validClassDes}
+                                          className={validdescription}
                                           placeholder="Enter Description"
                                           required
                                           name="description"
@@ -1395,7 +1289,7 @@ const EventMaster = () => {
                                       <div className="form-floating mb-3">
                                         <Input
                                           type="text"
-                                          className={validClassRem}
+                                          className={validremarks}
                                           placeholder="Enter Remarks"
                                           required
                                           name="remarks"
@@ -1420,7 +1314,7 @@ const EventMaster = () => {
                                     <Col lg={3}>
                                       <div className="form-floating mb-3">
                                         <select
-                                          className={validClassCountryID}
+                                          className={validCountryID}
                                           required
                                           name="CountryID"
                                           value={CountryID}
@@ -1452,7 +1346,7 @@ const EventMaster = () => {
                                     <Col lg={3}>
                                       <div className="form-floating mb-3">
                                         <select
-                                          className={validClassStateID}
+                                          className={validStateID}
                                           required
                                           name="StateID"
                                           value={StateID}
@@ -1485,7 +1379,7 @@ const EventMaster = () => {
                                       <div className="form-floating mb-3">
                                         <Input
                                           type="text"
-                                          className={validClassCity}
+                                          className={validCity}
                                           placeholder="Enter City"
                                           required
                                           name="City"
@@ -1507,7 +1401,7 @@ const EventMaster = () => {
                                       <div className="form-floating mb-3">
                                         <Input
                                           type="text"
-                                          className={validClassPin}
+                                          className={validpincode}
                                           placeholder="Enter Address"
                                           required
                                           name="pincode"
@@ -1530,7 +1424,7 @@ const EventMaster = () => {
                                     <div className="form-floating mb-3">
                                       <Input
                                         type="text"
-                                        className={validClassAdd}
+                                        className={validaddress}
                                         placeholder="Enter Address"
                                         required
                                         name="address"
@@ -1552,134 +1446,6 @@ const EventMaster = () => {
 
                                   <Row>
                                     <Col lg={4}>
-                                      <div className="form-floating mb-3">
-                                        <Input
-                                          type="text"
-                                          className={validClassLegalName}
-                                          placeholder="Enter Legal name"
-                                          required
-                                          name="legalName"
-                                          value={legalName}
-                                          // style={{height: "100px"}}
-                                          onChange={handleChange}
-                                        />
-                                        <Label>
-                                          Legal Name{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.legalName}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
-
-                                    <Col lg={4}>
-                                      <div className="form-floating mb-3">
-                                        <Input
-                                          type="text"
-                                          className={validClassFounderName}
-                                          placeholder="Enter Founder name"
-                                          required
-                                          name="founderName"
-                                          value={founderName}
-                                          // style={{height: "100px"}}
-                                          onChange={handleChange}
-                                        />
-                                        <Label>
-                                          Founder Name{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.founderName}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
-
-                                    <Col lg={4}>
-                                    <div className="form-floating mb-3">
-                                      <select
-                                        className={
-                                          validClassStageOfStartup
-                                        }
-                                        required
-                                        name="stageOfStartup"
-                                        value={stageOfStartup}
-                                        onChange={handleChange}
-                                      >
-                                        <option value="" disabled>
-                                          Stage Of Start Up
-                                        </option>
-                                        {stage.map((cat) => (
-                                          <option key={cat._id} value={cat._id}>
-                                            {cat.StageOfStartup}
-                                          </option>
-                                        ))}
-                                      </select>
-                                      <Label>
-                                        Stage Of Start Up{" "}
-                                        <span className="text-danger">*</span>
-                                      </Label>
-                                      {isSubmit && (
-                                        <p className="text-danger">
-                                          {formErrors.stageOfStartup}
-                                        </p>
-                                      )}
-                                    </div>
-                                    </Col>
-                                  </Row>
-                                  <Col lg={6}>
-                                    <div className="form-floating mb-3">
-                                      <Input
-                                        type="date"
-                                        className={validClassYearFounded}
-                                        placeholder="Enter year Founded"
-                                        required
-                                        name="yearFounded"
-                                        value={yearFounded}
-                                        // style={{height: "100px"}}
-                                        onChange={handleChange}
-                                      />
-                                      <Label>
-                                        Year Founded{" "}
-                                        <span className="text-danger">*</span>
-                                      </Label>
-                                      {isSubmit && (
-                                        <p className="text-danger">
-                                          {formErrors.yearFounded}
-                                        </p>
-                                      )}
-                                    </div>
-                                  </Col>
-
-                                  <Col lg={6}>
-                                    <div className="form-floating mb-3">
-                                      <Input
-                                        type="text"
-                                        className={validClassTeamSize}
-                                        placeholder="Enter team Size"
-                                        required
-                                        name="teamSize"
-                                        value={teamSize}
-                                        // style={{height: "100px"}}
-                                        onChange={handleChange}
-                                      />
-                                      <Label>
-                                        Team Size{" "}
-                                        <span className="text-danger">*</span>
-                                      </Label>
-                                      {isSubmit && (
-                                        <p className="text-danger">
-                                          {formErrors.teamSize}
-                                        </p>
-                                      )}
-                                    </div>
-                                  </Col>
-                                  <Row>
-                                    <Col lg={4}>
                                       <label>
                                         Add Logo{" "}
                                         <span className="text-danger">*</span>
@@ -1688,7 +1454,7 @@ const EventMaster = () => {
                                       <input
                                         type="file"
                                         name="logo"
-                                        className={validClassLogo}
+                                        className={validlogo}
                                         accept=".jpg, .jpeg, .png"
                                         onChange={PhotoUpload}
                                       />
@@ -1709,65 +1475,6 @@ const EventMaster = () => {
                                       ) : null}
                                     </Col>
 
-                                    <Col lg={4}>
-                                      <label>
-                                        Add Brochure{" "}
-                                        <span className="text-danger">*</span>
-                                      </label>
-
-                                      <input
-                                        type="file"
-                                        name="brochure"
-                                        className={validClassBrochure}
-                                        accept=".jpg, .jpeg, .png"
-                                        onChange={PhotoUpload1}
-                                      />
-                                      {isSubmit && (
-                                        <p className="text-danger">
-                                          {formErrors.brochure}
-                                        </p>
-                                      )}
-                                      {checkImagePhoto1 ? (
-                                        <img
-                                          //   src={image ?? myImage}
-                                          className="m-2"
-                                          src={photoAdd1}
-                                          alt="Profile"
-                                          width="300"
-                                          height="200"
-                                        />
-                                      ) : null}
-                                    </Col>
-
-                                    <Col lg={4}>
-                                      <label>
-                                        Add Product Image{" "}
-                                        <span className="text-danger">*</span>
-                                      </label>
-
-                                      <input
-                                        type="file"
-                                        name="productImages"
-                                        className={validClassProductImages}
-                                        accept=".jpg, .jpeg, .png"
-                                        onChange={PhotoUpload2}
-                                      />
-                                      {isSubmit && (
-                                        <p className="text-danger">
-                                          {formErrors.productImages}
-                                        </p>
-                                      )}
-                                      {checkImagePhoto2 ? (
-                                        <img
-                                          //   src={image ?? myImage}
-                                          className="m-2"
-                                          src={photoAdd2}
-                                          alt="Profile"
-                                          width="300"
-                                          height="200"
-                                        />
-                                      ) : null}
-                                    </Col>
                                   </Row>
                                   <Row>
                                   <div className="form-check mb-2">
@@ -1776,6 +1483,7 @@ const EventMaster = () => {
                                       className="form-check-input"
                                       name="IsActive"
                                       value={IsActive}
+                                      checked={IsActive}
                                       onChange={handleCheck}
                                     />
                                     <Label className="form-check-label">
@@ -1783,18 +1491,6 @@ const EventMaster = () => {
                                     </Label>
                                   </div>
 
-                                  <div className="form-check mb-2">
-                                    <Input
-                                      type="checkbox"
-                                      className="form-check-input"
-                                      name="IsPaid"
-                                      value={IsPaid}
-                                      onChange={handleCheckPaid}
-                                    />
-                                    <Label className="form-check-label">
-                                      Is Paid
-                                    </Label>
-                                  </div>
                                   </Row>
 
                                   <Col lg={12}>
@@ -1839,98 +1535,40 @@ const EventMaster = () => {
                           <CardBody>
                             <div className="live-preview">
                               <Form>
-                                <Row>
-                                  <Col lg={6}>
-                                    <div className="form-floating mb-3">
-                                      <select
-                                        className={
-                                          validClassparticipantCategoryId
-                                        }
-                                        required
-                                        name="participantCategoryId"
-                                        value={participantCategoryId}
-                                        onChange={handleChange}
-                                      >
-                                        <option value="" disabled>
-                                          Select Participant Category
-                                        </option>
-                                        {participantCategory.map((cat) => (
-                                          <option key={cat._id} value={cat._id}>
-                                            {cat.categoryName}
-                                          </option>
-                                        ))}
-                                      </select>
-                                      <Label>
-                                        Participant Category{" "}
-                                        <span className="text-danger">*</span>
-                                      </Label>
-                                      {isSubmit && (
-                                        <p className="text-danger">
-                                          {formErrors.participantCategoryId}
-                                        </p>
-                                      )}
-                                    </div>
-                                  </Col>
-                                  <Col lg={6}>
-                                    <div className="form-floating mb-3">
-                                      <select
-                                        className={validClasscategoryId}
-                                        required
-                                        name="categoryId"
-                                        value={categoryId}
-                                        onChange={handleChange}
-                                      >
-                                        <option value="" disabled>
-                                          Select Category
-                                        </option>
-                                        {category.map((cat) => (
-                                          <option key={cat._id} value={cat._id}>
-                                            {cat.categoryName}
-                                          </option>
-                                        ))}
-                                      </select>
-                                      <Label>
-                                        Category name{" "}
-                                        <span className="text-danger">*</span>
-                                      </Label>
-                                      {isSubmit && (
-                                        <p className="text-danger">
-                                          {formErrors.categoryId}
-                                        </p>
-                                      )}
-                                    </div>
-                                  </Col>
-                                  <Row>
+                              <Row>
+                                <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={
+                                            validClassName
+                                          }
+                                          placeholder="Enter password"
+                                          required
+                                          name="Name"
+                                          value={Name}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Name{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.Name}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+
                                     <Col lg={4}>
                                       <div className="form-floating mb-3">
                                         <Input
                                           type="text"
                                           className={
-                                            validClasscontactPersonName
+                                            validcontactNo
                                           }
                                           placeholder="Enter password"
-                                          required
-                                          name="contactPersonName"
-                                          value={contactPersonName}
-                                          onChange={handleChange}
-                                        />
-                                        <Label>
-                                          Contact Person Name{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.contactPersonName}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
-                                    <Col lg={4}>
-                                      <div className="form-floating mb-3">
-                                        <Input
-                                          type="text"
-                                          className={validClasscontactNo}
-                                          placeholder="Enter contactNo"
                                           required
                                           name="contactNo"
                                           value={contactNo}
@@ -1951,15 +1589,17 @@ const EventMaster = () => {
                                       <div className="form-floating mb-3">
                                         <Input
                                           type="text"
-                                          className={validClassEM}
-                                          placeholder="Enter email "
+                                          className={
+                                            validemail
+                                          }
+                                          placeholder="Enter password"
                                           required
                                           name="email"
                                           value={email}
                                           onChange={handleChange}
                                         />
                                         <Label>
-                                          Email{" "}
+                                          Email Address{" "}
                                           <span className="text-danger">*</span>
                                         </Label>
                                         {isSubmit && (
@@ -1969,59 +1609,85 @@ const EventMaster = () => {
                                         )}
                                       </div>
                                     </Col>
-                                  </Row>
+                                 
+                                 
                                   <Row>
-                                    <Col lg={6}>
+                                    <Col lg={4}>
                                       <div className="form-floating mb-3">
                                         <Input
-                                          type="text"
-                                          className={validClassPA}
+                                          type="date"
+                                          className={
+                                            validstartDate
+                                          }
                                           placeholder="Enter password"
                                           required
-                                          name="password"
-                                          value={password}
+                                          name="startDate"
+                                          value={startDate}
                                           onChange={handleChange}
                                         />
                                         <Label>
-                                          Password{" "}
+                                          Start Date{" "}
                                           <span className="text-danger">*</span>
                                         </Label>
                                         {isSubmit && (
                                           <p className="text-danger">
-                                            {formErrors.password}
+                                            {formErrors.startDate}
                                           </p>
                                         )}
                                       </div>
                                     </Col>
-                                    <Col lg={6}>
+                                    <Col lg={4}>
                                       <div className="form-floating mb-3">
                                         <Input
-                                          type="text"
-                                          className={validClassCN}
-                                          placeholder="Enter Company Name"
+                                          type="date"
+                                          className={validendDate}
+                                          placeholder="Enter contactNo"
                                           required
-                                          name="companyName"
-                                          value={companyName}
+                                          name="endDate"
+                                          value={endDate}
                                           onChange={handleChange}
                                         />
                                         <Label>
-                                          Company Name{" "}
+                                          End Date{" "}
                                           <span className="text-danger">*</span>
                                         </Label>
                                         {isSubmit && (
                                           <p className="text-danger">
-                                            {formErrors.companyName}
+                                            {formErrors.endDate}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                    <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          type="text"
+                                          className={validtimming}
+                                          placeholder="Enter email "
+                                          required
+                                          name="timming"
+                                          value={timming}
+                                          onChange={handleChange}
+                                        />
+                                        <Label>
+                                          Timming{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.timming}
                                           </p>
                                         )}
                                       </div>
                                     </Col>
                                   </Row>
+                                  
                                   <Row>
                                     <Col lg={6}>
                                       <div className="form-floating mb-3">
                                         <Input
                                           type="textarea"
-                                          className={validClassDes}
+                                          className={validdescription}
                                           placeholder="Enter Description"
                                           required
                                           name="description"
@@ -2044,7 +1710,7 @@ const EventMaster = () => {
                                       <div className="form-floating mb-3">
                                         <Input
                                           type="text"
-                                          className={validClassRem}
+                                          className={validremarks}
                                           placeholder="Enter Remarks"
                                           required
                                           name="remarks"
@@ -2069,7 +1735,7 @@ const EventMaster = () => {
                                     <Col lg={3}>
                                       <div className="form-floating mb-3">
                                         <select
-                                          className={validClassCountryID}
+                                          className={validCountryID}
                                           required
                                           name="CountryID"
                                           value={CountryID}
@@ -2101,7 +1767,7 @@ const EventMaster = () => {
                                     <Col lg={3}>
                                       <div className="form-floating mb-3">
                                         <select
-                                          className={validClassStateID}
+                                          className={validStateID}
                                           required
                                           name="StateID"
                                           value={StateID}
@@ -2134,7 +1800,7 @@ const EventMaster = () => {
                                       <div className="form-floating mb-3">
                                         <Input
                                           type="text"
-                                          className={validClassCity}
+                                          className={validCity}
                                           placeholder="Enter City"
                                           required
                                           name="City"
@@ -2156,7 +1822,7 @@ const EventMaster = () => {
                                       <div className="form-floating mb-3">
                                         <Input
                                           type="text"
-                                          className={validClassPin}
+                                          className={validpincode}
                                           placeholder="Enter Address"
                                           required
                                           name="pincode"
@@ -2179,7 +1845,7 @@ const EventMaster = () => {
                                     <div className="form-floating mb-3">
                                       <Input
                                         type="text"
-                                        className={validClassAdd}
+                                        className={validaddress}
                                         placeholder="Enter Address"
                                         required
                                         name="address"
@@ -2201,126 +1867,6 @@ const EventMaster = () => {
 
                                   <Row>
                                     <Col lg={4}>
-                                      <div className="form-floating mb-3">
-                                        <Input
-                                          type="text"
-                                          className={validClassLegalName}
-                                          placeholder="Enter Legal name"
-                                          required
-                                          name="legalName"
-                                          value={legalName}
-                                          // style={{height: "100px"}}
-                                          onChange={handleChange}
-                                        />
-                                        <Label>
-                                          Legal Name{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.legalName}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
-
-                                    <Col lg={4}>
-                                      <div className="form-floating mb-3">
-                                        <Input
-                                          type="text"
-                                          className={validClassFounderName}
-                                          placeholder="Enter Founder name"
-                                          required
-                                          name="founderName"
-                                          value={founderName}
-                                          // style={{height: "100px"}}
-                                          onChange={handleChange}
-                                        />
-                                        <Label>
-                                          Founder Name{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.founderName}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
-
-                                    <Col lg={4}>
-                                      <div className="form-floating mb-3">
-                                        <Input
-                                          type="text"
-                                          className={validClassStageOfStartup}
-                                          placeholder="Enter Stage of StartUp"
-                                          required
-                                          name="stageOfStartup"
-                                          value={stageOfStartup}
-                                          // style={{height: "100px"}}
-                                          onChange={handleChange}
-                                        />
-                                        <Label>
-                                          Stage Of Startup{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.stageOfStartup}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
-                                  </Row>
-                                  <Col lg={6}>
-                                    <div className="form-floating mb-3">
-                                      <Input
-                                        type="date"
-                                        className={validClassYearFounded}
-                                        placeholder="Enter year Founded"
-                                        required
-                                        name="yearFounded"
-                                        value={yearFounded}
-                                        // style={{height: "100px"}}
-                                        onChange={handleChange}
-                                      />
-                                      <Label>
-                                        Year Founded{" "}
-                                        <span className="text-danger">*</span>
-                                      </Label>
-                                      {isSubmit && (
-                                        <p className="text-danger">
-                                          {formErrors.yearFounded}
-                                        </p>
-                                      )}
-                                    </div>
-                                  </Col>
-
-                                  <Col lg={6}>
-                                    <div className="form-floating mb-3">
-                                      <Input
-                                        type="text"
-                                        className={validClassTeamSize}
-                                        placeholder="Enter team Size"
-                                        required
-                                        name="teamSize"
-                                        value={teamSize}
-                                        // style={{height: "100px"}}
-                                        onChange={handleChange}
-                                      />
-                                      <Label>
-                                        Team Size{" "}
-                                        <span className="text-danger">*</span>
-                                      </Label>
-                                      {isSubmit && (
-                                        <p className="text-danger">
-                                          {formErrors.teamSize}
-                                        </p>
-                                      )}
-                                    </div>
-                                  </Col>
-                                  <Row>
-                                    <Col lg={4}>
                                       <label>
                                         Add Logo{" "}
                                         <span className="text-danger">*</span>
@@ -2329,7 +1875,7 @@ const EventMaster = () => {
                                       <input
                                         type="file"
                                         name="logo"
-                                        className={validClassAdd}
+                                        className={validlogo}
                                         accept=".jpg, .jpeg, .png"
                                         onChange={PhotoUpload}
                                       />
@@ -2353,71 +1899,7 @@ const EventMaster = () => {
                                       ) : null}
                                     </Col>
 
-                                    <Col lg={4}>
-                                      <label>
-                                        Add Brochure{" "}
-                                        <span className="text-danger">*</span>
-                                      </label>
-
-                                      <input
-                                        type="file"
-                                        name="brochure"
-                                        className={validClassAdd}
-                                        accept=".jpg, .jpeg, .png"
-                                        onChange={PhotoUpload1}
-                                      />
-                                      {isSubmit && (
-                                        <p className="text-danger">
-                                          {formErrors.logo}
-                                        </p>
-                                      )}
-                                      {values.brochure || photoAdd1 ? (
-                                        <img
-                                          // key={photoAdd}
-                                          className="m-2"
-                                          src={
-                                            checkImagePhoto1
-                                              ? photoAdd1
-                                              : `${process.env.REACT_APP_API_URL}/${values.brochure}`
-                                          }
-                                          width="300"
-                                          height="200"
-                                        />
-                                      ) : null}
-                                    </Col>
-
-                                    <Col lg={4}>
-                                      <label>
-                                        Add Product Image{" "}
-                                        <span className="text-danger">*</span>
-                                      </label>
-
-                                      <input
-                                        type="file"
-                                        name="productImages"
-                                        className={validClassAdd}
-                                        accept=".jpg, .jpeg, .png"
-                                        onChange={PhotoUpload2}
-                                      />
-                                      {isSubmit && (
-                                        <p className="text-danger">
-                                          {formErrors.logo}
-                                        </p>
-                                      )}
-                                      {values.productImages || photoAdd2 ? (
-                                        <img
-                                          // key={photoAdd}
-                                          className="m-2"
-                                          src={
-                                            checkImagePhoto2
-                                              ? photoAdd2
-                                              : `${process.env.REACT_APP_API_URL}/${values.productImages}`
-                                          }
-                                          width="300"
-                                          height="200"
-                                        />
-                                      ) : null}
-                                    </Col>
+                                   
                                   </Row>
 
                                   <div className="form-check mb-2">
@@ -2434,19 +1916,6 @@ const EventMaster = () => {
                                     </Label>
                                   </div>
 
-                                  <div className="form-check mb-2">
-                                    <Input
-                                      type="checkbox"
-                                      className="form-check-input"
-                                      name="IsPaid"
-                                      value={IsPaid}
-                                      checked={IsPaid}
-                                      onChange={handleCheckPaid}
-                                    />
-                                    <Label className="form-check-label">
-                                      Is Paid
-                                    </Label>
-                                  </div>
 
                                   <Col lg={12}>
                                     <div className="text-end">
