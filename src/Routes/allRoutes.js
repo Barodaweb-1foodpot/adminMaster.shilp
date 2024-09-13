@@ -21,6 +21,7 @@ import ParticipantCategoryMaster from "../pages/Category/ParticipantCategoryMast
 import Investor from "../pages/Master/Investor";
 import StartUp from "../pages/Master/Startup";
 import StageOfStartup from "../pages/Master/StageOfStartup";
+import FaqMaster from "../pages/FAQMaster/FaqMaster";
 const authProtectedRoutes = [
   // { path: "/dashboard", component: <DashboardCrm /> },
   { path: "/profile", component: <UserProfile /> },
@@ -46,6 +47,7 @@ const authProtectedRoutes = [
   { path: "/cms-master", component: <CMSContentForm /> },
   { path: "/newsletter-master", component: <NewsletterSubs /> },
   { path: "/notification-setup", component: <NotificationSetup /> },
+  { path: "/faq-master", component: <FaqMaster /> },
 
 
   {
