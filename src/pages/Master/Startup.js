@@ -1081,7 +1081,7 @@ const StartUpDetailsMaster = () => {
     },
   ];
 
-  document.title = "StartUp Details Master | Naidip Foundation";
+  document.title = "Pitchers / Startups | Naidip Foundation";
 
   return (
     <React.Fragment>
@@ -1089,9 +1089,9 @@ const StartUpDetailsMaster = () => {
       <div className="page-content">
         <Container fluid>
           <BreadCrumb
-            maintitle="Start Up Master"
-            title="Start Up Master"
-            pageTitle="Start Up Master"
+            maintitle="Pitchers / Startups"
+            title="Pitchers / Startups"
+            pageTitle="Participants"
           />
           <Row>
             <Col lg={12}>
@@ -1100,7 +1100,7 @@ const StartUpDetailsMaster = () => {
                   <Row className="g-4 mb-1">
                     <Col className="col-sm" lg={4} md={6} sm={6}>
                       <h2 className="card-title mb-0 fs-4 mt-2">
-                        Start Up Master
+                      Pitchers / Startups
                       </h2>
                     </Col>
 
@@ -2532,7 +2532,7 @@ const StartUpDetailsMaster = () => {
             setmodal_delete(!modal_delete);
           }}
         >
-          <span style={{ marginRight: "210px" }}>Remove Gallery Master</span>
+          <span style={{ marginRight: "210px" }}>Remove Detail</span>
         </ModalHeader>
 
         <form>

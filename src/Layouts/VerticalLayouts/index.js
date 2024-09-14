@@ -219,7 +219,7 @@ const VerticalLayout = (props) => {
           <ul className="nav nav-sm flex-column test">
             <li className="nav-item">
               <Link className="nav-link menu-link" to="/category">
-                <span data-key="t-apps"> Category Master </span>
+                <span data-key="t-apps">Startup Category Master </span>
               </Link>
             </li>
             <li className="nav-item">
@@ -227,19 +227,26 @@ const VerticalLayout = (props) => {
                 <span data-key="t-apps">Participant Category Master </span>
               </Link>
             </li>
+
+            <li className="nav-item">
+              <Link className="nav-link menu-link" to="/stage-of-startup">
+                <span data-key="t-apps">Stage of Startup </span>
+
+              </Link>
+            </li>
             <li className="nav-item">
               <Link className="nav-link menu-link" to="/ticket-master">
                 <span data-key="t-apps"> Ticket Master </span>
-            
-              <Link className="nav-link menu-link" to="/stage-of-startup">
-                <span data-key="t-apps">Stage Of Startup </span>
-
-              </Link>
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link menu-link" to="/event-master">
                 <span data-key="t-apps">Event Master </span>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/faq-master" className="nav-link">
+                FAQ Master
               </Link>
             </li>
           </ul>
@@ -269,7 +276,7 @@ const VerticalLayout = (props) => {
         </Collapse>
       </li>
 
-      {/* <li className="nav-item">
+      <li className="nav-item">
         <Link
           className="nav-link menu-link"
           to="#"
@@ -278,25 +285,31 @@ const VerticalLayout = (props) => {
             setEnroll(!enroll);
           }}
         >
-          <span data-key="t-apps"> Enrollment </span>
+          <span data-key="t-apps"> Participants </span>
         </Link>
 
         <Collapse className="menu-dropdown" isOpen={enroll}>
           <ul className="nav nav-sm flex-column test">
             <li className="nav-item">
-              <Link className="nav-link menu-link" to="/applicants">
-                <span data-key="t-apps"> Applicants </span>
+              <Link className="nav-link menu-link" to="/startup">
+                <span data-key="t-apps"> Pitchers / Startups </span>
               </Link>
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link menu-link" to="/approved">
-                <span data-key="t-apps"> Approved </span>
+              <Link className="nav-link menu-link" to="/investor">
+                <span data-key="t-apps"> Investors </span>
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link className="nav-link menu-link" to="/visitors">
+                <span data-key="t-apps"> Visitors </span>
               </Link>
             </li>
           </ul>
         </Collapse>
-      </li> */}
+      </li>
 
       <li className="nav-item">
         <Link to="/newsletter-master" className="nav-link">
@@ -304,26 +317,8 @@ const VerticalLayout = (props) => {
         </Link>
       </li>
 
-      <li className="nav-item">
-        <Link to="/investor" className="nav-link">
-          Investor
 
-        </Link>
-      </li>
 
-      <li className="nav-item">
-        <Link to="/startup" className="nav-link">
-          Start Up
-
-        </Link>
-      </li>
-
-      <li className="nav-item">
-        <Link to="/faq-master" className="nav-link">
-          FAQ Master
-          
-        </Link>
-      </li>
 
       {/* <li className="nav-item">
         <Link

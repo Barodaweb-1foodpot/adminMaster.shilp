@@ -1031,7 +1031,7 @@ const TicketMaster = () => {
                         setmodal_delete(false);
                     }}
                 >
-                    Remove Promocode
+                    Remove Ticket
                 </ModalHeader>
                 <form>
                     <ModalBody>

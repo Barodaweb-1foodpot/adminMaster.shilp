@@ -708,7 +708,7 @@ const Investor = () => {
     `${process.env.REACT_APP_API_URL_Millenium}/${File}`
   );
 
-  document.title = " Investor Master | Shilp StartUp Foundation";
+  document.title = "Investors | Shilp StartUp Foundation";
 
   return (
     <React.Fragment>
@@ -716,9 +716,9 @@ const Investor = () => {
       <div className="page-content">
         <Container fluid>
           <BreadCrumb
-            maintitle="Investor Master"
-            title="Investor Master"
-            pageTitle="Investor Master"
+            maintitle="Investors"
+            title="Investors"
+            pageTitle="Participants"
           />
           <Row>
             <Col lg={12}>
@@ -727,7 +727,7 @@ const Investor = () => {
                   <Row className="g-4 mb-1">
                     <Col className="col-sm" lg={4} md={6} sm={6}>
                       <h2 className="card-title mb-0 fs-4 mt-2">
-                        Investor Master
+                        Investors
                       </h2>
                     </Col>
 
@@ -1826,7 +1826,7 @@ const Investor = () => {
             setmodal_delete(!modal_delete);
           }}
         >
-          <span style={{ marginRight: "210px" }}>Remove Gallery Master</span>
+          <span style={{ marginRight: "210px" }}>Remove Investor</span>
         </ModalHeader>
 
         <form>

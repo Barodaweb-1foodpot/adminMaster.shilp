@@ -2001,7 +2001,7 @@ const EventMaster = () => {
             setmodal_delete(!modal_delete);
           }}
         >
-          <span style={{ marginRight: "210px" }}>Remove Gallery Master</span>
+          <span style={{ marginRight: "210px" }}>Remove Event</span>
         </ModalHeader>
 
         <form>

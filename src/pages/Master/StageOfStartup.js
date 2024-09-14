@@ -319,7 +319,7 @@ const StageOfStartup = () => {
     },
   ];
 
-  document.title = "Stage Of Start Up| Startup Fest Gujarat";
+  document.title = "Stage ff Start Up| Startup Fest Gujarat";
 
   return (
     <React.Fragment>
@@ -327,7 +327,7 @@ const StageOfStartup = () => {
         <Container fluid>
           <BreadCrumb
             maintitle="Parameters"
-            title="Stage Of Start Up"
+            title="Stage of Start Up"
             pageTitle="Parameters"
           />
           <Row>
@@ -335,7 +335,7 @@ const StageOfStartup = () => {
               <Card>
                 <CardHeader>
                   <FormsHeader
-                    formName="Stage Of Startup"
+                    formName="Stage of Startup"
                     filter={filter}
                     handleFilter={handleFilter}
                     tog_list={tog_list}
@@ -385,7 +385,7 @@ const StageOfStartup = () => {
             setIsSubmit(false);
           }}
         >
-          Add State Of StartUp Master
+          Add State
         </ModalHeader>
         <form>
           <ModalBody>
@@ -473,7 +473,7 @@ const StageOfStartup = () => {
             setIsSubmit(false);
           }}
         >
-          Edit Stage Of Start Up
+          Edit Stage
         </ModalHeader>
         <form>
           <ModalBody>
@@ -547,68 +547,12 @@ const StageOfStartup = () => {
         </form>
       </Modal>
 
-      {/* Remove Modal */}
-      {/* <Modal
-        isOpen={modal_delete}
-        toggle={() => {
-          tog_delete();
-        }}
-        centered
-      >
-        <ModalHeader
-          className="bg-light p-3"
-          toggle={() => {
-            setmodal_delete(false);
-          }}
-        >
-          Remove Category
-        </ModalHeader>
-        <form>
-          <ModalBody>
-            <div className="mt-2 text-center">
-              <lord-icon
-                src="https://cdn.lordicon.com/gsqxdxog.json"
-                trigger="loop"
-                colors="primary:#f7b84b,secondary:#f06548"
-                style={{ width: "100px", height: "100px" }}
-              ></lord-icon>
-              <div className="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
-                <h4>Are you sure ?</h4>
-                <p className="text-muted mx-4 mb-0">
-                  Are you Sure You want to Remove this Record ?
-                </p>
-              </div>
-            </div>
-          </ModalBody>
-          <ModalFooter>
-            <div className="hstack gap-2 justify-content-end">
-              <button
-                type="submit"
-                className="btn btn-danger"
-                id="add-btn"
-                onClick={handleDelete}
-              >
-                Remove
-              </button>
-
-              <button
-                type="button"
-                className="btn btn-outline-danger"
-                onClick={() => setmodal_delete(false)}
-              >
-                Cancel
-              </button>
-            </div>
-          </ModalFooter>
-        </form>
-      </Modal> */}
-
       <DeleteModal
         show={modal_delete}
         handleDelete={handleDelete}
         toggle={handleDeleteClose}
         setmodal_delete={setmodal_delete}
-        name= "Category"
+        name= "Stage"
       />
     </React.Fragment>
   );
