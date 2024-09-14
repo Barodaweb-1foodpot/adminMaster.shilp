@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const createEventMaster = async (values) => {
   return await axios.post(
-    `${process.env.REACT_APP_API_URL}/api/auth/create/eventMaster`,
+    `${process.env.REACT_APP_API_URL}/api/auth/eventMaster`,
     values
   );
 };

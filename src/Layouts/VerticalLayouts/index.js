@@ -230,9 +230,16 @@ const VerticalLayout = (props) => {
             <li className="nav-item">
               <Link className="nav-link menu-link" to="/ticket-master">
                 <span data-key="t-apps"> Ticket Master </span>
+            
               <Link className="nav-link menu-link" to="/stage-of-startup">
                 <span data-key="t-apps">Stage Of Startup </span>
 
+              </Link>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link menu-link" to="/event-master">
+                <span data-key="t-apps">Event Master </span>
               </Link>
             </li>
           </ul>

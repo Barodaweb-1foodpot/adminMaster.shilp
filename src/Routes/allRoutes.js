@@ -22,7 +22,9 @@ import Investor from "../pages/Master/Investor";
 import StartUp from "../pages/Master/Startup";
 import TicketMaster from "../pages/Master/TicketMaster";
 import StageOfStartup from "../pages/Master/StageOfStartup";
+import EventMaster from "../pages/Master/EventMaster";
 import FaqMaster from "../pages/FAQMaster/FaqMaster";
+
 const authProtectedRoutes = [
   // { path: "/dashboard", component: <DashboardCrm /> },
   { path: "/profile", component: <UserProfile /> },
@@ -30,6 +32,7 @@ const authProtectedRoutes = [
   {path: "/startup", component: <StartUp />},
   {path: "/investor", component: <Investor />},
   { path: "/country", component: <Country /> },
+  {path: "/event-master", component: <EventMaster />},
   { path: "/city", component: <City /> },
   { path: "/state", component: <State /> },
   { path: "/location", component: <CompanyLocation /> },
