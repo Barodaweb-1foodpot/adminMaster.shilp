@@ -1040,7 +1040,13 @@ const StartUpDetailsMaster = () => {
       sortField: "email",
       minWidth: "150px",
     },
-
+    {
+      name: "Votes",
+      selector: (row) => row.votes ? row.votes : 0,
+      sortable: true,
+      sortField: "votes",
+      minWidth: "150px",
+    },
     {
       name: "Action",
       selector: (row) => {
