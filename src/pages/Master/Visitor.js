@@ -27,15 +27,17 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import {
-  createInvestor,
-  removeInvestor,
-  listInvestor,
-  updateInvestor,
-  getInvestor,
-} from "../../functions/Master/Investor";
 
-const Investor = () => {
+
+import {
+    createVisitor,
+    removeVisitor,
+    listVisitor,
+    updateVisitor,
+    getVisitor,
+} from "../../functions/Master/Visitor";
+
+const Visitor = () => {
   const [participantCategoryId, setParticipantCategoryId] = useState("");
   const [name, setName] = useState("");
   const [contactNo, setContactNo] = useState("");
@@ -174,7 +176,7 @@ const Investor = () => {
 
     setIsSubmit(false);
     set_Id(_id);
-    getInvestor(_id)
+    getVisitor(_id)
       .then((res) => {
         console.log("res", res);
         setParticipantCategoryId(res.participantCategoryId);
@@ -242,7 +244,7 @@ const Investor = () => {
       };
 
       console.log("append", data);
-      createInvestor(data)
+      createVisitor(data)
         .then((res) => {
           console.log(res);
           // setmodal_list(!modal_list);
@@ -280,7 +282,7 @@ const Investor = () => {
           setErrCity(false);
           setErrAddress(false);
           setErrPincode(false);
-          toast.success("Investor Added Successfully");
+          toast.success("Visitor Added Successfully");
         })
         .catch((err) => {
           console.log(err);
@@ -291,11 +293,11 @@ const Investor = () => {
 
   const handleDelete = (e) => {
     e.preventDefault();
-    removeInvestor(remove_id)
+    removeVisitor(remove_id)
       .then((res) => {
         setmodal_delete(!modal_delete);
         fetchCategories();
-        toast.success("Investor Removed Successfully");
+        toast.success("Visitor Removed Successfully");
       })
       .catch((err) => {
         console.log(err);
@@ -344,7 +346,7 @@ const Investor = () => {
         IsPaid
       };
 
-      updateInvestor(_id, data)
+      updateVisitor(_id, data)
         .then((res) => {
           // setmodal_edit(!modal_edit);
           setPhotoAdd("");
@@ -384,7 +386,7 @@ const Investor = () => {
           setErrAddress(false);
           setErrPincode(false);
           fetchCategories();
-          toast.success("Investor Updated Successfully");
+          toast.success("Visitor Updated Successfully");
         })
         .catch((err) => {
           console.log(err);
@@ -541,7 +543,7 @@ const Investor = () => {
 
     await axios
       .post(
-        `${process.env.REACT_APP_API_URL}/api/auth/list-by-params/investor`,
+        `${process.env.REACT_APP_API_URL}/api/auth/list-by-params/visitor`,
         {
           skip: skip,
           per_page: perPage,
@@ -750,7 +752,7 @@ const Investor = () => {
     `${process.env.REACT_APP_API_URL_Millenium}/${File}`
   );
 
-  document.title = "Investors | Shilp StartUp Foundation";
+  document.title = "Visitors | Shilp StartUp Foundation";
 
   return (
     <React.Fragment>
@@ -758,8 +760,8 @@ const Investor = () => {
       <div className="page-content">
         <Container fluid>
           <BreadCrumb
-            maintitle="Investors"
-            title="Investors"
+            maintitle="Visitors"
+            title="Visitors"
             pageTitle="Participants"
           />
           <Row>
@@ -769,7 +771,7 @@ const Investor = () => {
                   <Row className="g-4 mb-1">
                     <Col className="col-sm" lg={4} md={6} sm={6}>
                       <h2 className="card-title mb-0 fs-4 mt-2">
-                        Investors
+                      Visitors
                       </h2>
                     </Col>
 
@@ -957,7 +959,7 @@ const Investor = () => {
                                           name="ticketId"
                                           value={ticketId}
                                           onChange={(e) => {
-                                            setParticipantCategoryId(
+                                            setTicketId(
                                               e.target.value
                                             );
                                           }}
@@ -1444,7 +1446,7 @@ const Investor = () => {
                                           name="ticketId"
                                           value={ticketId}
                                           onChange={(e) => {
-                                            setTicketId(
+                                            setParticipantCategoryId(
                                               e.target.value
                                             );
                                           }}
@@ -1993,4 +1995,4 @@ const Investor = () => {
   );
 };
 
-export default Investor;
+export default Visitor;
