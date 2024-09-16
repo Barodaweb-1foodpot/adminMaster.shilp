@@ -52,6 +52,8 @@ const Investor = () => {
   const [IsPaid , setIsPaid] = useState(false);
   const [country, setCountry] = useState([]);
   const [state, setState] = useState([]);
+  const [ticketId , setTicketId] = useState("");
+  const [ticketID , setTicketID] = useState([]);
 
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
@@ -111,6 +113,25 @@ const Investor = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
+          `${process.env.REACT_APP_API_URL}/api/auth/list/ticketMaster`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const result = await response.json();
+        setTicketID(result);
+      } catch (error) {
+        setError(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
           `${process.env.REACT_APP_API_URL}/api/auth/activeLocation/country`
         );
         if (!response.ok) {
@@ -164,6 +185,7 @@ const Investor = () => {
         setDescription(res.description);
         setRemarks(res.remarks);
         setStateID(res.StateID);
+        setTicketId(res.ticketId);
         setCountryID(res.CountryID);
         setCity(res.City);
         setAddress(res.address);
@@ -188,6 +210,7 @@ const Investor = () => {
       description,
       remarks,
       StateID,
+      ticketId,
       CountryID,
       City,
       address,
@@ -208,11 +231,13 @@ const Investor = () => {
         description,
         remarks,
         StateID,
+        ticketId,
         CountryID,
         City,
         address,
         pincode,
         IsActive,
+
         IsPaid
       };
 
@@ -234,6 +259,7 @@ const Investor = () => {
           setDescription("");
           setRemarks("");
           setStateID("");
+          setTicketId("");
           setCountryID("");
           setCity("");
           setAddress("");
@@ -288,6 +314,7 @@ const Investor = () => {
       description,
       remarks,
       StateID,
+      ticketId,
       CountryID,
       City,
       address,
@@ -308,6 +335,7 @@ const Investor = () => {
         description,
         remarks,
         StateID,
+        ticketId,
         CountryID,
         City,
         address,
@@ -336,6 +364,7 @@ const Investor = () => {
           setDescription("");
           setRemarks("");
           setStateID("");
+          setTicketId("");
           setCountryID("");
           setCity("");
           setAddress("");
@@ -348,6 +377,8 @@ const Investor = () => {
           setErrDescription(false);
           setErrRemarks(false);
           setErrStateID(false);
+          setErrticketId(false);
+          setErrticketId(false);
           setErrCountryID(false);
           setErrCity(false);
           setErrAddress(false);
@@ -371,6 +402,7 @@ const Investor = () => {
   const [errDescription, setErrDescription] = useState(false);
   const [errRemarks, setErrRemarks] = useState(false);
   const [errStateID, setErrStateID] = useState(false);
+  const [errticketId, setErrticketId] = useState(false);
   const [errCountryID, setErrCountryID] = useState(false);
   const [errCity, setErrCity] = useState(false);
   const [errAddress, setErrAddress] = useState(false);
@@ -385,6 +417,7 @@ const Investor = () => {
     description,
     remarks,
     StateID,
+    ticketId,
     CountryID,
     City,
     address,
@@ -440,6 +473,10 @@ const Investor = () => {
       errors.pincode = "Pincode is required";
       setErrPincode(true);
     }
+    if (ticketId === "") {
+      errors.ticketId = "Ticket ID is required";
+      setErrticketId(true);
+    }
     return errors;
   };
 
@@ -473,6 +510,7 @@ const Investor = () => {
   const validClassPincode = errPincode
     ? "form-control is-invalid"
     : "form-control";
+  const validClasstickedId = errticketId ? "form-control is-invalid" : "form-control";
 
   const [loading, setLoading] = useState(false);
   const [totalRows, setTotalRows] = useState(0);
@@ -562,6 +600,7 @@ const Investor = () => {
     setDescription("");
     setRemarks("");
     setStateID("");
+    setTicketId("");
     setCountryID("");
     setCity("");
     setAddress("");
@@ -576,6 +615,7 @@ const Investor = () => {
     setErrDescription(false);
     setErrRemarks(false);
     setErrStateID(false);
+    setErrticketId(false);
     setErrCountryID(false);
     setErrCity(false);
     setErrAddress(false);
@@ -601,6 +641,7 @@ const Investor = () => {
     setDescription("");
     setRemarks("");
     setStateID("");
+    setTicketId("");
     setCountryID("");
     setCity("");
     setAddress("");
@@ -613,6 +654,7 @@ const Investor = () => {
     setErrDescription(false);
     setErrRemarks(false);
     setErrStateID(false);
+    setErrticketId(false);
     setErrCountryID(false);
     setErrCity(false);
     setErrAddress(false);
@@ -768,6 +810,7 @@ const Investor = () => {
                               setDescription("");
                               setRemarks("");
                               setStateID("");
+                              setTicketId("");
                               setCountryID("");
                               setCity("");
                               setAddress("");
@@ -780,6 +823,7 @@ const Investor = () => {
                               setErrDescription(false);
                               setErrRemarks(false);
                               setErrStateID(false);
+                              setErrticketId(false);
                               setErrCountryID(false);
                               setErrCity(false);
                               setErrAddress(false);
@@ -807,6 +851,7 @@ const Investor = () => {
                               setDescription("");
                               setRemarks("");
                               setStateID("");
+                              setTicketId("");
                               setCountryID("");
                               setCity("");
                               setAddress("");
@@ -819,6 +864,7 @@ const Investor = () => {
                               setErrDescription(false);
                               setErrRemarks(false);
                               setErrStateID(false);
+                              setErrticketId(false);
                               setErrCountryID(false);
                               setErrCity(false);
                               setErrAddress(false);
@@ -864,7 +910,7 @@ const Investor = () => {
                               <Form>
                                 <Row>
                                   <Row>
-                                    <Col lg={6}>
+                                    <Col lg={4}>
                                       {" "}
                                       <div className="form-floating mb-3">
                                         <select
@@ -901,7 +947,44 @@ const Investor = () => {
                                       </div>
                                     </Col>
 
-                                    <Col lg={6}>
+                                    <Col lg={4}>
+                                      {" "}
+                                      <div className="form-floating mb-3">
+                                        <select
+                                          key={"ticketId" + _id}
+                                          className={validClasstickedId}
+                                          required
+                                          name="ticketId"
+                                          value={ticketId}
+                                          onChange={(e) => {
+                                            setParticipantCategoryId(
+                                              e.target.value
+                                            );
+                                          }}
+                                        >
+                                          <option value="">Select From</option>
+                                          {ticketID.map((user) => (
+                                            <option
+                                              key={user._id}
+                                              value={user._id}
+                                            >
+                                              {user.name}
+                                            </option>
+                                          ))}
+                                        </select>
+                                        <Label>
+                                          Select Ticket{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.ticketId}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+
+                                    <Col lg={4}>
                                       <div className="form-floating mb-3">
                                         <Input
                                           key={"contactNo" + _id}
@@ -1314,7 +1397,7 @@ const Investor = () => {
                               <Form>
                                 <Row>
                                   <Row>
-                                    <Col lg={6}>
+                                    <Col lg={4}>
                                       {" "}
                                       <div className="form-floating mb-3">
                                         <select
@@ -1351,7 +1434,44 @@ const Investor = () => {
                                       </div>
                                     </Col>
 
-                                    <Col lg={6}>
+                                    <Col lg={4}>
+                                      {" "}
+                                      <div className="form-floating mb-3">
+                                        <select
+                                          key={"ticketId" + _id}
+                                          className={validClasstickedId}
+                                          required
+                                          name="ticketId"
+                                          value={ticketId}
+                                          onChange={(e) => {
+                                            setParticipantCategoryId(
+                                              e.target.value
+                                            );
+                                          }}
+                                        >
+                                          <option value="">Select From</option>
+                                          {ticketID.map((user) => (
+                                            <option
+                                              key={user._id}
+                                              value={user._id}
+                                            >
+                                              {user.name}
+                                            </option>
+                                          ))}
+                                        </select>
+                                        <Label>
+                                          Select Ticket{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.ticketId}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
+                                    
+                                    <Col lg={4}>
                                       <div className="form-floating mb-3">
                                         <Input
                                           key={"contactNo" + _id}
@@ -1799,6 +1919,7 @@ const Investor = () => {
           setDescription("");
           setRemarks("");
           setStateID("");
+          setTicketId("");
           setCountryID("");
           setCity("");
           setAddress("");
@@ -1811,6 +1932,7 @@ const Investor = () => {
           setErrDescription(false);
           setErrRemarks(false);
           setErrStateID(false);
+          setErrticketId(false);
           setErrCountryID(false);
           setErrCity(false);
           setErrAddress(false);

@@ -59,6 +59,7 @@ const initialState = {
   brochure: "",
   productImages: "",
   teamSize: "",
+  ticketId: "",
   IsPaid: false,
 
   IsActive: false,
@@ -316,6 +317,7 @@ const StartUpDetailsMaster = () => {
     teamSize,
     brochure,
     productImages,
+    ticketId,
     IsActive,
     IsPaid
   } = values;
@@ -328,6 +330,7 @@ const StartUpDetailsMaster = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [filter, setFilter] = useState(true);
+  const [ticketID , setTicketID] = useState([]);
 
   const [showForm, setShowForm] = useState(false);
   const [updateForm, setUpdateForm] = useState(false);
@@ -370,6 +373,25 @@ const StartUpDetailsMaster = () => {
         }
         const result = await response.json();
         setCategory(result);
+      } catch (error) {
+        setError(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API_URL}/api/auth/list/ticketMaster`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const result = await response.json();
+        setTicketID(result);
       } catch (error) {
         setError(error);
       }
@@ -562,6 +584,7 @@ const StartUpDetailsMaster = () => {
           legalName: res.legalName,
           founderName: res.founderName,
           stageOfStartup: res.stageOfStartup,
+          ticketId: res.ticketId,
           yearFounded: res.yearFounded,
           teamSize: res.teamSize,
           IsActive: res.IsActive,
@@ -639,6 +662,7 @@ const StartUpDetailsMaster = () => {
       formData.append("legalName", values.legalName);
       formData.append("founderName", values.founderName);
       formData.append("stageOfStartup", values.stageOfStartup);
+      formData.append("ticketId", values.ticketId);
       formData.append("yearFounded", values.yearFounded);
       formData.append("teamSize", values.teamSize);
       formData.append("IsActive", values.IsActive);
@@ -741,6 +765,7 @@ const StartUpDetailsMaster = () => {
       formData.append("legalName", values.legalName);
       formData.append("founderName", values.founderName);
       formData.append("stageOfStartup", values.stageOfStartup);
+      formData.append("ticketId", values.ticketId);
       formData.append("yearFounded", values.yearFounded);
       formData.append("teamSize", values.teamSize);
       formData.append("IsActive", values.IsActive);
@@ -787,6 +812,7 @@ const StartUpDetailsMaster = () => {
   const [errlegalName, setErrlegalName] = useState(false);
   const [errfounderName, setErrfounderName] = useState(false);
   const [errstageOfStartup, setErrstageOfStartup] = useState(false);
+  const [errticketId , setErrticketId] = useState(false);
   const [erryearFounded, setErryearFounded] = useState(false);
   const [errteamSize, setErrteamSize] = useState(false);
   const [errbrochure, setErrbrochure] = useState(false);
@@ -876,17 +902,13 @@ const StartUpDetailsMaster = () => {
       errors.teamSize = "Team Size is required";
       setErrteamSize(true);
     }
-    if (values.brochure === "") {
-      errors.brochure = "Brochure is required";
-      setErrbrochure(true);
-    }
-    if (values.productImages === "") {
-      errors.productImages = "Product Images is required";
-      setErrproductImages(true);
-    }
     if (values.logo === "") {
       errors.logo = "Logo is required";
       setErrlogo(true);
+    }
+    if (values.ticketId === "") { 
+      errors.ticketId = "Ticket Id is required";
+      setErrticketId(true);
     }
 
     return errors;
@@ -942,6 +964,8 @@ const StartUpDetailsMaster = () => {
     errbrochure && isSubmit ? "form-control is-invalid" : "form-control";
   const validClassProductImages =
     errproductImages && isSubmit ? "form-control is-invalid" : "form-control";
+  const validClassticketId = 
+    errticketId && isSubmit ? "form-control is-invalid" : "form-control";
   
 
   const [loading, setLoading] = useState(false);
@@ -1197,7 +1221,7 @@ const StartUpDetailsMaster = () => {
                             <div className="live-preview">
                               <Form>
                                 <Row>
-                                  <Col lg={6}>
+                                  <Col lg={4}>
                                     <div className="form-floating mb-3">
                                       <select
                                         className={
@@ -1228,7 +1252,41 @@ const StartUpDetailsMaster = () => {
                                       )}
                                     </div>
                                   </Col>
-                                  <Col lg={6}>
+
+                                  <Col lg={4}>
+                                    <div className="form-floating mb-3">
+                                      <select
+                                        className={
+                                          validClassticketId
+                                        }
+                                        required
+                                        name="ticketId"
+                                        value={ticketId}
+                                        onChange={handleChange}
+                                      >
+                                        <option value="" disabled>
+                                          Select Ticket
+                                        </option>
+                                        {ticketID.map((cat) => (
+                                          <option key={cat._id} value={cat._id}>
+                                            {cat.name}
+                                          </option>
+                                        ))}
+                                      </select>
+                                      <Label>
+                                        Select Ticket{" "}
+                                        <span className="text-danger">*</span>
+                                      </Label>
+                                      {isSubmit && (
+                                        <p className="text-danger">
+                                          {formErrors.ticketId}
+                                        </p>
+                                      )}
+                                    </div>
+                                  </Col>
+
+
+                                  <Col lg={4}>
                                     <div className="form-floating mb-3">
                                       <select
                                         className={validClasscategoryId}
@@ -1718,7 +1776,7 @@ const StartUpDetailsMaster = () => {
                                     <Col lg={4}>
                                       <label>
                                         Add Brochure{" "}
-                                        <span className="text-danger">*</span>
+                                        
                                       </label>
 
                                       <input
@@ -1748,7 +1806,7 @@ const StartUpDetailsMaster = () => {
                                     <Col lg={4}>
                                       <label>
                                         Add Product Image{" "}
-                                        <span className="text-danger">*</span>
+                                        
                                       </label>
 
                                       <input
@@ -1846,7 +1904,7 @@ const StartUpDetailsMaster = () => {
                             <div className="live-preview">
                               <Form>
                                 <Row>
-                                  <Col lg={6}>
+                                  <Col lg={4}>
                                     <div className="form-floating mb-3">
                                       <select
                                         className={
@@ -1877,7 +1935,41 @@ const StartUpDetailsMaster = () => {
                                       )}
                                     </div>
                                   </Col>
-                                  <Col lg={6}>
+
+                                  <Col lg={4}>
+                                    <div className="form-floating mb-3">
+                                      <select
+                                        className={
+                                          validClassticketId
+                                        }
+                                        required
+                                        name="ticketId"
+                                        value={ticketId}
+                                        onChange={handleChange}
+                                      >
+                                        <option value="" disabled>
+                                          Select Ticket
+                                        </option>
+                                        {ticketID.map((cat) => (
+                                          <option key={cat._id} value={cat._id}>
+                                            {cat.name}
+                                          </option>
+                                        ))}
+                                      </select>
+                                      <Label>
+                                        Select Ticket{" "}
+                                        <span className="text-danger">*</span>
+                                      </Label>
+                                      {isSubmit && (
+                                        <p className="text-danger">
+                                          {formErrors.ticketId}
+                                        </p>
+                                      )}
+                                    </div>
+                                  </Col>
+
+                                  
+                                  <Col lg={4}>
                                     <div className="form-floating mb-3">
                                       <select
                                         className={validClasscategoryId}
@@ -2362,7 +2454,7 @@ const StartUpDetailsMaster = () => {
                                     <Col lg={4}>
                                       <label>
                                         Add Brochure{" "}
-                                        <span className="text-danger">*</span>
+                                        
                                       </label>
 
                                       <input
@@ -2395,7 +2487,7 @@ const StartUpDetailsMaster = () => {
                                     <Col lg={4}>
                                       <label>
                                         Add Product Image{" "}
-                                        <span className="text-danger">*</span>
+                                        
                                       </label>
 
                                       <input
