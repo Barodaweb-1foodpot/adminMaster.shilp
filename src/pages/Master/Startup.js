@@ -1020,24 +1020,24 @@ const StartUpDetailsMaster = () => {
 
   const col = [
     {
-      name: "Company Name",
-      selector: (row) => row.companyName,
+      name: "Category",
+      cell: (row) => row.category,
       sortable: true,
-      sortField: "firstName",
+      sortField: "category",
+      minWidth: "150px",
+    },
+    {
+      name: "Company Name",
+      cell: (row) => row.companyName,
+      sortable: true,
+      sortField: "companyName",
       minWidth: "150px",
     },
     {
       name: "Contact Person Name",
-      selector: (row) => row.contactPersonName,
+      cell: (row) => `${row.contactPersonName} || ${row.email} || ${row.contactNo}`,
       sortable: true,
-      sortField: "lastName",
-      minWidth: "150px",
-    },
-    {
-      name: "Email",
-      selector: (row) => row.email,
-      sortable: true,
-      sortField: "email",
+      sortField: "contactPersonName",
       minWidth: "150px",
     },
     {
@@ -1045,6 +1045,13 @@ const StartUpDetailsMaster = () => {
       selector: (row) => row.votes ? row.votes : 0,
       sortable: true,
       sortField: "votes",
+      minWidth: "150px",
+    },
+    {
+      name: "Paid",
+      selector: (row) => row.IsPaid ? "Paid" : "Unpaid",
+      sortable: true,
+      sortField: "IsPaid",
       minWidth: "150px",
     },
     {
