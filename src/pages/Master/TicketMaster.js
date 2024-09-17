@@ -184,7 +184,7 @@ const TicketMaster = () => {
         if (values.eventId === "") {
             errors.eventId = "Event selection is required";
             setErrcategoryId(true);
-        } if (values.categoryId !== "") {
+        } if (values.eventId !== "") {
             setErrcategoryId(false);
         }
 
@@ -694,7 +694,7 @@ const TicketMaster = () => {
                                         min={moment().format("YYYY-MM-DD")}
                                     />
                                     <Label>
-                                        Start Date<span className="text-danger">*</span>{" "}
+                                        Start Date
                                     </Label>
                                     {isSubmit && (
                                         <p className="text-danger">{formErrors.startDate}</p>
@@ -713,7 +713,7 @@ const TicketMaster = () => {
                                         min={startDate}
                                     />
                                     <Label>
-                                        End Date<span className="text-danger">*</span>{" "}
+                                        End Date
                                     </Label>
                                     {isSubmit && (
                                         <p className="text-danger">{formErrors.endDate}</p>
@@ -930,7 +930,7 @@ const TicketMaster = () => {
                                         min={moment().format("YYYY-MM-DD")}
                                     />
                                     <Label>
-                                        Start Date<span className="text-danger">*</span>{" "}
+                                        Start Date
                                     </Label>
                                     {isSubmit && (
                                         <p className="text-danger">{formErrors.startDate}</p>
@@ -949,7 +949,7 @@ const TicketMaster = () => {
                                         min={startDate}
                                     />
                                     <Label>
-                                        End Date<span className="text-danger">*</span>{" "}
+                                        End Date
                                     </Label>
                                     {isSubmit && (
                                         <p className="text-danger">{formErrors.endDate}</p>

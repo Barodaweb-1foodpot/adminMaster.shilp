@@ -268,7 +268,7 @@ const StageOfStartup = () => {
   };
   const col = [
     {
-      name: "Category Name",
+      name: "Stage of Startup",
       selector: (row) => row.StageOfStartup,
       sortable: true,
       sortField: "StageOfStartup",
@@ -319,7 +319,7 @@ const StageOfStartup = () => {
     },
   ];
 
-  document.title = "Stage ff Start Up| Startup Fest Gujarat";
+  document.title = "Stage of Start Up| Startup Fest Gujarat";
 
   return (
     <React.Fragment>
@@ -385,7 +385,7 @@ const StageOfStartup = () => {
             setIsSubmit(false);
           }}
         >
-          Add State
+          Add Stage of Startup
         </ModalHeader>
         <form>
           <ModalBody>
@@ -399,9 +399,9 @@ const StageOfStartup = () => {
               <Label>
                 Stage Of Startup <span className="text-danger">*</span>
               </Label>
-              {/* {isSubmit && (
+              {isSubmit && (
                 <p className="text-danger">{formErrors.StageOfStartup}</p>
-              )} */}
+              )}
             </div>
 
             <div className="form-floating mb-3">
@@ -473,7 +473,7 @@ const StageOfStartup = () => {
             setIsSubmit(false);
           }}
         >
-          Edit Stage
+          Edit Stage of Startup
         </ModalHeader>
         <form>
           <ModalBody>

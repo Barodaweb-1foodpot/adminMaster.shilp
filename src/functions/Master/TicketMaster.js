@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const createticketMaster = async (values) => {
   return await axios.post(
-    `${process.env.REACT_APP_API_URL}/api/auth/create/ticketMaster`,
+    `${process.env.REACT_APP_API_URL}/api/auth/ticketMaster`,
     values
   );
 };

@@ -573,7 +573,7 @@ const City = () => {
             setIsSubmit(false);
           }}
         >
-          Edit Country
+          Edit City
         </ModalHeader>
         <form>
           <ModalBody>

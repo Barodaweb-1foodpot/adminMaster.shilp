@@ -337,7 +337,7 @@ const FaqMaster = () => {
     },
   ];
 
-  document.title = "Stage Of Start Up| Startup Fest Gujarat";
+  document.title = "FAQ Master| Startup Fest Gujarat";
 
   return (
     <React.Fragment>
@@ -345,7 +345,7 @@ const FaqMaster = () => {
         <Container fluid>
           <BreadCrumb
             maintitle="Parameters"
-            title="Stage Of Start Up"
+            title="FAQ Master"
             pageTitle="Parameters"
           />
           <Row>
@@ -353,7 +353,7 @@ const FaqMaster = () => {
               <Card>
                 <CardHeader>
                   <FormsHeader
-                    formName="Stage Of Startup"
+                    formName="FAQ Master"
                     filter={filter}
                     handleFilter={handleFilter}
                     tog_list={tog_list}
