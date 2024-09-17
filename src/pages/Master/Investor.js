@@ -86,11 +86,14 @@ const Investor = () => {
     setRemove_id(_id);
   };
 
-  const fetchStates = async (CountryIDD) => {
+  useEffect(() => {
+    fetchStates();
+  }, [CountryID])
+
+  const fetchStates = async () => {
     try {
-      console.log(CountryIDD);
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/auth/location/statesByCountry/${CountryIDD}`,
+        `${process.env.REACT_APP_API_URL}/api/auth/location/statesByCountry/${CountryID}`,
         {
           method: "GET",
           headers: {
@@ -1164,7 +1167,7 @@ const Investor = () => {
                                           value={CountryID}
                                           onChange={(e) => {
                                             setCountryID(e.target.value);
-                                            fetchStates(e.target.value);
+                                            // fetchStates(e.target.value);
                                           }}
                                         >
                                           <option value="">Select From</option>
@@ -1649,7 +1652,7 @@ const Investor = () => {
                                           value={CountryID}
                                           onChange={(e) => {
                                             setCountryID(e.target.value);
-                                            fetchStates(e.target.value);
+                                            // fetchStates(e.target.value);
                                           }}
                                         >
                                           <option value="">Select From</option>

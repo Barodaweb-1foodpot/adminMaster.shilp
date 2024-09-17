@@ -399,11 +399,14 @@ const EventMaster = () => {
     fetchData();
   }, []);
 
-  const fetchStates = async (CountryIDD) => {
+  useEffect(() => {
+    fetchStates();
+  }, [CountryID])
+
+  const fetchStates = async () => {
     try {
-      console.log(CountryIDD);
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/auth/location/statesByCountry/${CountryIDD}`,
+        `${process.env.REACT_APP_API_URL}/api/auth/location/statesByCountry/${CountryID}`,
         {
           method: "GET",
           headers: {
@@ -558,10 +561,7 @@ const EventMaster = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [e.target.name]: e.target.value });
-    if (name === "CountryID") {
-      setCountryIDD(value);
-      fetchStates(value);
-    }
+  
   };
 
   const handleCheck = (e) => {
