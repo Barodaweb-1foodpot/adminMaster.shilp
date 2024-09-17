@@ -24,10 +24,12 @@ import TicketMaster from "../pages/Master/TicketMaster";
 import StageOfStartup from "../pages/Master/StageOfStartup";
 import EventMaster from "../pages/Master/EventMaster";
 import FaqMaster from "../pages/FAQMaster/FaqMaster";
+import Visitor from "../pages/Master/Visitor";
 
 const authProtectedRoutes = [
   // { path: "/dashboard", component: <DashboardCrm /> },
   { path: "/profile", component: <UserProfile /> },
+  {path: "/visitor", component: <Visitor />},
   {path: "/stage-of-startup", component: <StageOfStartup />},
   {path: "/startup", component: <StartUp />},
   {path: "/investor", component: <Investor />},
