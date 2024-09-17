@@ -824,6 +824,7 @@ const StartUpDetailsMaster = () => {
 
   const validate = (values) => {
     const errors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (values.participantCategoryId === "") {
       errors.participantCategoryId = "Participant Category is required";
@@ -844,6 +845,11 @@ const StartUpDetailsMaster = () => {
     if (values.email === "") {
       errors.email = "Email is required";
       setErremail(true);
+    } else if (!emailRegex.test(values.email)) {
+      errors.email = "Invalid email format";
+      setErremail(true);
+    } else {
+      setErremail(false);
     }
     if (values.password === "") {
       errors.password = "Password is required";

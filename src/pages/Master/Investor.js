@@ -427,6 +427,7 @@ const Investor = () => {
     pincode
   ) => {
     const errors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (participantCategoryId === "") {
       errors.participantCategoryId = "Participant Category is required";
@@ -443,6 +444,11 @@ const Investor = () => {
     if (email === "") {
       errors.email = "Email is required";
       setErrEmail(true);
+    } else if (!emailRegex.test(email)) {
+      errors.email = "Invalid email format";
+      setErrEmail(true);
+    } else {
+      setErrEmail(false);
     }
     if (companyName === "") {
       errors.companyName = "Company Name is required";

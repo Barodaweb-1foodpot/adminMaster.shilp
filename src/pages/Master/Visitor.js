@@ -426,6 +426,7 @@ const Visitor = () => {
     pincode
   ) => {
     const errors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (participantCategoryId === "") {
       errors.participantCategoryId = "Participant Category is required";
@@ -442,6 +443,11 @@ const Visitor = () => {
     if (email === "") {
       errors.email = "Email is required";
       setErrEmail(true);
+    } else if (!emailRegex.test(email)) {
+      errors.email = "Invalid email format";
+      setErrEmail(true);
+    } else {
+      setErrEmail(false);
     }
    
     if (ticketId === "") {

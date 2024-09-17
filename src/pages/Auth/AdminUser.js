@@ -185,6 +185,9 @@ const AdminUser = () => {
   const validate = (values) => {
     const errors = {};
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
     if (values.firstName === "") {
       errors.firstName = "First Name is required!";
       setErrFN(true);
@@ -202,10 +205,12 @@ const AdminUser = () => {
     }
 
     if (values.email === "") {
-      errors.email = "email is required!";
+      errors.email = "Email is required!";
       setErrEM(true);
-    }
-    if (values.email !== "") {
+    } else if (!emailRegex.test(values.email)) {
+      errors.email = "Invalid email format!";
+      setErrEM(true);
+    } else {
       setErrEM(false);
     }
 

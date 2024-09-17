@@ -591,7 +591,7 @@ const EventMaster = () => {
   const handleClick = (e) => {
     e.preventDefault();
     setIsSubmit(true);
-
+    
     let errors = validate(values);
     setFormErrors(errors);
 
@@ -747,7 +747,10 @@ const EventMaster = () => {
 
 
   const validate = (values) => {
+    console.log(">>>>>>>>>>>>>>>> " , values);
     const errors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!values.Name) {
       errors.Name = "Name is required";
       setErrName(true);
@@ -763,6 +766,11 @@ const EventMaster = () => {
     if (!values.email) {
       errors.email = "Email is required";
       setErremail(true);
+    } else if (!emailRegex.test(values.email)) {
+      errors.email = "Invalid email format";
+      setErremail(true);
+    } else {
+      setErremail(false);
     }
     if (!values.startDate) {
       errors.startDate = "Start Date is required";
@@ -1015,7 +1023,7 @@ const EventMaster = () => {
           <BreadCrumb
             maintitle="Event Master"
             title="Event Master"
-            pageTitle="Event Master"
+            pageTitle="Parameters"
           />
           <Row>
             <Col lg={12}>
