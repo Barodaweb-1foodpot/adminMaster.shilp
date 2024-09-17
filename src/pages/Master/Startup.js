@@ -438,11 +438,14 @@ const StartUpDetailsMaster = () => {
     fetchData();
   }, []);
 
-  const fetchStates = async (CountryIDD) => {
+  useEffect(() => {
+    fetchStates();
+  }, [CountryID])
+
+  const fetchStates = async () => {
     try {
-      console.log(CountryIDD);
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/auth/location/statesByCountry/${CountryIDD}`,
+        `${process.env.REACT_APP_API_URL}/api/auth/location/statesByCountry/${CountryID}`,
         {
           method: "GET",
           headers: {
@@ -602,10 +605,10 @@ const StartUpDetailsMaster = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [e.target.name]: e.target.value });
-    if (name === "CountryID") {
-      setCountryIDD(value);
-      fetchStates(value);
-    }
+    // if (name === "CountryID") {
+    //   setCountryIDD(value);
+    //   fetchStates(value);
+    // }
   };
 
   const handleCheck = (e) => {
@@ -1044,24 +1047,24 @@ const StartUpDetailsMaster = () => {
 
   const col = [
     {
-      name: "Company Name",
-      selector: (row) => row.companyName,
+      name: "Category",
+      cell: (row) => row.category,
       sortable: true,
-      sortField: "firstName",
+      sortField: "category",
+      minWidth: "150px",
+    },
+    {
+      name: "Company Name",
+      cell: (row) => row.companyName,
+      sortable: true,
+      sortField: "companyName",
       minWidth: "150px",
     },
     {
       name: "Contact Person Name",
-      selector: (row) => row.contactPersonName,
+      cell: (row) => `${row.contactPersonName} || ${row.email} || ${row.contactNo}`,
       sortable: true,
-      sortField: "lastName",
-      minWidth: "150px",
-    },
-    {
-      name: "Email",
-      selector: (row) => row.email,
-      sortable: true,
-      sortField: "email",
+      sortField: "contactPersonName",
       minWidth: "150px",
     },
     {
@@ -1069,6 +1072,13 @@ const StartUpDetailsMaster = () => {
       selector: (row) => row.votes ? row.votes : 0,
       sortable: true,
       sortField: "votes",
+      minWidth: "150px",
+    },
+    {
+      name: "Paid",
+      selector: (row) => row.IsPaid ? "Paid" : "Unpaid",
+      sortable: true,
+      sortField: "IsPaid",
       minWidth: "150px",
     },
     {
@@ -1459,7 +1469,7 @@ const StartUpDetailsMaster = () => {
                                       <div className="form-floating mb-3">
                                         <Input
                                           type="text"
-                                          className={validClassRem}
+                                          className="form-control"
                                           placeholder="Enter Remarks"
                                           required
                                           name="remarks"
@@ -1469,13 +1479,13 @@ const StartUpDetailsMaster = () => {
                                         />
                                         <Label>
                                           Remarks{" "}
-                                          <span className="text-danger">*</span>
+                                          {/* <span className="text-danger">*</span> */}
                                         </Label>
-                                        {isSubmit && (
+                                        {/* {isSubmit && (
                                           <p className="text-danger">
                                             {formErrors.remarks}
                                           </p>
-                                        )}
+                                        )} */}
                                       </div>
                                     </Col>
                                   </Row>
@@ -1746,21 +1756,21 @@ const StartUpDetailsMaster = () => {
                                     <Col lg={4}>
                                       <label>
                                         Add Logo{" "}
-                                        <span className="text-danger">*</span>
+                                        {/* <span className="text-danger">*</span> */}
                                       </label>
 
                                       <input
                                         type="file"
                                         name="logo"
-                                        className={validClassLogo}
+                                        className="form-control"
                                         accept=".jpg, .jpeg, .png"
                                         onChange={PhotoUpload}
                                       />
-                                      {isSubmit && (
+                                      {/* {isSubmit && (
                                         <p className="text-danger">
                                           {formErrors.logo}
                                         </p>
-                                      )}
+                                      )} */}
                                       {checkImagePhoto ? (
                                         <img
                                           //   src={image ?? myImage}
@@ -2142,7 +2152,7 @@ const StartUpDetailsMaster = () => {
                                       <div className="form-floating mb-3">
                                         <Input
                                           type="text"
-                                          className={validClassRem}
+                                          className="form-control"
                                           placeholder="Enter Remarks"
                                           required
                                           name="remarks"
@@ -2152,13 +2162,13 @@ const StartUpDetailsMaster = () => {
                                         />
                                         <Label>
                                           Remarks{" "}
-                                          <span className="text-danger">*</span>
+                                          {/* <span className="text-danger">*</span> */}
                                         </Label>
-                                        {isSubmit && (
+                                        {/* {isSubmit && (
                                           <p className="text-danger">
                                             {formErrors.remarks}
                                           </p>
-                                        )}
+                                        )} */}
                                       </div>
                                     </Col>
                                   </Row>
@@ -2421,21 +2431,21 @@ const StartUpDetailsMaster = () => {
                                     <Col lg={4}>
                                       <label>
                                         Add Logo{" "}
-                                        <span className="text-danger">*</span>
+                                        {/* <span className="text-danger">*</span> */}
                                       </label>
 
                                       <input
                                         type="file"
                                         name="logo"
-                                        className={validClassAdd}
+                                        className="form-control"
                                         accept=".jpg, .jpeg, .png"
                                         onChange={PhotoUpload}
                                       />
-                                      {isSubmit && (
+                                      {/* {isSubmit && (
                                         <p className="text-danger">
                                           {formErrors.logo}
                                         </p>
-                                      )}
+                                      )} */}
                                       {values.logo || photoAdd ? (
                                         <img
                                           // key={photoAdd}

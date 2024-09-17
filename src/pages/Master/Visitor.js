@@ -443,38 +443,7 @@ const Visitor = () => {
       errors.email = "Email is required";
       setErrEmail(true);
     }
-    if (companyName === "") {
-      errors.companyName = "Company Name is required";
-      setErrCompanyName(true);
-    }
-    if (description === "") {
-      errors.description = "Description is required";
-      setErrDescription(true);
-    }
-    if (remarks === "") {
-      errors.remarks = "Remarks is required";
-      setErrRemarks(true);
-    }
-    if (StateID === "") {
-      errors.StateID = "State is required";
-      setErrStateID(true);
-    }
-    if (CountryID === "") {
-      errors.CountryID = "Country is required";
-      setErrCountryID(true);
-    }
-    if (City === "") {
-      errors.City = "City is required";
-      setErrCity(true);
-    }
-    if (address === "") {
-      errors.address = "Address is required";
-      setErrAddress(true);
-    }
-    if (pincode === "") {
-      errors.pincode = "Pincode is required";
-      setErrPincode(true);
-    }
+   
     if (ticketId === "") {
       errors.ticketId = "Ticket ID is required";
       setErrticketId(true);
@@ -666,17 +635,17 @@ const Visitor = () => {
   };
 
   const col = [
-    {
-      name: "Company Name",
-      cell: (row) => {
-        const titleId = row.companyName;
-        const option = options.find((option) => option._id === titleId);
-        return row.companyName;
-      },
-      sortable: true,
-      sortField: "Title",
-      minWidth: "150px",
-    },
+    // {
+    //   name: "Company Name",
+    //   cell: (row) => {
+    //     const titleId = row.companyName;
+    //     const option = options.find((option) => option._id === titleId);
+    //     return row.companyName;
+    //   },
+    //   sortable: true,
+    //   sortField: "Title",
+    //   minWidth: "150px",
+    // },
     {
       name: "Name",
       cell: (row) => {
@@ -697,6 +666,17 @@ const Visitor = () => {
       },
       sortable: true,
       sortField: "Title",
+      minWidth: "150px",
+    },
+    {
+      name: "Contact No.",
+      cell: (row) => {
+        const titleId = row.contactNo;
+        const option = options.find((option) => option._id === titleId);
+        return row.contactNo;
+      },
+      sortable: true,
+      sortField: "contactNo",
       minWidth: "150px",
     },
     {
@@ -919,6 +899,7 @@ const Visitor = () => {
                                           key={"participantCategoryId" + _id}
                                           className={validClassParticipent}
                                           required
+                                          // disabled
                                           name="participantCategoryId"
                                           value={participantCategoryId}
                                           onChange={(e) => {
@@ -986,31 +967,6 @@ const Visitor = () => {
                                       </div>
                                     </Col>
 
-                                    <Col lg={4}>
-                                      <div className="form-floating mb-3">
-                                        <Input
-                                          key={"contactNo" + _id}
-                                          type="text"
-                                          name="companyName"
-                                          className={validClassCompany}
-                                          placeholder="Enter Company Name"
-                                          value={companyName}
-                                          required
-                                          onChange={(e) => {
-                                            setCompanyName(e.target.value);
-                                          }}
-                                        />
-                                        <Label>
-                                          Company Name{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.companyName}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
 
                                   
                                   </Row>
@@ -1095,221 +1051,6 @@ const Visitor = () => {
                                       </div>
                                     </Col>
                                   </Row>
-
-                                  <Row>
-                                
-                                    <Col lg={6}>
-                                      <div className="form-floating mb-3">
-                                        <Input
-                                          key={"contactNo" + _id}
-                                          type="texareat"
-                                          name="description"
-                                          className={validClassDescription}
-                                          placeholder="Enter Description"
-                                          value={description}
-                                          style={{height: "100px"}}
-                                          required
-                                          onChange={(e) => {
-                                            setDescription(e.target.value);
-                                          }}
-                                        />
-                                        <Label>
-                                          Description{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.description}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
-
-                                    <Col lg={6}>
-                                      <div className="form-floating mb-3">
-                                        <Input
-                                          key={"contactNo" + _id}
-                                          type="textarea"
-                                          name="remarks"
-                                          className={validClassRemarks}
-                                          placeholder="Enter Remarks"
-                                          value={remarks}
-                                          style={{height: "100px"}}
-                                          required
-                                          onChange={(e) => {
-                                            setRemarks(e.target.value);
-                                          }}
-                                        />
-                                        <Label>
-                                          Remarks{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.remarks}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
-                                  </Row>
-
-                                  <Row>
-
-                                    <Col lg={3}>
-                                      {" "}
-                                      <div className="form-floating mb-3">
-                                        <select
-                                          key={"participantCategoryId" + _id}
-                                          className={validClassCountry}
-                                          required
-                                          name="CountryID"
-                                          value={CountryID}
-                                          onChange={(e) => {
-                                            setCountryID(e.target.value);
-                                            fetchStates(e.target.value);
-                                          }}
-                                        >
-                                          <option value="">Select From</option>
-                                          {country.map((user) => (
-                                            <option
-                                              key={user._id}
-                                              value={user._id}
-                                            >
-                                              {user.CountryName}
-                                            </option>
-                                          ))}
-                                        </select>
-                                        <Label>
-                                          Select Country{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.CountryID}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
-
-                                    <Col lg={3}>
-                                      {" "}
-                                      <div className="form-floating mb-3">
-                                        <select
-                                          key={"participantCategoryId" + _id}
-                                          className={validClassState}
-                                          required
-                                          name="StateID"
-                                          value={StateID}
-                                          onChange={(e) => {
-                                            setStateID(e.target.value);
-                                          }}
-                                        >
-                                          <option value="">Select From</option>
-                                          {state.map((user) => (
-                                            <option
-                                              key={user._id}
-                                              value={user._id}
-                                            >
-                                              {user.StateName}
-                                            </option>
-                                          ))}
-                                        </select>
-                                        <Label>
-                                          Select State{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.StateID}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
-
-                                    <Col lg={3}>
-                                      <div className="form-floating mb-3">
-                                        <Input
-                                          key={"contactNo" + _id}
-                                          type="text"
-                                          name="City"
-                                          className={validClassCity}
-                                          placeholder="Enter City"
-                                          value={City}
-                                          required
-                                          onChange={(e) => {
-                                            setCity(e.target.value);
-                                          }}
-                                        />
-                                        <Label>
-                                          City{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.City}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
-
-                                    <Col lg={3}>
-                                      <div className="form-floating mb-3">
-                                        <Input
-                                          key={"contactNo" + _id}
-                                          type="text"
-                                          name="pincode"
-                                          className={validClassPincode}
-                                          placeholder="Enter Address"
-                                          value={pincode}
-                                          required
-                                          onChange={(e) => {
-                                            setPincode(e.target.value);
-                                          }}
-                                        />
-                                        <Label>
-                                          Pin Code{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.pincode}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
-                                    
-
-                                  </Row>
-                                  <Row>
-                                    <Col lg={12}>
-                                      <div className="form-floating mb-3">
-                                        <Input
-                                          key={"contactNo" + _id}
-                                          type="text"
-                                          name="address"
-                                          className={validClassAddress}
-                                          placeholder="Enter Address"
-                                          value={address}
-                                          style={{height: "100px"}}
-                                          required
-                                          onChange={(e) => {
-                                            setAddress(e.target.value);
-                                          }}
-                                        />
-                                        <Label>
-                                          Address{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.address}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
-                                    
-                                  </Row>
-                                  <Row></Row>
 
                                   <div className="mt-5">
                                     <Col lg={6}>
@@ -1406,6 +1147,7 @@ const Visitor = () => {
                                           key={"participantCategoryId" + _id}
                                           className={validClassParticipent}
                                           required
+                                          disabled
                                           name="participantCategoryId"
                                           value={participantCategoryId}
                                           onChange={(e) => {
@@ -1473,31 +1215,6 @@ const Visitor = () => {
                                       </div>
                                     </Col>
                                     
-                                    <Col lg={4}>
-                                      <div className="form-floating mb-3">
-                                        <Input
-                                          key={"contactNo" + _id}
-                                          type="text"
-                                          name="companyName"
-                                          className={validClassCompany}
-                                          placeholder="Enter Company Name"
-                                          value={companyName}
-                                          required
-                                          onChange={(e) => {
-                                            setCompanyName(e.target.value);
-                                          }}
-                                        />
-                                        <Label>
-                                          Company Name{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.companyName}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
 
                                    
                                   </Row>
@@ -1582,216 +1299,6 @@ const Visitor = () => {
                                     </Col>
                                   </Row>
 
-                                  <Row>
-
-                                    <Col lg={6}>
-                                      <div className="form-floating mb-3">
-                                        <Input
-                                          key={"contactNo" + _id}
-                                          type="text"
-                                          name="description"
-                                          style={{height: "100px"}}
-                                          className={validClassDescription}
-                                          placeholder="Enter Description"
-                                          value={description}
-                                          required
-                                          onChange={(e) => {
-                                            setDescription(e.target.value);
-                                          }}
-                                        />
-                                        <Label>
-                                          Description{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.description}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
-
-                                    <Col lg={6}>
-                                      <div className="form-floating mb-3">
-                                        <Input
-                                          key={"contactNo" + _id}
-                                          type="text"
-                                          name="remarks"
-                                          style={{height: "100px"}}
-                                          className={validClassRemarks}
-                                          placeholder="Enter Remarks"
-                                          value={remarks}
-                                          required
-                                          onChange={(e) => {
-                                            setRemarks(e.target.value);
-                                          }}
-                                        />
-                                        <Label>
-                                          Remarks{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.remarks}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
-                                  </Row>
-
-                                  <Row>
-                                    <Col lg={3}>
-                                      {" "}
-                                      <div className="form-floating mb-3">
-                                        <select
-                                          key={"participantCategoryId" + _id}
-                                          className={validClassCountry}
-                                          required
-                                          name="CountryID"
-                                          value={CountryID}
-                                          onChange={(e) => {
-                                            setCountryID(e.target.value);
-                                            fetchStates(e.target.value);
-                                          }}
-                                        >
-                                          <option value="">Select From</option>
-                                          {country.map((user) => (
-                                            <option
-                                              key={user._id}
-                                              value={user._id}
-                                            >
-                                              {user.CountryName}
-                                            </option>
-                                          ))}
-                                        </select>
-                                        <Label>
-                                          Select Country{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.CountryID}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
-
-                                    <Col lg={3}>
-                                      {" "}
-                                      <div className="form-floating mb-3">
-                                        <select
-                                          key={"participantCategoryId" + _id}
-                                          className={validClassState}
-                                          required
-                                          name="StateID"
-                                          value={StateID}
-                                          onChange={(e) => {
-                                            setStateID(e.target.value);
-                                          }}
-                                        >
-                                          <option value="">Select From</option>
-                                          {state.map((user) => (
-                                            <option
-                                              key={user._id}
-                                              value={user._id}
-                                            >
-                                              {user.StateName}
-                                            </option>
-                                          ))}
-                                        </select>
-                                        <Label>
-                                          Select State{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.StateID}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
-
-                                    <Col lg={3}>
-                                      <div className="form-floating mb-3">
-                                        <Input
-                                          key={"contactNo" + _id}
-                                          type="text"
-                                          name="City"
-                                          className={validClassCity}
-                                          placeholder="Enter City"
-                                          value={City}
-                                          required
-                                          onChange={(e) => {
-                                            setCity(e.target.value);
-                                          }}
-                                        />
-                                        <Label>
-                                          City{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.City}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
-
-                                    <Col lg={3}>
-                                      <div className="form-floating mb-3">
-                                        <Input
-                                          key={"contactNo" + _id}
-                                          type="text"
-                                          name="pincode"
-                                          className={validClassPincode}
-                                          placeholder="Enter Address"
-                                          value={pincode}
-                                          required
-                                          onChange={(e) => {
-                                            setPincode(e.target.value);
-                                          }}
-                                        />
-                                        <Label>
-                                          Pin Code{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.pincode}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
-                                  </Row>
-                                  <Row>
-                                    <Col lg={12}>
-                                      <div className="form-floating mb-3">
-                                        <Input
-                                          key={"contactNo" + _id}
-                                          type="text"
-                                          name="address"
-                                          className={validClassAddress}
-                                          placeholder="Enter Address"
-                                          value={address}
-                                          style={{height: "100px"}}
-                                          required
-                                          onChange={(e) => {
-                                            setAddress(e.target.value);
-                                          }}
-                                        />
-                                        <Label>
-                                          Address{" "}
-                                          <span className="text-danger">*</span>
-                                        </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.address}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Col>
-                                    
-                                  </Row>
 
                                   <div className="mt-5">
                                     <Col lg={6}>
