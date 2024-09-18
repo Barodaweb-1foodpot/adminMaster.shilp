@@ -1855,6 +1855,7 @@ const StartUpDetailsMaster = () => {
                                       type="checkbox"
                                       className="form-check-input"
                                       name="IsActive"
+                                      checked = {IsActive}
                                       value={IsActive}
                                       onChange={handleCheck}
                                     />
@@ -1869,6 +1870,7 @@ const StartUpDetailsMaster = () => {
                                       className="form-check-input"
                                       name="IsPaid"
                                       value={IsPaid}
+                                      checked = {IsPaid}
                                       onChange={handleCheckPaid}
                                     />
                                     <Label className="form-check-label">
