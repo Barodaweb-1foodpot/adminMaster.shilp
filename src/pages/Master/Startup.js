@@ -108,6 +108,8 @@ const StartUpDetailsMaster = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [filter, setFilter] = useState(true);
+  const [paidstatus, setPaid] = useState(true);
+
   const [ticketID, setTicketID] = useState([]);
 
   const [showForm, setShowForm] = useState(false);
@@ -771,7 +773,7 @@ const StartUpDetailsMaster = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, [pageNo, perPage, column, sortDirection, query, filter]);
+  }, [pageNo, perPage, column, sortDirection, query, filter, paidstatus]);
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -790,6 +792,7 @@ const StartUpDetailsMaster = () => {
           sortdir: sortDirection,
           match: query,
           IsActive: filter,
+          IsPaid: paidstatus
         }
       )
       .then((response) => {
@@ -825,6 +828,9 @@ const StartUpDetailsMaster = () => {
   };
   const handleFilter = (e) => {
     setFilter(e.target.checked);
+  };
+  const handlePaidFilter = (e) => {
+    setPaid(e.target.checked);
   };
 
   const col = [
@@ -932,14 +938,26 @@ const StartUpDetailsMaster = () => {
                           <div className="text-start me-3">
                             <Input
                               type="checkbox"
-                              className="form-check-input"
+                              className="form-check-input "
                               name="filter"
                               value={filter}
                               defaultChecked={true}
                               onChange={handleFilter}
                             />
-                            <Label className="form-check-label ms-2">
+                            <Label className="form-check-label ms-2 ">
                               Active
+                            </Label>{"   "}
+
+                            <Input
+                              type="checkbox"
+                              className="form-check-input "
+                              name="paidstatus"
+                              value={paidstatus}
+                              defaultChecked={true}
+                              onChange={handlePaidFilter}
+                            />
+                            <Label className="form-check-label ms-2">
+                              Paid
                             </Label>
                           </div>
                         )}
