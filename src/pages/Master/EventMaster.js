@@ -762,6 +762,14 @@ const EventMaster = () => {
     if (!values.contactNo) {
       errors.contactNo = "Contact No is required";
       setErrcontactNo(true);
+    } else {
+      const contactNoRegex = /^[0-9]{10}$/; 
+      if (!contactNoRegex.test(values.contactNo)) {
+        errors.contactNo = "Invalid Contact No";
+        setErrcontactNo(true);
+      } else {
+        setErrcontactNo(false);
+      }
     }
     if (!values.email) {
       errors.email = "Email is required";
