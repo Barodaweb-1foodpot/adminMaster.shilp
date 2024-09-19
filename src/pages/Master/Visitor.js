@@ -1192,6 +1192,7 @@ const Visitor = () => {
                                           className={validClasstickedId}
                                           required
                                           name="ticketId"
+                                          disabled
                                           value={ticketId}
                                           onChange={(e) => {
                                             setParticipantCategoryId(
