@@ -50,6 +50,7 @@ const Investor = () => {
   const [pincode, setPincode] = useState("");
   const [IsActive, setIsActive] = useState(false);
   const [IsPaid , setIsPaid] = useState(false);
+  const [amount , setAmount] = useState(""); 
   const [country, setCountry] = useState([]);
   const [state, setState] = useState([]);
   const [ticketId , setTicketId] = useState("");
@@ -199,6 +200,7 @@ const Investor = () => {
         setCity(res.City);
         setAddress(res.address);
         setPincode(res.pincode);
+        setAmount(res.amount);
         setIsActive(res.IsActive);
         setIsPaid(res.IsPaid);
         if (res.IsPaid) {
@@ -230,7 +232,8 @@ const Investor = () => {
       CountryID,
       City,
       address,
-      pincode
+      pincode,
+      amount
     );
     setFormErrors(errors);
     setIsSubmit(true);
@@ -252,6 +255,7 @@ const Investor = () => {
         City,
         address,
         pincode,
+        amount,
         IsActive,
 
         IsPaid
@@ -280,6 +284,7 @@ const Investor = () => {
           setCity("");
           setAddress("");
           setPincode("");
+          setAmount("");
           setCheckImagePhoto(false);
           setPhotoAdd("");
           setFormErrors({});
@@ -334,7 +339,8 @@ const Investor = () => {
       CountryID,
       City,
       address,
-      pincode
+      pincode,
+      amount
     );
     setFormErrors(erros);
     setIsSubmit(true);
@@ -356,6 +362,7 @@ const Investor = () => {
         City,
         address,
         pincode,
+        amount,
         IsActive,
         IsPaid
       };
@@ -385,6 +392,7 @@ const Investor = () => {
           setCity("");
           setAddress("");
           setPincode("");
+          setAmount("");
           setErrparticipantCategoryId(false);
           setErrName(false);
           setErrContactNo(false);
@@ -437,7 +445,8 @@ const Investor = () => {
     CountryID,
     City,
     address,
-    pincode
+    pincode,
+    amount
   ) => {
     const errors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -631,6 +640,7 @@ const Investor = () => {
     setCity("");
     setAddress("");
     setPincode("");
+    setAmount("");
     setIsActive(false);
     setIsPaid(false);
     setErrparticipantCategoryId(false);
@@ -672,6 +682,7 @@ const Investor = () => {
     setCity("");
     setAddress("");
     setPincode("");
+    setAmount("");
     setErrparticipantCategoryId(false);
     setErrName(false);
     setErrContactNo(false);
@@ -868,6 +879,7 @@ const Investor = () => {
                               setCity("");
                               setAddress("");
                               setPincode("");
+                              setAmount("");
                               setErrparticipantCategoryId(false);
                               setErrName(false);
                               setErrContactNo(false);
@@ -909,6 +921,7 @@ const Investor = () => {
                               setCity("");
                               setAddress("");
                               setPincode("");
+                              setAmount("");
                               setErrparticipantCategoryId(false);
                               setErrName(false);
                               setErrContactNo(false);
@@ -1010,7 +1023,7 @@ const Investor = () => {
                                           name="ticketId"
                                           value={ticketId}
                                           onChange={(e) => {
-                                            setParticipantCategoryId(
+                                            setTicketId(
                                               e.target.value
                                             );
                                           }}
@@ -1360,7 +1373,27 @@ const Investor = () => {
                                     </Col>
                                     
                                   </Row>
-                                  <Row></Row>
+                                  <Row>
+                                  <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          key={"amount" + _id}
+                                          type="number"
+                                          name="amount"
+                                          
+                                          placeholder="Enter Amount"
+                                          value={amount}
+                                          required
+                                          onChange={(e) => {
+                                            setAmount(e.target.value);
+                                          }}
+                                        />
+                                        <Label>
+                                          Amount{" "}
+                                        </Label>
+                                      </div>
+                                    </Col>
+                                  </Row>
 
                                   <div className="mt-5">
                                     <Col lg={6}>
@@ -1521,6 +1554,7 @@ const Investor = () => {
                                           className={validClasstickedId}
                                           required
                                           name="ticketId"
+                                          disabled
                                           value={ticketId}
                                           onChange={(e) => {
                                             setTicketId(
@@ -1869,6 +1903,28 @@ const Investor = () => {
                                     </Col>
                                     
                                   </Row>
+                                  <Row>
+                                  <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <Input
+                                          key={"amount" + _id}
+                                          type="number"
+                                          name="amount"
+                                          
+                                          placeholder="Enter Amount"
+                                          value={amount}
+                                          required
+                                          onChange={(e) => {
+                                            setAmount(e.target.value);
+                                          }}
+                                        />
+                                        <Label>
+                                          Amount{" "}
+                                        </Label>
+                                      </div>
+                                    </Col>
+                                  </Row>
+
 
                                   <div className="mt-5">
                                     <Col lg={6}>
@@ -2003,6 +2059,7 @@ const Investor = () => {
           setCity("");
           setAddress("");
           setPincode("");
+          setAmount("");
           setErrparticipantCategoryId(false);
           setErrName(false);
           setErrContactNo(false);

@@ -25,10 +25,12 @@ import StageOfStartup from "../pages/Master/StageOfStartup";
 import EventMaster from "../pages/Master/EventMaster";
 import FaqMaster from "../pages/FAQMaster/FaqMaster";
 import Visitor from "../pages/Master/Visitor";
+import AwardCategory from "../pages/Category/AwardCategory";
 
 const authProtectedRoutes = [
   // { path: "/dashboard", component: <DashboardCrm /> },
   { path: "/profile", component: <UserProfile /> },
+  {path: "/award-category", component: <AwardCategory />},
   {path: "/visitor", component: <Visitor />},
   {path: "/stage-of-startup", component: <StageOfStartup />},
   {path: "/startup", component: <StartUp />},
