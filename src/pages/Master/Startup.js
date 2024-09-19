@@ -61,238 +61,16 @@ const initialState = {
   teamSize: "",
   ticketId: "",
   IsPaid: false,
-
   IsActive: false,
 };
 
 const StartUpDetailsMaster = () => {
-  const isdCodes = [
-    { country: "Afghanistan", code: "+93" },
-    { country: "Albania", code: "+355" },
-    { country: "Algeria", code: "+213" },
-    { country: "Andorra", code: "+376" },
-    { country: "Angola", code: "+244" },
-    { country: "Antigua and Barbuda", code: "+1" },
-    { country: "Argentina", code: "+54" },
-    { country: "Armenia", code: "+374" },
-    { country: "Australia", code: "+61" },
-    { country: "Austria", code: "+43" },
-    { country: "Azerbaijan", code: "+994" },
-    { country: "Bahamas", code: "+1" },
-    { country: "Bahrain", code: "+973" },
-    { country: "Bangladesh", code: "+880" },
-    { country: "Barbados", code: "+1" },
-    { country: "Belarus", code: "+375" },
-    { country: "Belgium", code: "+32" },
-    { country: "Belize", code: "+501" },
-    { country: "Benin", code: "+229" },
-    { country: "Bermuda", code: "+1" },
-    { country: "Bhutan", code: "+975" },
-    { country: "Bolivia", code: "+591" },
-    { country: "Bosnia and Herzegovina", code: "+387" },
-    { country: "Botswana", code: "+267" },
-    { country: "Brazil", code: "+55" },
-    { country: "Brunei", code: "+673" },
-    { country: "Bulgaria", code: "+359" },
-    { country: "Burkina Faso", code: "+226" },
-    { country: "Burundi", code: "+257" },
-    { country: "Cabo Verde", code: "+238" },
-    { country: "Cambodia", code: "+855" },
-    { country: "Cameroon", code: "+237" },
-    { country: "Canada", code: "+1" },
-    { country: "Cayman Islands", code: "+1" },
-    { country: "Central African Republic", code: "+236" },
-    { country: "Chad", code: "+235" },
-    { country: "Chile", code: "+56" },
-    { country: "China", code: "+86" },
-    { country: "Colombia", code: "+57" },
-    { country: "Comoros", code: "+269" },
-    { country: "Congo", code: "+242" },
-    { country: "Congo, Democratic Republic of the", code: "+243" },
-    { country: "Cook Islands", code: "+682" },
-    { country: "Costa Rica", code: "+506" },
-    { country: "Croatia", code: "+385" },
-    { country: "Cuba", code: "+53" },
-    { country: "Curaçao", code: "+599" },
-    { country: "Cyprus", code: "+357" },
-    { country: "Czech Republic", code: "+420" },
-    { country: "Denmark", code: "+45" },
-    { country: "Djibouti", code: "+253" },
-    { country: "Dominica", code: "+1" },
-    { country: "Dominican Republic", code: "+1" },
-    { country: "Ecuador", code: "+593" },
-    { country: "Egypt", code: "+20" },
-    { country: "El Salvador", code: "+503" },
-    { country: "Equatorial Guinea", code: "+240" },
-    { country: "Eritrea", code: "+291" },
-    { country: "Estonia", code: "+372" },
-    { country: "Eswatini", code: "+268" },
-    { country: "Ethiopia", code: "+251" },
-    { country: "Falkland Islands", code: "+500" },
-    { country: "Faroe Islands", code: "+298" },
-    { country: "Fiji", code: "+679" },
-    { country: "Finland", code: "+358" },
-    { country: "France", code: "+33" },
-    { country: "French Guiana", code: "+594" },
-    { country: "French Polynesia", code: "+689" },
-    { country: "French Southern Territories", code: "+262" },
-    { country: "Gabon", code: "+241" },
-    { country: "Gambia", code: "+220" },
-    { country: "Georgia", code: "+995" },
-    { country: "Germany", code: "+49" },
-    { country: "Ghana", code: "+233" },
-    { country: "Gibraltar", code: "+350" },
-    { country: "Greece", code: "+30" },
-    { country: "Greenland", code: "+299" },
-    { country: "Grenada", code: "+1" },
-    { country: "Guadeloupe", code: "+590" },
-    { country: "Guam", code: "+1" },
-    { country: "Guatemala", code: "+502" },
-    { country: "Guernsey", code: "+44" },
-    { country: "Guinea", code: "+224" },
-    { country: "Guinea-Bissau", code: "+245" },
-    { country: "Guyana", code: "+592" },
-    { country: "Haiti", code: "+509" },
-    { country: "Honduras", code: "+504" },
-    { country: "Hong Kong", code: "+852" },
-    { country: "Hungary", code: "+36" },
-    { country: "Iceland", code: "+354" },
-    { country: "India", code: "+91" },
-    { country: "Indonesia", code: "+62" },
-    { country: "Iran", code: "+98" },
-    { country: "Iraq", code: "+964" },
-    { country: "Ireland", code: "+353" },
-    { country: "Isle of Man", code: "+44" },
-    { country: "Israel", code: "+972" },
-    { country: "Italy", code: "+39" },
-    { country: "Ivory Coast", code: "+225" },
-    { country: "Jamaica", code: "+1" },
-    { country: "Japan", code: "+81" },
-    { country: "Jordan", code: "+962" },
-    { country: "Kazakhstan", code: "+7" },
-    { country: "Kenya", code: "+254" },
-    { country: "Kiribati", code: "+686" },
-    { country: "Kuwait", code: "+965" },
-    { country: "Kyrgyzstan", code: "+996" },
-    { country: "Laos", code: "+856" },
-    { country: "Latvia", code: "+371" },
-    { country: "Lebanon", code: "+961" },
-    { country: "Lesotho", code: "+266" },
-    { country: "Liberia", code: "+231" },
-    { country: "Libya", code: "+218" },
-    { country: "Liechtenstein", code: "+423" },
-    { country: "Lithuania", code: "+370" },
-    { country: "Luxembourg", code: "+352" },
-    { country: "Macau", code: "+853" },
-    { country: "Madagascar", code: "+261" },
-    { country: "Malawi", code: "+265" },
-    { country: "Malaysia", code: "+60" },
-    { country: "Maldives", code: "+960" },
-    { country: "Mali", code: "+223" },
-    { country: "Malta", code: "+356" },
-    { country: "Marshall Islands", code: "+692" },
-    { country: "Martinique", code: "+596" },
-    { country: "Mauritania", code: "+222" },
-    { country: "Mauritius", code: "+230" },
-    { country: "Mayotte", code: "+262" },
-    { country: "Mexico", code: "+52" },
-    { country: "Micronesia", code: "+691" },
-    { country: "Moldova", code: "+373" },
-    { country: "Monaco", code: "+377" },
-    { country: "Mongolia", code: "+976" },
-    { country: "Montenegro", code: "+382" },
-    { country: "Montserrat", code: "+1" },
-    { country: "Morocco", code: "+212" },
-    { country: "Mozambique", code: "+258" },
-    { country: "Myanmar", code: "+95" },
-    { country: "Namibia", code: "+264" },
-    { country: "Nauru", code: "+674" },
-    { country: "Nepal", code: "+977" },
-    { country: "Netherlands", code: "+31" },
-    { country: "New Caledonia", code: "+687" },
-    { country: "New Zealand", code: "+64" },
-    { country: "Nicaragua", code: "+505" },
-    { country: "Niger", code: "+227" },
-    { country: "Nigeria", code: "+234" },
-    { country: "Niue", code: "+683" },
-    { country: "Norfolk Island", code: "+672" },
-    { country: "North Korea", code: "+850" },
-    { country: "North Macedonia", code: "+389" },
-    { country: "Northern Mariana Islands", code: "+1" },
-    { country: "Norway", code: "+47" },
-    { country: "Oman", code: "+968" },
-    { country: "Pakistan", code: "+92" },
-    { country: "Palau", code: "+680" },
-    { country: "Palestine", code: "+970" },
-    { country: "Panama", code: "+507" },
-    { country: "Papua New Guinea", code: "+675" },
-    { country: "Paraguay", code: "+595" },
-    { country: "Peru", code: "+51" },
-    { country: "Philippines", code: "+63" },
-    { country: "Poland", code: "+48" },
-    { country: "Portugal", code: "+351" },
-    { country: "Puerto Rico", code: "+1" },
-    { country: "Qatar", code: "+974" },
-    { country: "Romania", code: "+40" },
-    { country: "Russia", code: "+7" },
-    { country: "Rwanda", code: "+250" },
-    { country: "Saint Kitts and Nevis", code: "+1" },
-    { country: "Saint Lucia", code: "+1" },
-    { country: "Saint Vincent and the Grenadines", code: "+1" },
-    { country: "Samoa", code: "+685" },
-    { country: "San Marino", code: "+378" },
-    { country: "Sao Tome and Principe", code: "+239" },
-    { country: "Saudi Arabia", code: "+966" },
-    { country: "Senegal", code: "+221" },
-    { country: "Serbia", code: "+381" },
-    { country: "Seychelles", code: "+248" },
-    { country: "Sierra Leone", code: "+232" },
-    { country: "Singapore", code: "+65" },
-    { country: "Sint Maarten", code: "+1" },
-    { country: "Slovakia", code: "+421" },
-    { country: "Slovenia", code: "+386" },
-    { country: "Solomon Islands", code: "+677" },
-    { country: "Somalia", code: "+252" },
-    { country: "South Africa", code: "+27" },
-    { country: "South Korea", code: "+82" },
-    { country: "South Sudan", code: "+211" },
-    { country: "Spain", code: "+34" },
-    { country: "Sri Lanka", code: "+94" },
-    { country: "Sudan", code: "+249" },
-    { country: "Suriname", code: "+597" },
-    { country: "Sweden", code: "+46" },
-    { country: "Switzerland", code: "+41" },
-    { country: "Syria", code: "+963" },
-    { country: "Taiwan", code: "+886" },
-    { country: "Tajikistan", code: "+992" },
-    { country: "Tanzania", code: "+255" },
-    { country: "Thailand", code: "+66" },
-    { country: "Timor-Leste", code: "+670" },
-    { country: "Togo", code: "+228" },
-    { country: "Tokelau", code: "+690" },
-    { country: "Tonga", code: "+676" },
-    { country: "Trinidad and Tobago", code: "+1" },
-    { country: "Tunisia", code: "+216" },
-    { country: "Turkey", code: "+90" },
-    { country: "Turkmenistan", code: "+993" },
-    { country: "Turks and Caicos Islands", code: "+1" },
-    { country: "Tuvalu", code: "+688" },
-    { country: "Uganda", code: "+256" },
-    { country: "Ukraine", code: "+380" },
-    { country: "United Arab Emirates", code: "+971" },
-    { country: "United Kingdom", code: "+44" },
-    { country: "United States", code: "+1" },
-    { country: "Uruguay", code: "+598" },
-    { country: "Uzbekistan", code: "+998" },
-    { country: "Vanuatu", code: "+678" },
-    { country: "Vatican City", code: "+39" },
-    { country: "Venezuela", code: "+58" },
-    { country: "Vietnam", code: "+84" },
-    { country: "Yemen", code: "+967" },
-    { country: "Zambia", code: "+260" },
-    { country: "Zimbabwe", code: "+263" },
-  ];
+
   const [values, setValues] = useState(initialState);
+  const [orderId, setorderid] = useState();
+  const [amount, setamount] = useState();
+  const [eventName, setEventname] = useState();
+
   const {
     participantCategoryId,
     categoryId,
@@ -330,7 +108,9 @@ const StartUpDetailsMaster = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [filter, setFilter] = useState(true);
-  const [ticketID , setTicketID] = useState([]);
+  const [paidstatus, setPaid] = useState(true);
+
+  const [ticketID, setTicketID] = useState([]);
 
   const [showForm, setShowForm] = useState(false);
   const [updateForm, setUpdateForm] = useState(false);
@@ -341,12 +121,8 @@ const StartUpDetailsMaster = () => {
   const [remove_id, setRemove_id] = useState("");
 
   const [blogs, setBlogs] = useState([]);
-
-  const [options, setOptions] = useState([]);
-
   const [error, setError] = useState(null);
-
-  const [stage , setStage] = useState([]);
+  const [stage, setStage] = useState([]);
 
   useEffect(() => {
     console.log(formErrors);
@@ -420,23 +196,40 @@ const StartUpDetailsMaster = () => {
   }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/auth/activeLocation/country`
-        );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const result = await response.json();
-        setCountry(result);
-      } catch (error) {
-        setError(error);
-      }
-    };
-
-    fetchData();
+     fetchStages();
+    fetchCountry();
   }, []);
+
+  const fetchCountry = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/auth/activeLocation/country`
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const result = await response.json();
+      setCountry(result);
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const fetchStages = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/auth/get/list/StageOfStartup`
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const result = await response.json();
+      console.log(result);
+      setStage(result);
+    } catch (error) {
+      setError(error);
+    }
+  };
 
   useEffect(() => {
     fetchStates();
@@ -463,26 +256,6 @@ const StartUpDetailsMaster = () => {
       setError(error);
     }
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/auth/get/list/StageOfStartup`
-        );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const result = await response.json();
-        console.log(result);
-        setStage(result);
-      } catch (error) {
-        setError(error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const handleUpdateCancel = (e) => {
     e.preventDefault();
@@ -587,7 +360,7 @@ const StartUpDetailsMaster = () => {
           legalName: res.legalName,
           founderName: res.founderName,
           stageOfStartup: res.stageOfStartup,
-          ticketId: res.ticketId,
+          ticketId: res.ticketId._id,
           yearFounded: res.yearFounded,
           teamSize: res.teamSize,
           IsActive: res.IsActive,
@@ -596,6 +369,11 @@ const StartUpDetailsMaster = () => {
           brochure: res.brochure,
           productImages: res.productImages,
         });
+        if (res.IsPaid) {
+          setEventname(res.ticketId.name);
+          setorderid(res.orderId);
+          setamount(res.amount)
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -773,7 +551,7 @@ const StartUpDetailsMaster = () => {
       formData.append("teamSize", values.teamSize);
       formData.append("IsActive", values.IsActive);
       formData.append("IsPaid", values.IsPaid);
-      
+
       updateStartUpDetailsMaster(_id, formData)
         .then((res) => {
           setUpdateForm(false);
@@ -815,7 +593,7 @@ const StartUpDetailsMaster = () => {
   const [errlegalName, setErrlegalName] = useState(false);
   const [errfounderName, setErrfounderName] = useState(false);
   const [errstageOfStartup, setErrstageOfStartup] = useState(false);
-  const [errticketId , setErrticketId] = useState(false);
+  const [errticketId, setErrticketId] = useState(false);
   const [erryearFounded, setErryearFounded] = useState(false);
   const [errteamSize, setErrteamSize] = useState(false);
   const [errbrochure, setErrbrochure] = useState(false);
@@ -915,7 +693,7 @@ const StartUpDetailsMaster = () => {
       errors.logo = "Logo is required";
       setErrlogo(true);
     }
-    if (values.ticketId === "") { 
+    if (values.ticketId === "") {
       errors.ticketId = "Ticket Id is required";
       setErrticketId(true);
     }
@@ -973,9 +751,9 @@ const StartUpDetailsMaster = () => {
     errbrochure && isSubmit ? "form-control is-invalid" : "form-control";
   const validClassProductImages =
     errproductImages && isSubmit ? "form-control is-invalid" : "form-control";
-  const validClassticketId = 
+  const validClassticketId =
     errticketId && isSubmit ? "form-control is-invalid" : "form-control";
-  
+
 
   const [loading, setLoading] = useState(false);
   const [totalRows, setTotalRows] = useState(0);
@@ -995,7 +773,7 @@ const StartUpDetailsMaster = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, [pageNo, perPage, column, sortDirection, query, filter]);
+  }, [pageNo, perPage, column, sortDirection, query, filter, paidstatus]);
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -1014,6 +792,7 @@ const StartUpDetailsMaster = () => {
           sortdir: sortDirection,
           match: query,
           IsActive: filter,
+          IsPaid: paidstatus
         }
       )
       .then((response) => {
@@ -1049,6 +828,9 @@ const StartUpDetailsMaster = () => {
   };
   const handleFilter = (e) => {
     setFilter(e.target.checked);
+  };
+  const handlePaidFilter = (e) => {
+    setPaid(e.target.checked);
   };
 
   const col = [
@@ -1146,7 +928,7 @@ const StartUpDetailsMaster = () => {
                   <Row className="g-4 mb-1">
                     <Col className="col-sm" lg={4} md={6} sm={6}>
                       <h2 className="card-title mb-0 fs-4 mt-2">
-                      Pitchers / Startups
+                        Pitchers / Startups
                       </h2>
                     </Col>
 
@@ -1156,14 +938,26 @@ const StartUpDetailsMaster = () => {
                           <div className="text-start me-3">
                             <Input
                               type="checkbox"
-                              className="form-check-input"
+                              className="form-check-input "
                               name="filter"
                               value={filter}
                               defaultChecked={true}
                               onChange={handleFilter}
                             />
-                            <Label className="form-check-label ms-2">
+                            <Label className="form-check-label ms-2 ">
                               Active
+                            </Label>{"   "}
+
+                            <Input
+                              type="checkbox"
+                              className="form-check-input "
+                              name="paidstatus"
+                              value={paidstatus}
+                              defaultChecked={true}
+                              onChange={handlePaidFilter}
+                            />
+                            <Label className="form-check-label ms-2">
+                              Paid
                             </Label>
                           </div>
                         )}
@@ -1237,6 +1031,7 @@ const StartUpDetailsMaster = () => {
                             <div className="live-preview">
                               <Form>
                                 <Row>
+                                  <Row>
                                   <Col lg={4}>
                                     <div className="form-floating mb-3">
                                       <select
@@ -1330,7 +1125,8 @@ const StartUpDetailsMaster = () => {
                                         </p>
                                       )}
                                     </div>
-                                  </Col>
+                                  </Col></Row>
+
                                   <Row>
                                     <Col lg={4}>
                                       <div className="form-floating mb-3">
@@ -1680,35 +1476,35 @@ const StartUpDetailsMaster = () => {
                                     </Col>
 
                                     <Col lg={4}>
-                                    <div className="form-floating mb-3">
-                                      <select
-                                        className={
-                                          validClassStageOfStartup
-                                        }
-                                        required
-                                        name="stageOfStartup"
-                                        value={stageOfStartup}
-                                        onChange={handleChange}
-                                      >
-                                        <option value="" disabled>
-                                          Stage Of Start Up
-                                        </option>
-                                        {stage.map((cat) => (
-                                          <option key={cat._id} value={cat._id}>
-                                            {cat.StageOfStartup}
+                                      <div className="form-floating mb-3">
+                                        <select
+                                          className={
+                                            validClassStageOfStartup
+                                          }
+                                          required
+                                          name="stageOfStartup"
+                                          value={stageOfStartup}
+                                          onChange={handleChange}
+                                        >
+                                          <option value="" disabled>
+                                            Stage Of Start Up
                                           </option>
-                                        ))}
-                                      </select>
-                                      <Label>
-                                        Stage Of Start Up{" "}
-                                        <span className="text-danger">*</span>
-                                      </Label>
-                                      {isSubmit && (
-                                        <p className="text-danger">
-                                          {formErrors.stageOfStartup}
-                                        </p>
-                                      )}
-                                    </div>
+                                          {stage.map((cat) => (
+                                            <option key={cat._id} value={cat._id}>
+                                              {cat.StageOfStartup}
+                                            </option>
+                                          ))}
+                                        </select>
+                                        <Label>
+                                          Stage Of Start Up{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.stageOfStartup}
+                                          </p>
+                                        )}
+                                      </div>
                                     </Col>
                                   </Row>
                                   <Col lg={6}>
@@ -1792,7 +1588,7 @@ const StartUpDetailsMaster = () => {
                                     <Col lg={4}>
                                       <label>
                                         Add Brochure{" "}
-                                        
+
                                       </label>
 
                                       <input
@@ -1822,7 +1618,7 @@ const StartUpDetailsMaster = () => {
                                     <Col lg={4}>
                                       <label>
                                         Add Product Image{" "}
-                                        
+
                                       </label>
 
                                       <input
@@ -1850,33 +1646,31 @@ const StartUpDetailsMaster = () => {
                                     </Col>
                                   </Row>
                                   <Row>
-                                  <div className="form-check mb-2">
-                                    <Input
-                                      type="checkbox"
-                                      className="form-check-input"
-                                      name="IsActive"
-                                      checked = {IsActive}
-                                      value={IsActive}
-                                      onChange={handleCheck}
-                                    />
-                                    <Label className="form-check-label">
-                                      Is Active
-                                    </Label>
-                                  </div>
+                                    <div className="form-check mb-2">
+                                      <Input
+                                        type="checkbox"
+                                        className="form-check-input"
+                                        name="IsActive"
+                                        value={IsActive}
+                                        onChange={handleCheck}
+                                      />
+                                      <Label className="form-check-label">
+                                        Is Active
+                                      </Label>
+                                    </div>
 
-                                  <div className="form-check mb-2">
-                                    <Input
-                                      type="checkbox"
-                                      className="form-check-input"
-                                      name="IsPaid"
-                                      value={IsPaid}
-                                      checked = {IsPaid}
-                                      onChange={handleCheckPaid}
-                                    />
-                                    <Label className="form-check-label">
-                                      Is Paid
-                                    </Label>
-                                  </div>
+                                    <div className="form-check mb-2">
+                                      <Input
+                                        type="checkbox"
+                                        className="form-check-input"
+                                        name="IsPaid"
+                                        value={IsPaid}
+                                        onChange={handleCheckPaid}
+                                      />
+                                      <Label className="form-check-label">
+                                        Is Paid
+                                      </Label>
+                                    </div>
                                   </Row>
 
                                   <Col lg={12}>
@@ -1919,9 +1713,36 @@ const StartUpDetailsMaster = () => {
                       <Col xxl={12}>
                         <Card className="">
                           <CardBody>
+                            {IsPaid && <Row>
+                              <div className="m-2" >
+                                <Row>
+                                  <Col lg={6} >
+                                    <p style={{ fontSize: "20px" }} >{eventName}</p>
+                                    {/* <div>Event Pass : startupfest 18 sept </div> */}
+
+                                  </Col>
+                                  <Col lg={6} className="" style={{ textAlign: "end" }} >
+                                    <p style={{ fontSize: "20px" }}> 28 September 2024 </p>
+                                    <div >Paid Amount: {amount}</div>
+                                    <div>Order Id: {orderId}</div>
+                                    {/* <div>Payment Id: uytr23</div> */}
+                                  </Col>
+
+                                </Row>
+                                <hr />
+
+                                <Row>
+                                  <Col lg={6} ></Col>
+                                </Row>
+
+
+
+                              </div>
+                            </Row>}
                             <div className="live-preview">
                               <Form>
                                 <Row>
+                               <Row>
                                   <Col lg={4}>
                                     <div className="form-floating mb-3">
                                       <select
@@ -1954,7 +1775,7 @@ const StartUpDetailsMaster = () => {
                                     </div>
                                   </Col>
 
-                                  <Col lg={4}>
+                                  {/* <Col lg={4}>
                                     <div className="form-floating mb-3">
                                       <select
                                         className={
@@ -1984,9 +1805,9 @@ const StartUpDetailsMaster = () => {
                                         </p>
                                       )}
                                     </div>
-                                  </Col>
+                                  </Col> */}
 
-                                  
+
                                   <Col lg={4}>
                                     <div className="form-floating mb-3">
                                       <select
@@ -2015,7 +1836,7 @@ const StartUpDetailsMaster = () => {
                                         </p>
                                       )}
                                     </div>
-                                  </Col>
+                                  </Col></Row>
                                   <Row>
                                     <Col lg={4}>
                                       <div className="form-floating mb-3">
@@ -2366,16 +2187,23 @@ const StartUpDetailsMaster = () => {
 
                                     <Col lg={4}>
                                       <div className="form-floating mb-3">
-                                        <Input
-                                          type="text"
+                                        <select
                                           className={validClassStageOfStartup}
-                                          placeholder="Enter Stage of StartUp"
                                           required
                                           name="stageOfStartup"
                                           value={stageOfStartup}
-                                          // style={{height: "100px"}}
                                           onChange={handleChange}
-                                        />
+                                        >
+                                          {stage.map((stage) => (
+                                            <option
+                                              key={stage._id}
+                                              value={stage._id}
+                                            >
+                                              {stage.StageOfStartup}
+                                            </option>
+                                          ))}
+                                        </select>
+
                                         <Label>
                                           Stage Of Startup{" "}
                                           <span className="text-danger">*</span>
@@ -2472,7 +2300,7 @@ const StartUpDetailsMaster = () => {
                                     <Col lg={4}>
                                       <label>
                                         Add Brochure{" "}
-                                        
+
                                       </label>
 
                                       <input
@@ -2505,7 +2333,7 @@ const StartUpDetailsMaster = () => {
                                     <Col lg={4}>
                                       <label>
                                         Add Product Image{" "}
-                                        
+
                                       </label>
 
                                       <input
@@ -2563,6 +2391,8 @@ const StartUpDetailsMaster = () => {
                                       Is Paid
                                     </Label>
                                   </div>
+
+
 
                                   <Col lg={12}>
                                     <div className="text-end">
