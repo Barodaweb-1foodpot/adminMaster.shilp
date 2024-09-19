@@ -76,7 +76,7 @@ const Investor = () => {
 
   const [error, setError] = useState(null);
   const [orderId, setorderid] = useState();
-  const [amount, setamount] = useState();
+  const [paidamount, setpaidamount] = useState();
   const [at, setAt] = useState();
   const [eventName, setEventname] = useState();
 
@@ -206,7 +206,7 @@ const Investor = () => {
         if (res.IsPaid) {
           setEventname(res.ticketId.name);
           setorderid(res.orderId);
-          setamount(res.amount)
+          setpaidamount(res.amount)
           const dateObject = new Date(res.createdAt);
           setAt(moment(new Date(dateObject.getTime())).format("DD/MM/YYYY HH:mm"));
         }
@@ -1489,7 +1489,7 @@ const Investor = () => {
                                   </Col>
                                   <Col lg={6} className="" style={{ textAlign: "end" }} >
                                     <p style={{ fontSize: "18px" }}> {at} </p>
-                                    <div >Paid Amount: {amount}</div>
+                                    <div >Paid Amount: {paidamount}</div>
                                     <div>Order Id: {orderId}</div>
                                     {/* <div>Payment Id: uytr23</div> */}
                                   </Col>
