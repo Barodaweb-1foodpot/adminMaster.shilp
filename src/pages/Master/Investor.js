@@ -58,6 +58,8 @@ const Investor = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [filter, setFilter] = useState(true);
+  const [paidstatus, setPaid] = useState(true);
+
 
   const [showForm, setShowForm] = useState(false);
   const [updateForm, setUpdateForm] = useState(false);
@@ -72,6 +74,10 @@ const Investor = () => {
   const [options, setOptions] = useState([]);
 
   const [error, setError] = useState(null);
+  const [orderId, setorderid] = useState();
+  const [amount, setamount] = useState();
+  const [at, setAt] = useState();
+  const [eventName, setEventname] = useState();
 
   useEffect(() => {
     console.log(formErrors);
@@ -188,13 +194,20 @@ const Investor = () => {
         setDescription(res.description);
         setRemarks(res.remarks);
         setStateID(res.StateID);
-        setTicketId(res.ticketId);
+        setTicketId(res.ticketId._id);
         setCountryID(res.CountryID);
         setCity(res.City);
         setAddress(res.address);
         setPincode(res.pincode);
         setIsActive(res.IsActive);
         setIsPaid(res.IsPaid);
+        if (res.IsPaid) {
+          setEventname(res.ticketId.name);
+          setorderid(res.orderId);
+          setamount(res.amount)
+          const dateObject = new Date(res.createdAt);
+          setAt(moment(new Date(dateObject.getTime())).format("DD/MM/YYYY HH:mm"));
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -539,7 +552,7 @@ const Investor = () => {
 
   useEffect(() => {
     fetchCategories();
-  }, [pageNo, perPage, column, sortDirection, query, filter]);
+  }, [pageNo, perPage, column, sortDirection, query, filter, paidstatus]);
 
   const fetchCategories = async () => {
     setLoading(true);
@@ -558,6 +571,7 @@ const Investor = () => {
           sortdir: sortDirection,
           match: query,
           IsActive: filter,
+          IsPaid: paidstatus,
         }
       )
       .then((response) => {
@@ -589,6 +603,9 @@ const Investor = () => {
   };
   const handleFilter = (e) => {
     setFilter(e.target.checked);
+  };
+  const handlePaidFilter = (e) => {
+    setPaid(e.target.checked);
   };
 
   const handleAddCancel = (e) => {
@@ -715,6 +732,21 @@ const Investor = () => {
       sortField: "Status",
     },
     {
+      name: "Date Of Registration",
+      selector: (row) => {
+        const dateObject = new Date(row.createdAt);
+
+        return (
+          <React.Fragment>
+            {moment(new Date(dateObject.getTime())).format("DD/MM/YYYY HH:mm")}
+          </React.Fragment>
+        );
+      },
+      sortable: true,
+      sortField: "createdAt",
+      minWidth: "150px",
+    },
+    {
       name: "Action",
       selector: (row) => {
         return (
@@ -796,6 +828,18 @@ const Investor = () => {
                             />
                             <Label className="form-check-label ms-2">
                               Active
+                            </Label>{"   "}
+
+                            <Input
+                              type="checkbox"
+                              className="form-check-input "
+                              name="paidstatus"
+                              value={paidstatus}
+                              defaultChecked={true}
+                              onChange={handlePaidFilter}
+                            />
+                            <Label className="form-check-label ms-2">
+                              Paid
                             </Label>
                           </div>
                         )}
@@ -1402,6 +1446,32 @@ const Investor = () => {
                       <Col xxl={12}>
                         <Card className="">
                           <CardBody>
+                          {IsPaid && <Row>
+                              <div className="m-2" >
+                                <Row>
+                                  <Col lg={6} >
+                                    <p style={{ fontSize: "20px" }} >{eventName}</p>
+                                    {/* <div>Event Pass : startupfest 18 sept </div> */}
+
+                                  </Col>
+                                  <Col lg={6} className="" style={{ textAlign: "end" }} >
+                                    <p style={{ fontSize: "18px" }}> {at} </p>
+                                    <div >Paid Amount: {amount}</div>
+                                    <div>Order Id: {orderId}</div>
+                                    {/* <div>Payment Id: uytr23</div> */}
+                                  </Col>
+
+                                </Row>
+                                <hr />
+
+                                <Row>
+                                  <Col lg={6} ></Col>
+                                </Row>
+
+
+
+                              </div>
+                            </Row>}
                             <div className="live-preview">
                               <Form>
                                 <Row>

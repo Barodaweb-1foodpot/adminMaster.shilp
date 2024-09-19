@@ -311,11 +311,11 @@ const VerticalLayout = (props) => {
         </Collapse>
       </li>
 
-      <li className="nav-item">
+      {/* <li className="nav-item">
         <Link to="/newsletter-master" className="nav-link">
           NewsLetter Subscription
         </Link>
-      </li>
+      </li> */}
 
 
 

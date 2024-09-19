@@ -30,11 +30,11 @@ import "react-toastify/dist/ReactToastify.css";
 
 
 import {
-    createVisitor,
-    removeVisitor,
-    listVisitor,
-    updateVisitor,
-    getVisitor,
+  createVisitor,
+  removeVisitor,
+  listVisitor,
+  updateVisitor,
+  getVisitor,
 } from "../../functions/Master/Visitor";
 
 const Visitor = () => {
@@ -51,15 +51,16 @@ const Visitor = () => {
   const [address, setAddress] = useState("");
   const [pincode, setPincode] = useState("");
   const [IsActive, setIsActive] = useState(false);
-  const [IsPaid , setIsPaid] = useState(false);
+  const [IsPaid, setIsPaid] = useState(false);
   const [country, setCountry] = useState([]);
   const [state, setState] = useState([]);
-  const [ticketId , setTicketId] = useState("");
-  const [ticketID , setTicketID] = useState([]);
+  const [ticketId, setTicketId] = useState("");
+  const [ticketID, setTicketID] = useState([]);
 
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [filter, setFilter] = useState(true);
+  const [paidstatus, setPaid] = useState(true);
 
   const [showForm, setShowForm] = useState(false);
   const [updateForm, setUpdateForm] = useState(false);
@@ -74,6 +75,11 @@ const Visitor = () => {
   const [options, setOptions] = useState([]);
 
   const [error, setError] = useState(null);
+  const [orderId, setorderid] = useState();
+  const [amount, setamount] = useState();
+  const [at, setAt] = useState();
+  const [eventName, setEventname] = useState();
+
 
   useEffect(() => {
     console.log(formErrors);
@@ -187,13 +193,20 @@ const Visitor = () => {
         setDescription(res.description);
         setRemarks(res.remarks);
         setStateID(res.StateID);
-        setTicketId(res.ticketId);
+        setTicketId(res.ticketId._id);
         setCountryID(res.CountryID);
         setCity(res.City);
         setAddress(res.address);
         setPincode(res.pincode);
         setIsActive(res.IsActive);
         setIsPaid(res.IsPaid);
+        if (res.IsPaid) {
+          setEventname(res.ticketId.name);
+          setorderid(res.orderId);
+          setamount(res.amount)
+          const dateObject = new Date(res.createdAt);
+          setAt(moment(new Date(dateObject.getTime())).format("DD/MM/YYYY HH:mm"));
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -449,7 +462,7 @@ const Visitor = () => {
     } else {
       setErrEmail(false);
     }
-   
+
     if (ticketId === "") {
       errors.ticketId = "Ticket ID is required";
       setErrticketId(true);
@@ -507,7 +520,7 @@ const Visitor = () => {
 
   useEffect(() => {
     fetchCategories();
-  }, [pageNo, perPage, column, sortDirection, query, filter]);
+  }, [pageNo, perPage, column, sortDirection, query, filter, paidstatus]);
 
   const fetchCategories = async () => {
     setLoading(true);
@@ -526,6 +539,7 @@ const Visitor = () => {
           sortdir: sortDirection,
           match: query,
           IsActive: filter,
+          IsPaid: paidstatus
         }
       )
       .then((response) => {
@@ -557,6 +571,9 @@ const Visitor = () => {
   };
   const handleFilter = (e) => {
     setFilter(e.target.checked);
+  };
+  const handlePaidFilter = (e) => {
+    setPaid(e.target.checked);
   };
 
   const handleAddCancel = (e) => {
@@ -686,13 +703,28 @@ const Visitor = () => {
       minWidth: "150px",
     },
     {
-      name: "Status",
+      name: "Date Of Registration",
       selector: (row) => {
-        return <p>{row.IsActive ? "Active" : "InActive"}</p>;
+        const dateObject = new Date(row.createdAt);
+
+        return (
+          <React.Fragment>
+            {moment(new Date(dateObject.getTime())).format("DD/MM/YYYY HH:mm")}
+          </React.Fragment>
+        );
       },
-      sortable: false,
-      sortField: "Status",
+      sortable: true,
+      sortField: "createdAt",
+      minWidth: "150px",
     },
+    // {
+    //   name: "Status",
+    //   selector: (row) => {
+    //     return <p>{row.IsActive ? "Active" : "InActive"}</p>;
+    //   },
+    //   sortable: false,
+    //   sortField: "Status",
+    // },
     {
       name: "Action",
       selector: (row) => {
@@ -733,11 +765,6 @@ const Visitor = () => {
     },
   ];
 
-  console.log(
-    "bwudhbwhdbwhxbhu",
-    `${process.env.REACT_APP_API_URL_Millenium}/${File}`
-  );
-
   document.title = "Visitors | Shilp StartUp Foundation";
 
   return (
@@ -757,7 +784,7 @@ const Visitor = () => {
                   <Row className="g-4 mb-1">
                     <Col className="col-sm" lg={4} md={6} sm={6}>
                       <h2 className="card-title mb-0 fs-4 mt-2">
-                      Visitors
+                        Visitors
                       </h2>
                     </Col>
 
@@ -775,6 +802,18 @@ const Visitor = () => {
                             />
                             <Label className="form-check-label ms-2">
                               Active
+                            </Label>{"   "}
+
+                            <Input
+                              type="checkbox"
+                              className="form-check-input "
+                              name="paidstatus"
+                              value={paidstatus}
+                              defaultChecked={true}
+                              onChange={handlePaidFilter}
+                            />
+                            <Label className="form-check-label ms-2">
+                              Paid
                             </Label>
                           </div>
                         )}
@@ -974,12 +1013,12 @@ const Visitor = () => {
                                     </Col>
 
 
-                                  
+
                                   </Row>
 
                                   <Row>
 
-                                  <Col lg={4}>
+                                    <Col lg={4}>
                                       <div className="form-floating mb-3">
                                         <Input
                                           key={"BannerImage_" + _id}
@@ -1142,6 +1181,32 @@ const Visitor = () => {
                       <Col xxl={12}>
                         <Card className="">
                           <CardBody>
+                            {IsPaid && <Row>
+                              <div className="m-2" >
+                                <Row>
+                                  <Col lg={6} >
+                                    <p style={{ fontSize: "20px" }} >{eventName}</p>
+                                    {/* <div>Event Pass : startupfest 18 sept </div> */}
+
+                                  </Col>
+                                  <Col lg={6} className="" style={{ textAlign: "end" }} >
+                                    <p style={{ fontSize: "18px" }}> {at} </p>
+                                    <div >Paid Amount: {amount}</div>
+                                    <div>Order Id: {orderId}</div>
+                                    {/* <div>Payment Id: uytr23</div> */}
+                                  </Col>
+
+                                </Row>
+                                <hr />
+
+                                <Row>
+                                  <Col lg={6} ></Col>
+                                </Row>
+
+
+
+                              </div>
+                            </Row>}
                             <div className="live-preview">
                               <Form>
                                 <Row>
@@ -1220,13 +1285,13 @@ const Visitor = () => {
                                         )}
                                       </div>
                                     </Col>
-                                    
 
-                                   
+
+
                                   </Row>
 
                                   <Row>
-                                  <Col lg={4}>
+                                    <Col lg={4}>
                                       <div className="form-floating mb-3">
                                         <Input
                                           key={"BannerImage_" + _id}

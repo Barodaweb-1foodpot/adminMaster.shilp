@@ -69,6 +69,7 @@ const StartUpDetailsMaster = () => {
   const [values, setValues] = useState(initialState);
   const [orderId, setorderid] = useState();
   const [amount, setamount] = useState();
+  const [at, setAt] = useState();
   const [eventName, setEventname] = useState();
 
   const {
@@ -372,7 +373,9 @@ const StartUpDetailsMaster = () => {
         if (res.IsPaid) {
           setEventname(res.ticketId.name);
           setorderid(res.orderId);
-          setamount(res.amount)
+          setamount(res.amount);
+          const dateObject = new Date(res.createdAt);
+          setAt(moment(new Date(dateObject.getTime())).format("DD/MM/YYYY HH:mm"));
         }
       })
       .catch((err) => {
@@ -853,20 +856,35 @@ const StartUpDetailsMaster = () => {
       cell: (row) => `${row.contactPersonName} || ${row.email} || ${row.contactNo}`,
       sortable: true,
       sortField: "contactPersonName",
-      minWidth: "150px",
+      minWidth: "180px",
     },
     {
       name: "Votes",
       selector: (row) => row.votes ? row.votes : 0,
       sortable: true,
       sortField: "votes",
-      minWidth: "150px",
+      minWidth: "100px",
     },
     {
       name: "Paid",
       selector: (row) => row.IsPaid ? "Paid" : "Unpaid",
       sortable: true,
       sortField: "IsPaid",
+      minWidth: "100px",
+    },
+    {
+      name: "Date Of Registration",
+      selector: (row) => {
+        const dateObject = new Date(row.createdAt);
+
+        return (
+          <React.Fragment>
+            {moment(new Date(dateObject.getTime())).format("DD/MM/YYYY HH:mm")}
+          </React.Fragment>
+        );
+      },
+      sortable: true,
+      sortField: "createdAt",
       minWidth: "150px",
     },
     {
@@ -1722,7 +1740,7 @@ const StartUpDetailsMaster = () => {
 
                                   </Col>
                                   <Col lg={6} className="" style={{ textAlign: "end" }} >
-                                    <p style={{ fontSize: "20px" }}> 28 September 2024 </p>
+                                    <p style={{ fontSize: "18px" }}> {at} </p>
                                     <div >Paid Amount: {amount}</div>
                                     <div>Order Id: {orderId}</div>
                                     {/* <div>Payment Id: uytr23</div> */}
