@@ -280,14 +280,14 @@ const FaqMaster = () => {
   const col = [
     {
       name: "Question",
-      selector: (row) => row.que,
+      cell: (row) => row.que,
       sortable: true,
       sortField: "que",
       minWidth: "150px",
     },
     {
         name: "Answer",
-        selector: (row) => row.ans,
+        cell: (row) => row.ans,
         sortable: true,
         sortField: "que",
         minWidth: "150px",
