@@ -331,16 +331,11 @@ const Investor = () => {
       name,
       contactNo,
       email,
-      companyName,
-      description,
-      remarks,
       StateID,
       ticketId,
       CountryID,
       City,
-      address,
       pincode,
-      amount
     );
     setFormErrors(erros);
     setIsSubmit(true);
@@ -437,16 +432,11 @@ const Investor = () => {
     name,
     contactNo,
     email,
-    companyName,
-    description,
-    remarks,
     StateID,
     ticketId,
     CountryID,
     City,
-    address,
     pincode,
-    amount
   ) => {
     const errors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -472,18 +462,6 @@ const Investor = () => {
     } else {
       setErrEmail(false);
     }
-    if (companyName === "") {
-      errors.companyName = "Company Name is required";
-      setErrCompanyName(true);
-    }
-    if (description === "") {
-      errors.description = "Description is required";
-      setErrDescription(true);
-    }
-    if (remarks === "") {
-      errors.remarks = "Remarks is required";
-      setErrRemarks(true);
-    }
     if (StateID === "") {
       errors.StateID = "State is required";
       setErrStateID(true);
@@ -495,10 +473,6 @@ const Investor = () => {
     if (City === "") {
       errors.City = "City is required";
       setErrCity(true);
-    }
-    if (address === "") {
-      errors.address = "Address is required";
-      setErrAddress(true);
     }
     if (pincode === "") {
       errors.pincode = "Pincode is required";
@@ -1056,7 +1030,7 @@ const Investor = () => {
                                           key={"contactNo" + _id}
                                           type="text"
                                           name="companyName"
-                                          className={validClassCompany}
+                                          
                                           placeholder="Enter Company Name"
                                           value={companyName}
                                           required
@@ -1066,13 +1040,9 @@ const Investor = () => {
                                         />
                                         <Label>
                                           Company Name{" "}
-                                          <span className="text-danger">*</span>
+                                          
                                         </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.companyName}
-                                          </p>
-                                        )}
+                                        
                                       </div>
                                     </Col>
 
@@ -1168,7 +1138,6 @@ const Investor = () => {
                                           key={"contactNo" + _id}
                                           type="texareat"
                                           name="description"
-                                          className={validClassDescription}
                                           placeholder="Enter Description"
                                           value={description}
                                           style={{height: "100px"}}
@@ -1179,13 +1148,9 @@ const Investor = () => {
                                         />
                                         <Label>
                                           Description{" "}
-                                          <span className="text-danger">*</span>
+                                          
                                         </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.description}
-                                          </p>
-                                        )}
+                                        
                                       </div>
                                     </Col>
 
@@ -1195,7 +1160,7 @@ const Investor = () => {
                                           key={"contactNo" + _id}
                                           type="textarea"
                                           name="remarks"
-                                          className={validClassRemarks}
+                                          
                                           placeholder="Enter Remarks"
                                           value={remarks}
                                           style={{height: "100px"}}
@@ -1206,13 +1171,9 @@ const Investor = () => {
                                         />
                                         <Label>
                                           Remarks{" "}
-                                          <span className="text-danger">*</span>
+                                          
                                         </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.remarks}
-                                          </p>
-                                        )}
+                                        
                                       </div>
                                     </Col>
                                   </Row>
@@ -1351,7 +1312,7 @@ const Investor = () => {
                                           key={"contactNo" + _id}
                                           type="text"
                                           name="address"
-                                          className={validClassAddress}
+                                          
                                           placeholder="Enter Address"
                                           value={address}
                                           style={{height: "100px"}}
@@ -1362,13 +1323,9 @@ const Investor = () => {
                                         />
                                         <Label>
                                           Address{" "}
-                                          <span className="text-danger">*</span>
+                                          
                                         </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.address}
-                                          </p>
-                                        )}
+                                        
                                       </div>
                                     </Col>
                                     
@@ -1590,7 +1547,7 @@ const Investor = () => {
                                           key={"contactNo" + _id}
                                           type="text"
                                           name="companyName"
-                                          className={validClassCompany}
+                                          
                                           placeholder="Enter Company Name"
                                           value={companyName}
                                           required
@@ -1600,13 +1557,9 @@ const Investor = () => {
                                         />
                                         <Label>
                                           Company Name{" "}
-                                          <span className="text-danger">*</span>
+                                         
                                         </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.companyName}
-                                          </p>
-                                        )}
+                                       
                                       </div>
                                     </Col>
 
@@ -1702,7 +1655,7 @@ const Investor = () => {
                                           type="text"
                                           name="description"
                                           style={{height: "100px"}}
-                                          className={validClassDescription}
+                                          
                                           placeholder="Enter Description"
                                           value={description}
                                           required
@@ -1712,13 +1665,9 @@ const Investor = () => {
                                         />
                                         <Label>
                                           Description{" "}
-                                          <span className="text-danger">*</span>
+                                         
                                         </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.description}
-                                          </p>
-                                        )}
+                                        
                                       </div>
                                     </Col>
 
@@ -1729,7 +1678,7 @@ const Investor = () => {
                                           type="text"
                                           name="remarks"
                                           style={{height: "100px"}}
-                                          className={validClassRemarks}
+                                          
                                           placeholder="Enter Remarks"
                                           value={remarks}
                                           required
@@ -1739,13 +1688,9 @@ const Investor = () => {
                                         />
                                         <Label>
                                           Remarks{" "}
-                                          <span className="text-danger">*</span>
+                                         
                                         </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.remarks}
-                                          </p>
-                                        )}
+                                        
                                       </div>
                                     </Col>
                                   </Row>
@@ -1881,7 +1826,7 @@ const Investor = () => {
                                           key={"contactNo" + _id}
                                           type="text"
                                           name="address"
-                                          className={validClassAddress}
+                                          
                                           placeholder="Enter Address"
                                           value={address}
                                           style={{height: "100px"}}
@@ -1892,13 +1837,9 @@ const Investor = () => {
                                         />
                                         <Label>
                                           Address{" "}
-                                          <span className="text-danger">*</span>
+                                         
                                         </Label>
-                                        {isSubmit && (
-                                          <p className="text-danger">
-                                            {formErrors.address}
-                                          </p>
-                                        )}
+                                        
                                       </div>
                                     </Col>
                                     

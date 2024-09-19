@@ -340,6 +340,7 @@ const StartUpDetailsMaster = () => {
     getStartUpDetailsMaster(_id)
       .then((res) => {
         console.log("res", res);
+        const formattedYearFounded = moment(res.yearFounded).format("DD-MM-YYYY");
         setValues({
           ...values,
           participantCategoryId: res.participantCategoryId,
@@ -362,7 +363,7 @@ const StartUpDetailsMaster = () => {
           founderName: res.founderName,
           stageOfStartup: res.stageOfStartup,
           ticketId: res.ticketId._id,
-          yearFounded: res.yearFounded,
+          yearFounded: formattedYearFounded,
           teamSize: res.teamSize,
           IsActive: res.IsActive,
           IsPaid: res.IsPaid,
@@ -1663,7 +1664,7 @@ const StartUpDetailsMaster = () => {
                                       ) : null}
                                     </Col>
                                   </Row>
-                                  <Row>
+                                  <Row style={{paddingTop : 20}}>
                                     <div className="form-check mb-2">
                                       <Input
                                         type="checkbox"
@@ -2242,7 +2243,7 @@ const StartUpDetailsMaster = () => {
                                         placeholder="Enter year Founded"
                                         required
                                         name="yearFounded"
-                                        value={yearFounded}
+                                        value={moment(yearFounded, "DD-MM-YYYY").format("YYYY-MM-DD")}
                                         // style={{height: "100px"}}
                                         onChange={handleChange}
                                       />
