@@ -22,7 +22,6 @@ import {
 
 import axios from "axios";
 import DataTable from "react-data-table-component";
-import { removeNewsLetter } from "../../functions/Inquiry/NewsLetterSubs";
 
 const NewsletterSubs = () => {
   const [formErrors, setFormErrors] = useState({});
@@ -54,13 +53,14 @@ const NewsletterSubs = () => {
 
   const [modal_edit, setmodal_edit] = useState(false);
 
-  const handleDelete = (e) => {
+  const handleDelete = async (e) => {
     e.preventDefault();
-    removeNewsLetter(remove_id)
-      .then((res) => {
-        setmodal_delete(false);
-        fetchData();
-      })
+    axios.delete(
+      `${process.env.REACT_APP_API_URL}/api/auth/remove/contact/${remove_id}`
+    ).then((res) => {
+      setmodal_delete(false);
+      fetchData();
+    })
       .catch((err) => {
         console.log(err);
       });
@@ -94,7 +94,7 @@ const NewsletterSubs = () => {
 
     await axios
       .post(
-        `${process.env.REACT_APP_API_URL}/api/auth/list-by-params/NewsLetter`,
+        `${process.env.REACT_APP_API_URL}/api/auth/list-by-params/contact`,
         {
           skip: skip,
           per_page: perPage,
@@ -131,20 +131,44 @@ const NewsletterSubs = () => {
 
   const columns = [
     {
-      name: "Subscribed Email",
-      selector: (row) => row.email,
+      name: "Person Details",
+      cell: (row) => `${row.contactPersonName} || ${row.email} || ${row.number}`,
       sortable: true,
-      sortField: "email",
-      // maxWidth: "280px",
+      sortField: "contactPersonName",
+      maxWidth: "350px",
     },
+    // {
+    //   name: "Email",
+    //   cell: (row) => row.email,
+    //   sortable: true,
+    //   sortField: "email",
+    // },
     {
-      name: "Subscription Date",
-      selector: (row) => {
+      name: "Subject",
+      cell: (row) => `${row.subject} : ${row.message}`,
+      sortable: true,
+      sortField: "subject",
+    },
+    // {
+    //   name: "Message",
+    //   cell: (row) => row.message,
+    //   sortable: true,
+    //   sortField: "message",
+    // },
+    // {
+    //   name: "Contact No.",
+    //   cell: (row) => row.number,
+    //   sortable: true,
+    //   sortField: "number",
+    // },
+    {
+      name: "Date Time",
+      cell: (row) => {
         // const dateObject = new Date(row.createdAt);
 
         return (
           <React.Fragment>
-             {moment
+            {moment
               .utc(row.createdAt)
               .tz("America/Los_Angeles")
               .format("MM-DD-YY hh:mm a")}
@@ -153,7 +177,7 @@ const NewsletterSubs = () => {
       },
       sortable: true,
       sortField: "createdAt",
-      // maxWidth: "280px",
+      maxWidth: "180px",
     },
     {
       name: "Action",
@@ -176,20 +200,20 @@ const NewsletterSubs = () => {
         );
       },
       sortable: false,
-      // maxWidth: "180px",
+      maxWidth: "180px",
     },
   ];
 
-  document.title = "Newsletter Subscription | Startup Fest Gujarat";
+  document.title = "Inquiry | Startup Fest Gujarat";
   return (
     <React.Fragment>
       <UiContent />
       <div className="page-content">
         <Container fluid>
           <BreadCrumb
-            maintitle="Newsletter Subscription"
-            title="Newsletter Subscription"
-            pageTitle="Newsletter Subscription"
+            maintitle="Inquiry "
+            title="Inquiry"
+            pageTitle="Inquiry "
           />
           <Row>
             <Col lg={12}>
@@ -198,7 +222,7 @@ const NewsletterSubs = () => {
                   <Row className="g-4 mb-1">
                     <Col className="col-sm" lg={6} md={6} sm={6}>
                       <h2 className="card-title mb-0 fs-4 mt-2">
-                        Newsletter Subscription
+                        Inquiry
                       </h2>
                     </Col>
 
@@ -258,7 +282,7 @@ const NewsletterSubs = () => {
             setmodal_delete(false);
           }}
         >
-          Remove Subscription
+          Remove Record
         </ModalHeader>
         <form>
           <ModalBody>

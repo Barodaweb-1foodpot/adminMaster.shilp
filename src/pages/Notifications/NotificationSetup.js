@@ -1026,7 +1026,7 @@ const NotificationSetup = ({ placeholder }) => {
                               Add
                             </Button>
                           </div> */}
-                          <div className="ms-2">
+                          {/* <div className="ms-2">
                             <Button
                               color="success"
                               className="add-btn me-1"
@@ -1036,7 +1036,7 @@ const NotificationSetup = ({ placeholder }) => {
                               <i className="ri-add-line align-bottom me-1"></i>
                               Send Bulk Emails
                             </Button>
-                          </div>
+                          </div> */}
                           <div className="search-box ms-2">
                             <input
                               //type="text"

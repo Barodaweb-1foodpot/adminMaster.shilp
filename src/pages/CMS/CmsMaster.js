@@ -644,13 +644,11 @@ const CMSContentForm = ({ placeholder }) => {
                                     <p>{joditImage}</p>
                                   </Col>
                                   <Row>
-                                    <Col lg={12}>
-                                      <Card>
+                                    <Col lg={12} className="mt-3">
                                         <Label>
                                           Content Editor{" "}
                                           <span className="text-danger">*</span>
                                         </Label>
-                                        <CardBody>
                                           {/* <Form method="post"> */}
                                           {/* <CKEditor
                                           key={"ContentUpload" + _id}
@@ -692,8 +690,6 @@ const CMSContentForm = ({ placeholder }) => {
                                               {formErrors.ContentUpload}
                                             </p>
                                           )}
-                                        </CardBody>
-                                      </Card>
                                     </Col>
                                   </Row>
                                   <Col lg={6}>
@@ -843,13 +839,12 @@ const CMSContentForm = ({ placeholder }) => {
                                       <p>{joditImage}</p>
                                     </Col>
 
-                                    <Col lg={12}>
-                                      <Card>
+                                    <Col lg={12} className="mt-3" >
+                                      
                                         <Label>
                                           Content Editor{" "}
                                           <span className="text-danger">*</span>
                                         </Label>
-                                        <CardBody>
                                           {/* <Form method="post"> */}
                                           {/* <CKEditor
                                           key={"ContentUpload" + _id}
@@ -889,8 +884,7 @@ const CMSContentForm = ({ placeholder }) => {
                                               {formErrors.ContentUpload}
                                             </p>
                                           )}
-                                        </CardBody>
-                                      </Card>
+                                       
                                     </Col>
                                   </Row>
                                   <Col lg={12}>

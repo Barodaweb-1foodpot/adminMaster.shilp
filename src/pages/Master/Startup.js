@@ -340,7 +340,7 @@ const StartUpDetailsMaster = () => {
     getStartUpDetailsMaster(_id)
       .then((res) => {
         console.log("res", res);
-        const formattedYearFounded = moment(res.yearFounded).format("DD-MM-YYYY");
+        const formattedYearFounded = moment(res.yearFounded);
         setValues({
           ...values,
           participantCategoryId: res.participantCategoryId,
@@ -645,10 +645,10 @@ const StartUpDetailsMaster = () => {
       errors.description = "Description is required";
       setErrdescription(true);
     }
-    if (values.remarks === "") {
-      errors.remarks = "Remarks is required";
-      setErrremarks(true);
-    }
+    // if (values.remarks === "") {
+    //   errors.remarks = "Remarks is required";
+    //   setErrremarks(true);
+    // }
     if (values.StateID === "") {
       errors.StateID = "State is required";
       setErrStateID(true);
@@ -693,10 +693,10 @@ const StartUpDetailsMaster = () => {
       errors.teamSize = "Team Size is required";
       setErrteamSize(true);
     }
-    if (values.logo === "") {
-      errors.logo = "Logo is required";
-      setErrlogo(true);
-    }
+    // if (values.logo === "") {
+    //   errors.logo = "Logo is required";
+    //   setErrlogo(true);
+    // }
     if (values.ticketId === "") {
       errors.ticketId = "Ticket Id is required";
       setErrticketId(true);

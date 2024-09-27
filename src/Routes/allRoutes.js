@@ -54,7 +54,7 @@ const authProtectedRoutes = [
   // { path: "/blogs", component: <Blogs /> },
   // { path: "/banner", component: <Banner /> },
   { path: "/cms-master", component: <CMSContentForm /> },
-  { path: "/newsletter-master", component: <NewsletterSubs /> },
+  { path: "/inquiry", component: <NewsletterSubs /> },
   { path: "/notification-setup", component: <NotificationSetup /> },
   { path: "/faq-master", component: <FaqMaster /> },
 
