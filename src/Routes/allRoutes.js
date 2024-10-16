@@ -26,6 +26,7 @@ import EventMaster from "../pages/Master/EventMaster";
 import FaqMaster from "../pages/FAQMaster/FaqMaster";
 import Visitor from "../pages/Master/Visitor";
 import AwardCategory from "../pages/Category/AwardCategory";
+import StartupCMS from "../pages/StartupCMS/StartupCMS";
 
 const authProtectedRoutes = [
   // { path: "/dashboard", component: <DashboardCrm /> },
@@ -57,6 +58,7 @@ const authProtectedRoutes = [
   { path: "/inquiry", component: <NewsletterSubs /> },
   { path: "/notification-setup", component: <NotificationSetup /> },
   { path: "/faq-master", component: <FaqMaster /> },
+  { path: "/startup-cms", component: <StartupCMS /> },
 
 
   {
