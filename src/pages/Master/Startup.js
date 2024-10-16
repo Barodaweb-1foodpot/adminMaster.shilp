@@ -1277,7 +1277,7 @@ const StartUpDetailsMaster = () => {
                                         />
                                         <Label>
                                           Description{" "}
-                                          <span className="text-danger">*</span>
+                                          {/* <span className="text-danger">*</span> */}
                                         </Label>
                                         {isSubmit && (
                                           <p className="text-danger">
@@ -1335,7 +1335,7 @@ const StartUpDetailsMaster = () => {
                                         </select>
                                         <Label>
                                           Country{" "}
-                                          <span className="text-danger">*</span>
+                                          {/* <span className="text-danger">*</span> */}
                                         </Label>
                                         {isSubmit && (
                                           <p className="text-danger">
@@ -1367,7 +1367,7 @@ const StartUpDetailsMaster = () => {
                                         </select>
                                         <Label>
                                           State{" "}
-                                          <span className="text-danger">*</span>
+                                          {/* <span className="text-danger">*</span> */}
                                         </Label>
                                         {isSubmit && (
                                           <p className="text-danger">
@@ -1389,7 +1389,7 @@ const StartUpDetailsMaster = () => {
                                         />
                                         <Label>
                                           City{" "}
-                                          <span className="text-danger">*</span>
+                                          {/* <span className="text-danger">*</span> */}
                                         </Label>
                                         {isSubmit && (
                                           <p className="text-danger">
@@ -1411,7 +1411,7 @@ const StartUpDetailsMaster = () => {
                                         />
                                         <Label>
                                           PinCode{" "}
-                                          <span className="text-danger">*</span>
+                                          {/* <span className="text-danger">*</span> */}
                                         </Label>
                                         {isSubmit && (
                                           <p className="text-danger">
@@ -1435,7 +1435,7 @@ const StartUpDetailsMaster = () => {
                                       />
                                       <Label>
                                         Address{" "}
-                                        <span className="text-danger">*</span>
+                                        {/* <span className="text-danger">*</span> */}
                                       </Label>
                                       {isSubmit && (
                                         <p className="text-danger">
@@ -1460,7 +1460,7 @@ const StartUpDetailsMaster = () => {
                                         />
                                         <Label>
                                           Legal Name{" "}
-                                          <span className="text-danger">*</span>
+                                          {/* <span className="text-danger">*</span> */}
                                         </Label>
                                         {isSubmit && (
                                           <p className="text-danger">
@@ -1484,7 +1484,7 @@ const StartUpDetailsMaster = () => {
                                         />
                                         <Label>
                                           Founder Name{" "}
-                                          <span className="text-danger">*</span>
+                                          {/* <span className="text-danger">*</span> */}
                                         </Label>
                                         {isSubmit && (
                                           <p className="text-danger">
@@ -1540,7 +1540,7 @@ const StartUpDetailsMaster = () => {
                                       />
                                       <Label>
                                         Year Founded{" "}
-                                        <span className="text-danger">*</span>
+                                        {/* <span className="text-danger">*</span> */}
                                       </Label>
                                       {isSubmit && (
                                         <p className="text-danger">
@@ -1564,7 +1564,7 @@ const StartUpDetailsMaster = () => {
                                       />
                                       <Label>
                                         Team Size{" "}
-                                        <span className="text-danger">*</span>
+                                        {/* <span className="text-danger">*</span> */}
                                       </Label>
                                       {isSubmit && (
                                         <p className="text-danger">
@@ -1987,7 +1987,7 @@ const StartUpDetailsMaster = () => {
                                         />
                                         <Label>
                                           Description{" "}
-                                          <span className="text-danger">*</span>
+                                          {/* <span className="text-danger">*</span> */}
                                         </Label>
                                         {isSubmit && (
                                           <p className="text-danger">
@@ -2045,7 +2045,7 @@ const StartUpDetailsMaster = () => {
                                         </select>
                                         <Label>
                                           Country{" "}
-                                          <span className="text-danger">*</span>
+                                          {/* <span className="text-danger">*</span> */}
                                         </Label>
                                         {isSubmit && (
                                           <p className="text-danger">
@@ -2077,7 +2077,7 @@ const StartUpDetailsMaster = () => {
                                         </select>
                                         <Label>
                                           State{" "}
-                                          <span className="text-danger">*</span>
+                                          {/* <span className="text-danger">*</span> */}
                                         </Label>
                                         {isSubmit && (
                                           <p className="text-danger">
@@ -2099,7 +2099,7 @@ const StartUpDetailsMaster = () => {
                                         />
                                         <Label>
                                           City{" "}
-                                          <span className="text-danger">*</span>
+                                          {/* <span className="text-danger">*</span> */}
                                         </Label>
                                         {isSubmit && (
                                           <p className="text-danger">
@@ -2121,7 +2121,7 @@ const StartUpDetailsMaster = () => {
                                         />
                                         <Label>
                                           PinCode{" "}
-                                          <span className="text-danger">*</span>
+                                          {/* <span className="text-danger">*</span> */}
                                         </Label>
                                         {isSubmit && (
                                           <p className="text-danger">
@@ -2145,7 +2145,7 @@ const StartUpDetailsMaster = () => {
                                       />
                                       <Label>
                                         Address{" "}
-                                        <span className="text-danger">*</span>
+                                        {/* <span className="text-danger">*</span> */}
                                       </Label>
                                       {isSubmit && (
                                         <p className="text-danger">
@@ -2170,7 +2170,7 @@ const StartUpDetailsMaster = () => {
                                         />
                                         <Label>
                                           Legal Name{" "}
-                                          <span className="text-danger">*</span>
+                                          {/* <span className="text-danger">*</span> */}
                                         </Label>
                                         {isSubmit && (
                                           <p className="text-danger">
@@ -2194,7 +2194,7 @@ const StartUpDetailsMaster = () => {
                                         />
                                         <Label>
                                           Founder Name{" "}
-                                          <span className="text-danger">*</span>
+                                          {/* <span className="text-danger">*</span> */}
                                         </Label>
                                         {isSubmit && (
                                           <p className="text-danger">
@@ -2225,7 +2225,7 @@ const StartUpDetailsMaster = () => {
 
                                         <Label>
                                           Stage Of Startup{" "}
-                                          <span className="text-danger">*</span>
+                                          {/* <span className="text-danger">*</span> */}
                                         </Label>
                                         {isSubmit && (
                                           <p className="text-danger">
@@ -2249,7 +2249,7 @@ const StartUpDetailsMaster = () => {
                                       />
                                       <Label>
                                         Year Founded{" "}
-                                        <span className="text-danger">*</span>
+                                        {/* <span className="text-danger">*</span> */}
                                       </Label>
                                       {isSubmit && (
                                         <p className="text-danger">
@@ -2273,7 +2273,7 @@ const StartUpDetailsMaster = () => {
                                       />
                                       <Label>
                                         Team Size{" "}
-                                        <span className="text-danger">*</span>
+                                        {/* <span className="text-danger">*</span> */}
                                       </Label>
                                       {isSubmit && (
                                         <p className="text-danger">
