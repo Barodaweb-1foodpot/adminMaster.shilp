@@ -197,7 +197,7 @@ const StartUpDetailsMaster = () => {
   }, []);
 
   useEffect(() => {
-     fetchStages();
+    fetchStages();
     fetchCountry();
   }, []);
 
@@ -641,58 +641,58 @@ const StartUpDetailsMaster = () => {
       errors.companyName = "Company Name is required";
       setErrcompanyName(true);
     }
-    if (values.description === "") {
-      errors.description = "Description is required";
-      setErrdescription(true);
-    }
+    // if (values.description === "") {
+    //   errors.description = "Description is required";
+    //   setErrdescription(true);
+    // }
     // if (values.remarks === "") {
     //   errors.remarks = "Remarks is required";
     //   setErrremarks(true);
     // }
-    if (values.StateID === "") {
-      errors.StateID = "State is required";
-      setErrStateID(true);
-    }
-    if (values.CountryID === "") {
-      errors.CountryID = "Country is required";
-      setErrCountryID(true);
-    }
-    if (values.City === "") {
-      errors.City = "City is required";
-      setErrCity(true);
-    }
-    if (values.address === "") {
-      errors.address = "Address is required";
-      setErraddress(true);
-    }
-    if (values.pincode === "") {
-      errors.pincode = "Pincode is required";
-      setErrpincode(true);
-    }
+    // if (values.StateID === "") {
+    //   errors.StateID = "State is required";
+    //   setErrStateID(true);
+    // }
+    // if (values.CountryID === "") {
+    //   errors.CountryID = "Country is required";
+    //   setErrCountryID(true);
+    // }
+    // if (values.City === "") {
+    //   errors.City = "City is required";
+    //   setErrCity(true);
+    // }
+    // if (values.address === "") {
+    //   errors.address = "Address is required";
+    //   setErraddress(true);
+    // }
+    // if (values.pincode === "") {
+    //   errors.pincode = "Pincode is required";
+    //   setErrpincode(true);
+    // }
     // if (values.countryCode === "") {
     //   errors.countryCode = "Country Code is required";
     //   setErrcountryCode(true);
     // }
-    if (values.legalName === "") {
-      errors.legalName = "Legal Name is required";
-      setErrlegalName(true);
-    }
-    if (values.founderName === "") {
-      errors.founderName = "Founder Name is required";
-      setErrfounderName(true);
-    }
-    if (values.stageOfStartup === "") {
-      errors.stageOfStartup = "Stage Of Startup is required";
-      setErrstageOfStartup(true);
-    }
-    if (values.yearFounded === "") {
-      errors.yearFounded = "Year Founded is required";
-      setErryearFounded(true);
-    }
-    if (values.teamSize === "") {
-      errors.teamSize = "Team Size is required";
-      setErrteamSize(true);
-    }
+    // if (values.legalName === "") {
+    //   errors.legalName = "Legal Name is required";
+    //   setErrlegalName(true);
+    // }
+    // if (values.founderName === "") {
+    //   errors.founderName = "Founder Name is required";
+    //   setErrfounderName(true);
+    // }
+    // if (values.stageOfStartup === "") {
+    //   errors.stageOfStartup = "Stage Of Startup is required";
+    //   setErrstageOfStartup(true);
+    // }
+    // if (values.yearFounded === "") {
+    //   errors.yearFounded = "Year Founded is required";
+    //   setErryearFounded(true);
+    // }
+    // if (values.teamSize === "") {
+    //   errors.teamSize = "Team Size is required";
+    //   setErrteamSize(true);
+    // }
     // if (values.logo === "") {
     //   errors.logo = "Logo is required";
     //   setErrlogo(true);
@@ -1051,100 +1051,100 @@ const StartUpDetailsMaster = () => {
                               <Form>
                                 <Row>
                                   <Row>
-                                  <Col lg={4}>
-                                    <div className="form-floating mb-3">
-                                      <select
-                                        className={
-                                          validClassparticipantCategoryId
-                                        }
-                                        required
-                                        name="participantCategoryId"
-                                        value={participantCategoryId}
-                                        onChange={handleChange}
-                                      >
-                                        <option value="" disabled>
-                                          Select Participant Category
-                                        </option>
-                                        {participantCategory.map((cat) => (
-                                          <option key={cat._id} value={cat._id}>
-                                            {cat.categoryName}
+                                    <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <select
+                                          className={
+                                            validClassparticipantCategoryId
+                                          }
+                                          required
+                                          name="participantCategoryId"
+                                          value={participantCategoryId}
+                                          onChange={handleChange}
+                                        >
+                                          <option value="" disabled>
+                                            Select Participant Category
                                           </option>
-                                        ))}
-                                      </select>
-                                      <Label>
-                                        Participant Category{" "}
-                                        <span className="text-danger">*</span>
-                                      </Label>
-                                      {isSubmit && (
-                                        <p className="text-danger">
-                                          {formErrors.participantCategoryId}
-                                        </p>
-                                      )}
-                                    </div>
-                                  </Col>
+                                          {participantCategory.map((cat) => (
+                                            <option key={cat._id} value={cat._id}>
+                                              {cat.categoryName}
+                                            </option>
+                                          ))}
+                                        </select>
+                                        <Label>
+                                          Participant Category{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.participantCategoryId}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
 
-                                  <Col lg={4}>
-                                    <div className="form-floating mb-3">
-                                      <select
-                                        className={
-                                          validClassticketId
-                                        }
-                                        required
-                                        name="ticketId"
-                                        value={ticketId}
-                                        onChange={handleChange}
-                                      >
-                                        <option value="" disabled>
-                                          Select Ticket
-                                        </option>
-                                        {ticketID.map((cat) => (
-                                          <option key={cat._id} value={cat._id}>
-                                            {cat.name}
+                                    <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <select
+                                          className={
+                                            validClassticketId
+                                          }
+                                          required
+                                          name="ticketId"
+                                          value={ticketId}
+                                          onChange={handleChange}
+                                        >
+                                          <option value="" disabled>
+                                            Select Ticket
                                           </option>
-                                        ))}
-                                      </select>
-                                      <Label>
-                                        Select Ticket{" "}
-                                        <span className="text-danger">*</span>
-                                      </Label>
-                                      {isSubmit && (
-                                        <p className="text-danger">
-                                          {formErrors.ticketId}
-                                        </p>
-                                      )}
-                                    </div>
-                                  </Col>
+                                          {ticketID.map((cat) => (
+                                            <option key={cat._id} value={cat._id}>
+                                              {cat.name}
+                                            </option>
+                                          ))}
+                                        </select>
+                                        <Label>
+                                          Select Ticket{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.ticketId}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
 
 
-                                  <Col lg={4}>
-                                    <div className="form-floating mb-3">
-                                      <select
-                                        className={validClasscategoryId}
-                                        required
-                                        name="categoryId"
-                                        value={categoryId}
-                                        onChange={handleChange}
-                                      >
-                                        <option value="" disabled>
-                                          Select Category
-                                        </option>
-                                        {category.map((cat) => (
-                                          <option key={cat._id} value={cat._id}>
-                                            {cat.categoryName}
+                                    <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <select
+                                          className={validClasscategoryId}
+                                          required
+                                          name="categoryId"
+                                          value={categoryId}
+                                          onChange={handleChange}
+                                        >
+                                          <option value="" disabled>
+                                            Select Category
                                           </option>
-                                        ))}
-                                      </select>
-                                      <Label>
-                                        Category name{" "}
-                                        <span className="text-danger">*</span>
-                                      </Label>
-                                      {isSubmit && (
-                                        <p className="text-danger">
-                                          {formErrors.categoryId}
-                                        </p>
-                                      )}
-                                    </div>
-                                  </Col></Row>
+                                          {category.map((cat) => (
+                                            <option key={cat._id} value={cat._id}>
+                                              {cat.categoryName}
+                                            </option>
+                                          ))}
+                                        </select>
+                                        <Label>
+                                          Category name{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.categoryId}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col></Row>
 
                                   <Row>
                                     <Col lg={4}>
@@ -1664,7 +1664,7 @@ const StartUpDetailsMaster = () => {
                                       ) : null}
                                     </Col>
                                   </Row>
-                                  <Row style={{paddingTop : 20}}>
+                                  <Row style={{ paddingTop: 20 }}>
                                     <div className="form-check mb-2">
                                       <Input
                                         type="checkbox"
@@ -1761,40 +1761,40 @@ const StartUpDetailsMaster = () => {
                             <div className="live-preview">
                               <Form>
                                 <Row>
-                               <Row>
-                                  <Col lg={4}>
-                                    <div className="form-floating mb-3">
-                                      <select
-                                        className={
-                                          validClassparticipantCategoryId
-                                        }
-                                        required
-                                        name="participantCategoryId"
-                                        value={participantCategoryId}
-                                        onChange={handleChange}
-                                      >
-                                        <option value="" disabled>
-                                          Select Participant Category
-                                        </option>
-                                        {participantCategory.map((cat) => (
-                                          <option key={cat._id} value={cat._id}>
-                                            {cat.categoryName}
+                                  <Row>
+                                    <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <select
+                                          className={
+                                            validClassparticipantCategoryId
+                                          }
+                                          required
+                                          name="participantCategoryId"
+                                          value={participantCategoryId}
+                                          onChange={handleChange}
+                                        >
+                                          <option value="" disabled>
+                                            Select Participant Category
                                           </option>
-                                        ))}
-                                      </select>
-                                      <Label>
-                                        Participant Category{" "}
-                                        <span className="text-danger">*</span>
-                                      </Label>
-                                      {isSubmit && (
-                                        <p className="text-danger">
-                                          {formErrors.participantCategoryId}
-                                        </p>
-                                      )}
-                                    </div>
-                                  </Col>
+                                          {participantCategory.map((cat) => (
+                                            <option key={cat._id} value={cat._id}>
+                                              {cat.categoryName}
+                                            </option>
+                                          ))}
+                                        </select>
+                                        <Label>
+                                          Participant Category{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.participantCategoryId}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col>
 
-                                  {/* <Col lg={4}>
+                                    {/* <Col lg={4}>
                                     <div className="form-floating mb-3">
                                       <select
                                         className={
@@ -1827,35 +1827,35 @@ const StartUpDetailsMaster = () => {
                                   </Col> */}
 
 
-                                  <Col lg={4}>
-                                    <div className="form-floating mb-3">
-                                      <select
-                                        className={validClasscategoryId}
-                                        required
-                                        name="categoryId"
-                                        value={categoryId}
-                                        onChange={handleChange}
-                                      >
-                                        <option value="" disabled>
-                                          Select Category
-                                        </option>
-                                        {category.map((cat) => (
-                                          <option key={cat._id} value={cat._id}>
-                                            {cat.categoryName}
+                                    <Col lg={4}>
+                                      <div className="form-floating mb-3">
+                                        <select
+                                          className={validClasscategoryId}
+                                          required
+                                          name="categoryId"
+                                          value={categoryId}
+                                          onChange={handleChange}
+                                        >
+                                          <option value="" disabled>
+                                            Select Category
                                           </option>
-                                        ))}
-                                      </select>
-                                      <Label>
-                                        Category name{" "}
-                                        <span className="text-danger">*</span>
-                                      </Label>
-                                      {isSubmit && (
-                                        <p className="text-danger">
-                                          {formErrors.categoryId}
-                                        </p>
-                                      )}
-                                    </div>
-                                  </Col></Row>
+                                          {category.map((cat) => (
+                                            <option key={cat._id} value={cat._id}>
+                                              {cat.categoryName}
+                                            </option>
+                                          ))}
+                                        </select>
+                                        <Label>
+                                          Category name{" "}
+                                          <span className="text-danger">*</span>
+                                        </Label>
+                                        {isSubmit && (
+                                          <p className="text-danger">
+                                            {formErrors.categoryId}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Col></Row>
                                   <Row>
                                     <Col lg={4}>
                                       <div className="form-floating mb-3">
