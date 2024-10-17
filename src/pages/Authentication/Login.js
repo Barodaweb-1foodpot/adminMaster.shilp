@@ -105,7 +105,7 @@ const Login = (props) => {
   const validClassPassword =
     errPassword && isSubmit ? "form-control is-invalid" : "form-control pe-5";
 
-  document.title = " SignIn | Startup Fest Gujarat ";
+  document.title = "Admin SignIn | Startup Fest Gujarat ";
   return (
     <React.Fragment>
       {/* <ParticlesAuth> */}
