@@ -1620,7 +1620,7 @@ const StartUpDetailsMaster = () => {
                                         type="file"
                                         name="brochure"
                                         className={validClassBrochure}
-                                        accept=".jpg, .jpeg, .png"
+                                        accept=".pdf"
                                         onChange={PhotoUpload1}
                                       />
                                       {isSubmit && (
@@ -2323,37 +2323,38 @@ const StartUpDetailsMaster = () => {
                                     </Col>
 
                                     <Col lg={4}>
-                                      <label>
-                                        Add Brochure{" "}
+  <label>
+    Add Brochure{" "}
+  </label>
 
-                                      </label>
-
-                                      <input
-                                        type="file"
-                                        name="brochure"
-                                        className={validClassAdd}
-                                        accept=".jpg, .jpeg, .png"
-                                        onChange={PhotoUpload1}
-                                      />
-                                      {isSubmit && (
-                                        <p className="text-danger">
-                                          {formErrors.logo}
-                                        </p>
-                                      )}
-                                      {values.brochure || photoAdd1 ? (
-                                        <img
-                                          // key={photoAdd}
-                                          className="m-2"
-                                          src={
-                                            checkImagePhoto1
-                                              ? photoAdd1
-                                              : `${process.env.REACT_APP_API_URL}/${values.brochure}`
-                                          }
-                                          width="300"
-                                          height="200"
-                                        />
-                                      ) : null}
-                                    </Col>
+  <input
+    type="file"
+    name="brochure"
+    className={validClassAdd}
+    accept=".pdf"
+    onChange={PhotoUpload1}
+  />
+  {isSubmit && (
+    <p className="text-danger">
+      {formErrors.logo}
+    </p>
+  )}
+  {values.brochure || photoAdd1 ? (
+    <div>
+      <button
+        className="btn btn-primary m-2"
+        onClick={() => window.open(
+          checkImagePhoto1
+            ? photoAdd1
+            : `${process.env.REACT_APP_API_URL}/${values.brochure}`,
+          '_blank'
+        )}
+      >
+        Preview Brochure
+      </button>
+    </div>
+  ) : null}
+</Col>
 
                                     <Col lg={4}>
                                       <label>
