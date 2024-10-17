@@ -221,19 +221,14 @@ const Investor = () => {
     setFormErrors({});
     let errors = validate(
       participantCategoryId,
-      name,
-      contactNo,
-      email,
-      companyName,
-      description,
-      remarks,
-      StateID,
-      ticketId,
-      CountryID,
-      City,
-      address,
-      pincode,
-      amount
+    name,
+    contactNo,
+    email,
+    StateID,
+    ticketId,
+    CountryID,
+    City,
+    pincode,
     );
     setFormErrors(errors);
     setIsSubmit(true);
@@ -1197,6 +1192,7 @@ const Investor = () => {
                                           value={CountryID}
                                           onChange={(e) => {
                                             setCountryID(e.target.value);
+                                            console.log("country", CountryID)
                                             // fetchStates(e.target.value);
                                           }}
                                         >
@@ -1233,6 +1229,7 @@ const Investor = () => {
                                           value={StateID}
                                           onChange={(e) => {
                                             setStateID(e.target.value);
+                                            console.log("state", StateID)
                                           }}
                                         >
                                           <option value="">Select From</option>

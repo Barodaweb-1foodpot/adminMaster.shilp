@@ -65,7 +65,6 @@ const initialState = {
 };
 
 const StartUpDetailsMaster = () => {
-
   const [values, setValues] = useState(initialState);
   const [orderId, setorderid] = useState();
   const [amount, setamount] = useState();
@@ -98,7 +97,7 @@ const StartUpDetailsMaster = () => {
     productImages,
     ticketId,
     IsActive,
-    IsPaid
+    IsPaid,
   } = values;
 
   const [country, setCountry] = useState([]);
@@ -234,7 +233,7 @@ const StartUpDetailsMaster = () => {
 
   useEffect(() => {
     fetchStates();
-  }, [CountryID])
+  }, [CountryID]);
 
   const fetchStates = async () => {
     try {
@@ -376,7 +375,9 @@ const StartUpDetailsMaster = () => {
           setorderid(res.orderId);
           setamount(res.amount);
           const dateObject = new Date(res.createdAt);
-          setAt(moment(new Date(dateObject.getTime())).format("DD/MM/YYYY HH:mm"));
+          setAt(
+            moment(new Date(dateObject.getTime())).format("DD/MM/YYYY HH:mm")
+          );
         }
       })
       .catch((err) => {
@@ -619,11 +620,11 @@ const StartUpDetailsMaster = () => {
   const [errbrochure, setErrbrochure] = useState(false);
   const [errproductImages, setErrproductImages] = useState(false);
 
-
   const validate = (values) => {
     const errors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const contactRegex = /((\+*)((0[ -]*)*|((91 )*))((\d{12})+|(\d{10})+))|\d{5}([- ]*)\d{6}/;
+    const contactRegex =
+      /((\+*)((0[ -]*)*|((91 )*))((\d{12})+|(\d{10})+))|\d{5}([- ]*)\d{6}/;
 
     if (values.participantCategoryId === "") {
       errors.participantCategoryId = "Participant Category is required";
@@ -640,6 +641,7 @@ const StartUpDetailsMaster = () => {
     if (values.contactNo === "") {
       errors.contactNo = "Contact Number is required";
       setErrcontactNo(true);
+    
     } else if (!contactRegex.test(values.contactNo)) {
       errors.contactNo = 'Invalid Mobile Number!';
       setErrcontactNo(true);
@@ -780,7 +782,6 @@ const StartUpDetailsMaster = () => {
   const validClassticketId =
     errticketId && isSubmit ? "form-control is-invalid" : "form-control";
 
-
   const [loading, setLoading] = useState(false);
   const [totalRows, setTotalRows] = useState(0);
   const [perPage, setPerPage] = useState(10);
@@ -818,7 +819,7 @@ const StartUpDetailsMaster = () => {
           sortdir: sortDirection,
           match: query,
           IsActive: filter,
-          IsPaid: paidstatus
+          IsPaid: paidstatus,
         }
       )
       .then((response) => {
@@ -876,21 +877,22 @@ const StartUpDetailsMaster = () => {
     },
     {
       name: "Contact Person Name",
-      cell: (row) => `${row.contactPersonName} || ${row.email} || ${row.contactNo}`,
+      cell: (row) =>
+        `${row.contactPersonName} || ${row.email} || ${row.contactNo}`,
       sortable: true,
       sortField: "contactPersonName",
       minWidth: "180px",
     },
     {
       name: "Votes",
-      selector: (row) => row.votes ? row.votes : 0,
+      selector: (row) => (row.votes ? row.votes : 0),
       sortable: true,
       sortField: "votes",
       minWidth: "100px",
     },
     {
       name: "Paid",
-      selector: (row) => row.IsPaid ? "Paid" : "Unpaid",
+      selector: (row) => (row.IsPaid ? "Paid" : "Unpaid"),
       sortable: true,
       sortField: "IsPaid",
       minWidth: "100px",
@@ -987,7 +989,8 @@ const StartUpDetailsMaster = () => {
                             />
                             <Label className="form-check-label ms-2 ">
                               Active
-                            </Label>{"   "}
+                            </Label>
+                            {"   "}
 
                             <Input
                               type="checkbox"
@@ -1088,7 +1091,10 @@ const StartUpDetailsMaster = () => {
                                             Select Participant Category
                                           </option>
                                           {participantCategory.map((cat) => (
-                                            <option key={cat._id} value={cat._id}>
+                                            <option
+                                              key={cat._id}
+                                              value={cat._id}
+                                            >
                                               {cat.categoryName}
                                             </option>
                                           ))}
@@ -1108,9 +1114,7 @@ const StartUpDetailsMaster = () => {
                                     <Col lg={4}>
                                       <div className="form-floating mb-3">
                                         <select
-                                          className={
-                                            validClassticketId
-                                          }
+                                          className={validClassticketId}
                                           required
                                           name="ticketId"
                                           value={ticketId}
@@ -1120,7 +1124,10 @@ const StartUpDetailsMaster = () => {
                                             Select Ticket
                                           </option>
                                           {ticketID.map((cat) => (
-                                            <option key={cat._id} value={cat._id}>
+                                            <option
+                                              key={cat._id}
+                                              value={cat._id}
+                                            >
                                               {cat.name}
                                             </option>
                                           ))}
@@ -1137,7 +1144,6 @@ const StartUpDetailsMaster = () => {
                                       </div>
                                     </Col>
 
-
                                     <Col lg={4}>
                                       <div className="form-floating mb-3">
                                         <select
@@ -1151,7 +1157,10 @@ const StartUpDetailsMaster = () => {
                                             Select Category
                                           </option>
                                           {category.map((cat) => (
-                                            <option key={cat._id} value={cat._id}>
+                                            <option
+                                              key={cat._id}
+                                              value={cat._id}
+                                            >
                                               {cat.categoryName}
                                             </option>
                                           ))}
@@ -1166,7 +1175,8 @@ const StartUpDetailsMaster = () => {
                                           </p>
                                         )}
                                       </div>
-                                    </Col></Row>
+                                    </Col>
+                                  </Row>
 
                                   <Row>
                                     <Col lg={4}>
@@ -1519,9 +1529,7 @@ const StartUpDetailsMaster = () => {
                                     <Col lg={4}>
                                       <div className="form-floating mb-3">
                                         <select
-                                          className={
-                                            validClassStageOfStartup
-                                          }
+                                          className={validClassStageOfStartup}
                                           required
                                           name="stageOfStartup"
                                           value={stageOfStartup}
@@ -1531,7 +1539,10 @@ const StartUpDetailsMaster = () => {
                                             Stage Of Start Up
                                           </option>
                                           {stage.map((cat) => (
-                                            <option key={cat._id} value={cat._id}>
+                                            <option
+                                              key={cat._id}
+                                              value={cat._id}
+                                            >
                                               {cat.StageOfStartup}
                                             </option>
                                           ))}
@@ -1627,16 +1638,13 @@ const StartUpDetailsMaster = () => {
                                     </Col>
 
                                     <Col lg={4}>
-                                      <label>
-                                        Add Brochure{" "}
-
-                                      </label>
+                                      <label>Add Brochure </label>
 
                                       <input
                                         type="file"
                                         name="brochure"
                                         className={validClassBrochure}
-                                        accept=".jpg, .jpeg, .png"
+                                        accept=".pdf"
                                         onChange={PhotoUpload1}
                                       />
                                       {isSubmit && (
@@ -1657,10 +1665,7 @@ const StartUpDetailsMaster = () => {
                                     </Col>
 
                                     <Col lg={4}>
-                                      <label>
-                                        Add Product Image{" "}
-
-                                      </label>
+                                      <label>Add Product Image </label>
 
                                       <input
                                         type="file"
@@ -1756,32 +1761,35 @@ const StartUpDetailsMaster = () => {
                       <Col xxl={12}>
                         <Card className="">
                           <CardBody>
-                            {IsPaid && <Row>
-                              <div className="m-2" >
-                                <Row>
-                                  <Col lg={6} >
-                                    <p style={{ fontSize: "20px" }} >{eventName}</p>
-                                    {/* <div>Event Pass : startupfest 18 sept </div> */}
+                            {IsPaid && (
+                              <Row>
+                                <div className="m-2">
+                                  <Row>
+                                    <Col lg={6}>
+                                      <p style={{ fontSize: "20px" }}>
+                                        {eventName}
+                                      </p>
+                                      {/* <div>Event Pass : startupfest 18 sept </div> */}
+                                    </Col>
+                                    <Col
+                                      lg={6}
+                                      className=""
+                                      style={{ textAlign: "end" }}
+                                    >
+                                      <p style={{ fontSize: "18px" }}> {at} </p>
+                                      <div>Paid Amount: {amount}</div>
+                                      <div>Order Id: {orderId}</div>
+                                      {/* <div>Payment Id: uytr23</div> */}
+                                    </Col>
+                                  </Row>
+                                  <hr />
 
-                                  </Col>
-                                  <Col lg={6} className="" style={{ textAlign: "end" }} >
-                                    <p style={{ fontSize: "18px" }}> {at} </p>
-                                    <div >Paid Amount: {amount}</div>
-                                    <div>Order Id: {orderId}</div>
-                                    {/* <div>Payment Id: uytr23</div> */}
-                                  </Col>
-
-                                </Row>
-                                <hr />
-
-                                <Row>
-                                  <Col lg={6} ></Col>
-                                </Row>
-
-
-
-                              </div>
-                            </Row>}
+                                  <Row>
+                                    <Col lg={6}></Col>
+                                  </Row>
+                                </div>
+                              </Row>
+                            )}
                             <div className="live-preview">
                               <Form>
                                 <Row>
@@ -1801,7 +1809,10 @@ const StartUpDetailsMaster = () => {
                                             Select Participant Category
                                           </option>
                                           {participantCategory.map((cat) => (
-                                            <option key={cat._id} value={cat._id}>
+                                            <option
+                                              key={cat._id}
+                                              value={cat._id}
+                                            >
                                               {cat.categoryName}
                                             </option>
                                           ))}
@@ -1850,7 +1861,6 @@ const StartUpDetailsMaster = () => {
                                     </div>
                                   </Col> */}
 
-
                                     <Col lg={4}>
                                       <div className="form-floating mb-3">
                                         <select
@@ -1864,7 +1874,10 @@ const StartUpDetailsMaster = () => {
                                             Select Category
                                           </option>
                                           {category.map((cat) => (
-                                            <option key={cat._id} value={cat._id}>
+                                            <option
+                                              key={cat._id}
+                                              value={cat._id}
+                                            >
                                               {cat.categoryName}
                                             </option>
                                           ))}
@@ -1879,7 +1892,8 @@ const StartUpDetailsMaster = () => {
                                           </p>
                                         )}
                                       </div>
-                                    </Col></Row>
+                                    </Col>
+                                  </Row>
                                   <Row>
                                     <Col lg={4}>
                                       <div className="form-floating mb-3">
@@ -2267,14 +2281,10 @@ const StartUpDetailsMaster = () => {
                                         placeholder="Enter year Founded"
                                         required
                                         name="yearFounded"
-                                        value={moment(yearFounded, "DD-MM-YYYY").format("YYYY-MM-DD")}
-                                        // style={{height: "100px"}}
+                                        value={moment(new Date(yearFounded)).format("YYYY-MM-DD")}
                                         onChange={handleChange}
                                       />
-                                      <Label>
-                                        Year Founded{" "}
-                                        {/* <span className="text-danger">*</span> */}
-                                      </Label>
+                                      <Label>Year Founded </Label>
                                       {isSubmit && (
                                         <p className="text-danger">
                                           {formErrors.yearFounded}
@@ -2341,16 +2351,13 @@ const StartUpDetailsMaster = () => {
                                     </Col>
 
                                     <Col lg={4}>
-                                      <label>
-                                        Add Brochure{" "}
-
-                                      </label>
+                                      <label>Add Brochure </label>
 
                                       <input
                                         type="file"
                                         name="brochure"
                                         className={validClassAdd}
-                                        accept=".jpg, .jpeg, .png"
+                                        accept=".pdf"
                                         onChange={PhotoUpload1}
                                       />
                                       {isSubmit && (
@@ -2359,25 +2366,26 @@ const StartUpDetailsMaster = () => {
                                         </p>
                                       )}
                                       {values.brochure || photoAdd1 ? (
-                                        <img
-                                          // key={photoAdd}
-                                          className="m-2"
-                                          src={
-                                            checkImagePhoto1
-                                              ? photoAdd1
-                                              : `${process.env.REACT_APP_API_URL}/${values.brochure}`
-                                          }
-                                          width="300"
-                                          height="200"
-                                        />
+                                        <div>
+                                          <button
+                                            className="btn btn-primary m-2"
+                                            onClick={() =>
+                                              window.open(
+                                                checkImagePhoto1
+                                                  ? photoAdd1
+                                                  : `${process.env.REACT_APP_API_URL}/${values.brochure}`,
+                                                "_blank"
+                                              )
+                                            }
+                                          >
+                                            Preview Brochure
+                                          </button>
+                                        </div>
                                       ) : null}
                                     </Col>
 
                                     <Col lg={4}>
-                                      <label>
-                                        Add Product Image{" "}
-
-                                      </label>
+                                      <label>Add Product Image </label>
 
                                       <input
                                         type="file"
@@ -2434,8 +2442,6 @@ const StartUpDetailsMaster = () => {
                                       Is Paid
                                     </Label>
                                   </div>
-
-
 
                                   <Col lg={12}>
                                     <div className="text-end">

@@ -171,7 +171,7 @@ const NewsletterSubs = () => {
             {moment
               .utc(row.createdAt)
               .tz("America/Los_Angeles")
-              .format("MM-DD-YY hh:mm a")}
+              .format("DD-MM-YY hh:mm a")}
           </React.Fragment>
         );
       },
