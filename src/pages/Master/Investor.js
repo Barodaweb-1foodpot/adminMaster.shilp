@@ -453,7 +453,7 @@ const Investor = () => {
     if (contactNo === "") {
       errors.contactNo = "Contact Number is required";
       setErrContactNo(true);
-    }else if (!contactRegex.test(values.contactNo)) {
+    }else if (!contactRegex.test(contactNo)) {
       errors.contactNo = 'Invalid Mobile Number!';
       setErrContactNo(true);
     } else {

@@ -454,7 +454,7 @@ const StartUpDetailsMaster = () => {
       formData.append("IsPaid", values.IsPaid);
 
       createStartUpDetailsMaster(formData)
-        .then((res) => {
+        .then(async (res) => {
           console.log("res", res);
           if (res.isOk) {
             setmodal_list(!modal_list);
@@ -470,6 +470,22 @@ const StartUpDetailsMaster = () => {
             setPhotoAdd2("");
             fetchUsers();
             toast.success("StartUp Details Added Successfully!");
+            if(res.data.participantCategoryId == "66deba2b8d13756fe2697bee" || res.data.participantCategoryId == "66deba1c8d13756fe2697beb")
+            {
+            try {
+              const data = {
+                email: res.data.email,
+                password: res.data.password
+              }
+              const res2 = await axios.post(`${process.env.REACT_APP_API_URL}/api/sendOTPEmail`, data);
+              console.log("res", res2)
+            }
+            catch (error) {
+              console.error("An error occurred during submission:", error.message);
+            }
+          }else{
+            console.log("not startup/pitcher")
+          }
           } else {
             setErremail(true);
             setFormErrors({ email: "Email already exists!" });
@@ -624,7 +640,7 @@ const StartUpDetailsMaster = () => {
     if (values.contactNo === "") {
       errors.contactNo = "Contact Number is required";
       setErrcontactNo(true);
-    }else if (!contactRegex.test(values.contactNo)) {
+    } else if (!contactRegex.test(values.contactNo)) {
       errors.contactNo = 'Invalid Mobile Number!';
       setErrcontactNo(true);
     } else {
@@ -1407,7 +1423,7 @@ const StartUpDetailsMaster = () => {
                                     <Col lg={3}>
                                       <div className="form-floating mb-3">
                                         <Input
-                                          type="text"
+                                          type="number"
                                           className={validClassPin}
                                           placeholder="Enter Address"
                                           required
@@ -1677,6 +1693,7 @@ const StartUpDetailsMaster = () => {
                                         className="form-check-input"
                                         name="IsActive"
                                         value={IsActive}
+                                        checked={IsActive}
                                         onChange={handleCheck}
                                       />
                                       <Label className="form-check-label">
@@ -1690,6 +1707,7 @@ const StartUpDetailsMaster = () => {
                                         className="form-check-input"
                                         name="IsPaid"
                                         value={IsPaid}
+                                        checked={IsPaid}
                                         onChange={handleCheckPaid}
                                       />
                                       <Label className="form-check-label">
@@ -2140,7 +2158,7 @@ const StartUpDetailsMaster = () => {
                                   <Row>
                                     <div className="form-floating mb-3">
                                       <Input
-                                        type="text"
+                                        type="number"
                                         className={validClassAdd}
                                         placeholder="Enter Address"
                                         required
