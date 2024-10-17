@@ -607,6 +607,7 @@ const StartUpDetailsMaster = () => {
   const validate = (values) => {
     const errors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const contactRegex = /((\+*)((0[ -]*)*|((91 )*))((\d{12})+|(\d{10})+))|\d{5}([- ]*)\d{6}/;
 
     if (values.participantCategoryId === "") {
       errors.participantCategoryId = "Participant Category is required";
@@ -623,6 +624,11 @@ const StartUpDetailsMaster = () => {
     if (values.contactNo === "") {
       errors.contactNo = "Contact Number is required";
       setErrcontactNo(true);
+    }else if (!contactRegex.test(values.contactNo)) {
+      errors.contactNo = 'Invalid Mobile Number!';
+      setErrcontactNo(true);
+    } else {
+      setErrcontactNo(false);
     }
     if (values.email === "") {
       errors.email = "Email is required";
