@@ -142,7 +142,7 @@ const Login = (props) => {
                         </Link>
                       </div>
                     </div>
-                    {/* <h5 className="text-primary mt-2">Welcome Back !</h5> */}
+                    <h5 className="text-primary mt-2">Welcome Back !</h5>
                     <p className="text-muted">Sign in to continue.</p>
                   </div>
                   {error && error ? (
