@@ -1021,7 +1021,7 @@ const EventMaster = () => {
     },
   ];
 
-  document.title = "Event Master | Naidip Foundation";
+  document.title = "Event Master | Startup Fest Gujarat";
 
   return (
     <React.Fragment>

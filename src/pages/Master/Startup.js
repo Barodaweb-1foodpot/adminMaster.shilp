@@ -952,7 +952,7 @@ const StartUpDetailsMaster = () => {
     },
   ];
 
-  document.title = "Pitchers / Startups | Naidip Foundation";
+  document.title = "Pitchers / Startups | Startup Fest Gujarat";
 
   return (
     <React.Fragment>
