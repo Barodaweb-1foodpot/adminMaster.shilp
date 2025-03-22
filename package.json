@@ -2,6 +2,7 @@
   "name": "shilp",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/admin",
   "proxy": "http://localhost:8000",
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^32.0.0",

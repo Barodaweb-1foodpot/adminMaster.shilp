@@ -19,7 +19,7 @@ const ProfileDropdown = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("AdminUser");
-    window.location.replace("/");
+    window.location.replace("/admin/");
   };
 
 
