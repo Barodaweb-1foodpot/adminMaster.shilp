@@ -19,7 +19,7 @@ const ProfileDropdown = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("AdminUser");
-    window.location.replace("/");
+    window.location.replace("/admin");
   };
 
 
@@ -77,7 +77,7 @@ const ProfileDropdown = () => {
         </DropdownToggle>
         <DropdownMenu className="dropdown-menu-end">
           <h6 className="dropdown-header">Welcome {userName}!</h6>
-          <DropdownItem href="/profile">
+          <DropdownItem href="/admin/profile">
             <i className="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
             <span className="align-middle">Profile</span>
           </DropdownItem>
